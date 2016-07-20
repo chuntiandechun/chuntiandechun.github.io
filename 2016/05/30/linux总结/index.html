@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>linux总结问题 | liuqi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="" />
+    
+    <meta name="description" content="Linux总结问题      目录/文件1.查看目录？进入目录？查看文件？Pwd,ls,cd进入目录，cat查看文件   ，vim编辑查看，more翻页查看
+2.目录/文件复制？目录/文件移动？Cp  复制Mv  移动Mkdir   -p  如果要创建目录A并创建目录A的子目录B，没有用-p的情况下是mkdir 2次如果用-p 可以直接创建2个目录 mkdir -p 目录A/子目录B就可以3.当前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux总结问题">
+<meta property="og:url" content="http://yoursite.com/2016/05/30/linux总结/index.html">
+<meta property="og:site_name" content="liuqi">
+<meta property="og:description" content="Linux总结问题      目录/文件1.查看目录？进入目录？查看文件？Pwd,ls,cd进入目录，cat查看文件   ，vim编辑查看，more翻页查看
+2.目录/文件复制？目录/文件移动？Cp  复制Mv  移动Mkdir   -p  如果要创建目录A并创建目录A的子目录B，没有用-p的情况下是mkdir 2次如果用-p 可以直接创建2个目录 mkdir -p 目录A/子目录B就可以3.当前">
+<meta property="og:updated_time" content="2016-05-30T06:44:04.170Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux总结问题">
+<meta name="twitter:description" content="Linux总结问题      目录/文件1.查看目录？进入目录？查看文件？Pwd,ls,cd进入目录，cat查看文件   ，vim编辑查看，more翻页查看
+2.目录/文件复制？目录/文件移动？Cp  复制Mv  移动Mkdir   -p  如果要创建目录A并创建目录A的子目录B，没有用-p的情况下是mkdir 2次如果用-p 可以直接创建2个目录 mkdir -p 目录A/子目录B就可以3.当前">
+    
+
+    
+        <link rel="alternate" href="/" title="liuqi" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                        
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    Sense categoria
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-linux总结" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        linux总结问题
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-subtitle">
+                <a href="/2016/05/30/linux总结/" class="article-date">
+    <time datetime="2016-05-30T06:43:30.000Z" itemprop="datePublished">2016-05-30</time>
+</a>
+                
+            </div>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>Linux总结问题<br>      目录/文件<br>1.查看目录？进入目录？查看文件？<br>Pwd,ls,cd进入目录，cat查看文件   ，vim编辑查看，more翻页查看</p>
+<p>2.目录/文件复制？目录/文件移动？<br>Cp  复制<br>Mv  移动<br>Mkdir   -p  如果要创建目录A并创建目录A的子目录B，没有用-p的情况下是mkdir 2次<br>如果用-p 可以直接创建2个目录 mkdir -p 目录A/子目录B就可以<br>3.当前活动目录？  当前用户家目录？<br>Pwd  当前活动目录，cd当前用户的家目录，两者的区别是pwd是切换，cd是用户指定的<br>4.文件类型？</p>
+<ul>
+<li>普通文件 类似 -rw-r–r–<br>d目录文件   类似 drwxr-xr-x<br>L符号链接   类似 lrwxrwxrwx,注意第一个字符是l<br>S套接字文件     第一个字符是 s<br>b块设备文件，二进制文件<br>C字符设备文件   第一个字符是 c ，这表示字符设备文件<br>P命名管道文件     前面的第一个字符是b，这表示块设备<br>文件权限？文件夹权限<br>Linux文件权限分为三种:<br>可读（r=4）,可写（w=2),可执行(x=1)。<br>774的权限为111 111 101 即rwxrwxr–  表示此文件夹的所有者和所有者所属的组有可读可写可执行的权限，而其他用户只要可读的权限<br>Chmod [] [+ ] - | =] [mode]文件名<br>u表示“用户（user）”，即文件或目录的所有者<br>G表示“同组用户（group）”,即与文件属主有相同组id的所有用户<br>O表示“其他（others)用户”<br>A表示“所有(all)用户”<br>=赋予给定权限并取消其他所有权限<br>s在文件执行时把进程的属主或组id置为该文件的文件属主，方式“u+s”设置文件的用户id号，“g+s”设置组id位<br>T保存程序的文本到交换设备上<br>U与文件属主拥有一样的权限<br>G与和文件属主同组的用户拥有一样的权限<br>O与其他用户拥有一样的权限<br>文件查看与编辑<br>1.文件查看？<br>cat  只查看<br>-n   对所查看的文件进行编号<br>-b                        对于空白行不编号<br>-s   当遇到有连续两行以上的空白行时，就代换为一行的空白行<br>对于极大的文件来说可以用more进行一页一页的查看<br>Cat /etc/fstab  /etc/profile | more<br>文件的编辑？<br>Vi或者vim<br>查看文件头？<br>Head /etc/passwd  默认显示前十行<br>head -n k /etc/passwd<br>head -n +k /etc/passwd<br>显示开头前k行<br>显示多文件开头前k行，并且不显示文件名的文件头。<br>Head -q -n  k  [文件名]显示多文件前k行<br>查看文件末位？<br>Tail /etc/passwd 默认显示文件后十行<br>Vi的三种模式</li>
+</ul>
+<p>一般模式，编辑模式，命令行模式</p>
+<ol>
+<li>一般模式，一般在进入文件时就是该模式，在此模式中，可以通过上下左右键移动光标，可以删除字符或是删除整行，可以复制粘贴，但不能编辑。</li>
+<li>编辑模式：一般模式可以复制粘贴删除，但要编辑，需按下i,I,o,O,a,A,r,R等字母，才会进入编辑模式，按下按钮后，屏幕左下方会出现INSERT或REPACE等字样，如果要回到一般模式，按Esc键。</li>
+<li>命令行模式，在一般模式下输入“：”或“/”就可以将光标移到末行，在此模式中，可以搜寻数据，读取，存盘，大量字符替换，退出vi，显示行号等。</li>
+</ol>
+<p>一般模式<br>0移动到此行的一个字符处<br>$移动到此行的最后一个字符<br>Gg跳到行首<br>G跳到行尾<br>H是最上方<br>L是最后<br>B 是移动到上一个单词<br>查找替换<br>:%s/abx/aa/g<br>删除 复制 粘贴<br>x是向后删除一个字符   x向前删除一个字符<br>nx 向后删除n个字符<br>dd 删除光标所在的整列<br>d$ 删除到行末<br>ndd 删除光标所在列的向下n行<br>yy 复制光标所在的行<br>nyy 复制所在行的向下n行<br>p,P  p复制的数据粘贴到光标的下一行，p上一行<br>V y p 复制选中的内容<br>u 恢复上一个动作<br>U  撤销没有了<br>编辑模式<br>i,I  插入<br>a,A 添加<br>o,O  插入新的一行，由光标所在处的下一行行首开始输入<br>r,R 替换，r会替换光标所指的哪一个字符<br>esc 返回一般模式<br>命令行模式<br>w   保存<br>w!  若文件为只读，强制写入<br>q  推出vi<br>wq  保存推出<br>w   [filename]保存为另一个文件</p>
+<p>磁盘</p>
+<p>fdisk -l 查看当前磁盘信息<br>df -lH  查看分区信息<br>fdisk /dev/sdb  进行分区<br>m –help<br>n   是新建分区<br>e   是扩展分区  p是主分区<br>1分一个分区<br>w  写入分区<br>mkfs.ext3 -c /dev/sbd1 格式化分区 -c检查磁盘的坏道    ext3方式<br>mkdir /home/yang   创建目录挂载分区用<br>mount -t ext3 -o rw /dev/sdb1/home/yang  挂载硬盘<br>mkfs -t ext3 /dev/sda2 格式化sdb2分区，创建ext3文件系统<br>挂载分区到/dev/sda1到/mnt/yang<br>对磁盘分区进行永久性挂载<br>fdisk -l 查看分区情况<br>对新硬盘进行分区：fdisk /dev/sdb<br>对新分区进行格式化操作<br>经刚分的区进行挂载在 /home/yang目录下<br>在/etc下的vim fstab 将分区的信息添加在文件中，重启生效<br>  网络<br>命令  网络配置<br>ifconfig eth0 ip  netmask 子网掩码<br>route add default gw 网关<br>文件  网络配置<br>配置dns<br>vi /etc/resolv.conf里面配置dns<br>nameserver 114.114.114.114<br>nameserver 8.8.8.8<br>文件配置网络<br>vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>配置网络<br>route -static  静态路由<br>  route add -net ip  gw   网关<br>如何配置tcp 数据转发（ip_forward）?<br>nslookup  ip 查询功能 域名转换<br>finger  指的是服务端程序<br>dig<br>netstat<br>-a (all)显示所有选项，默认不显示LISTEN相关<br>-t (tcp)仅显示tcp相关选项<br>-u (udp)仅显示udp相关选项<br>-n 拒绝显示别名，能显示数字的全部转化成数字。<br>-l 仅列出有在 Listen (监听) 的服務状态<br>-p 显示建立相关链接的程序名<br>-r 显示路由信息，路由表<br>-e 显示扩展信息，例如uid等<br>-s 按各个协议进行统计<br>-c 每隔一个固定时间，执行该netstat命令。<br>Dig [@server] [FQDN] [type]<br>参数说明：<br>@server :如果不想以/etc/resolv.conf来作为dns主机，则可以在此填入其他的ip<br>Type :预设是查询A记录，你可以在这里写入其他的记录，如：MX,NS等。<br>此功能亦可使用[-t type]来处理。<br>下面是 dig 的一些比较常用的命令:</p>
+<h1 id="dig-最基本的用法"><a href="#dig-最基本的用法" class="headerlink" title="dig 最基本的用法"></a>dig 最基本的用法</h1><p>dig @server sina.com.cn.</p>
+<h1 id="用-dig-查看-zone-数据传输"><a href="#用-dig-查看-zone-数据传输" class="headerlink" title="用 dig 查看 zone 数据传输"></a>用 dig 查看 zone 数据传输</h1><p>dig @server zx.xmgd.com. AXFR</p>
+<h1 id="用-dig-查看-zone-数据的增量传输"><a href="#用-dig-查看-zone-数据的增量传输" class="headerlink" title="用 dig 查看 zone 数据的增量传输"></a>用 dig 查看 zone 数据的增量传输</h1><p>dig @server zx.xmgd.com. IXFR=N</p>
+<h1 id="用-dig-查看反向解析"><a href="#用-dig-查看反向解析" class="headerlink" title="用 dig 查看反向解析"></a>用 dig 查看反向解析</h1><p>dig -x 210.52.83.228 @server</p>
+<h1 id="查找一个域的授权-dns-服务器"><a href="#查找一个域的授权-dns-服务器" class="headerlink" title="查找一个域的授权 dns 服务器"></a>查找一个域的授权 dns 服务器</h1><p>dig xmgd.com. +nssearch</p>
+<h1 id="从根服务器开始追踪一个域名的解析过程"><a href="#从根服务器开始追踪一个域名的解析过程" class="headerlink" title="从根服务器开始追踪一个域名的解析过程"></a>从根服务器开始追踪一个域名的解析过程</h1><p>dig xmgd.com +trace<br>   用户管理<br>添加用户？添加组<br>useradd -d /usr/sam -m sam<br>此命令创建了一个用户sam，其中-d和-m选项用来为登录名sam产生一个主目录/usr/sam（/usr为默认的用户主目录所在的父目录）<br>groupadd group  添加组</p>
+<p>初始用户组？有效用户组<br>还记得/etc/passwd文件里的第4栏么（忘了的话，用cat /etc/passwd去看看），它表示GID，就是“用户组ID”<br>有效用户组表示用户此时此刻所在的用户组是什么</p>
+<p>当用su或者su -切换用户时，其用户组都会随之改变，系统会 根据所要切换的有效用户ID去/etc/passwd里寻找相对应的初始用户组，然后切换之。<br>用户相关配置文件？用户密码文件？<br>/etc/passwd 是系统识别用户的一个文件当我们以beinan 这个账号登录时，系统首先会查阅 /etc/passwd 文件，看是否有beinan 这个账号，然后确定beinan的UID，通过UID 来确认用户和身份，如果存在则读取/etc/shadow 影子文件中所对应的beinan的密码；如果密码核实无误则登录系统，读取用户的配置文件；<br>sudo?添加sudo用户？<br>visudo -f /etc/sudoers 为普通用户添加sudo权限<br>进程查看/管理</p>
+<p>查看当前所有运行的程序？<br>ps  查看进程<br>top | grep root  查看root用户进程<br>结束一个进程<br>kill<br>kill -9  强制<br>结束所有相同名字进程<br>killall python<br>计划任务<br>查看当前计划任务<br>crontab -l<br>普通用户添加计划任务？<br>可用crontab -e命令来编辑,编辑的是/var/spool/cron下对应用户的cron文件,也可以直接修改/etc/crontab文件<br>root用户给普通用户添加一条命令<br>crontab -e<br><em>/5 </em> <em> </em> * /home/tiger/hawk-0.6.22/bin/rebuild.sh          //每5分钟执行一次</p>
+<p>crontab -r 删除计划任务<br>计划任务添加格式<br>具体格式如下：<br>? ? ? Minute Hour Day Month Dayofweek ? ?command<br>? ? ? 分钟 ? ? 小时 ? 天 ? ? 月 ? ? ? ?天每星期 ? ? ? ?命令<br>? 分 ? ? 小时 ? ?日 ? ? ? 月 ? ? ? 星期 ? ? ?命令<br>? ? ? ? 0-59 ? 0-23 ? 1-31 ? 1-12 ? ? 0-6 ? ? command ? ? (取值范围,0表示周日一般一行对应一个任务)</p>
+<p>压缩包解压/压缩<br>压缩所有/etc下的文件，到/tmp/etc.tar.gz<br>tar zcvf /tmp/etc.tar.gz<br>解压/tmp/etc.tar.gz<br>tar zxvf /tmp/etc.tar.gz<br>压缩包压缩几种压缩格式？<br>gz： 即gzip，通常只能压缩一个文件。与tar结合起来就可以实现先打包，再压缩。</p>
+<p>tar： linux系统下的打包工具，只打包，不压缩</p>
+<p>tgz：即tar.gz。先用tar打包，然后再用gz压缩得到的文件</p>
+<p>zip： 不同于gzip，虽然使用相似的算法，可以打包压缩多个文件，不过分别压缩文件，压缩率低于tar。</p>
+<p>rar：打包压缩文件，最初用于DOS，基于window操作系统。压缩率比zip高，但速度慢，随机访问的速度也慢。</p>
+<p>不解压直接查看压缩包里的所有文件<br>zcat xxx.tar.gz<br>软件安装<br>几种软件安装办法？<br> 最基础的编译源码，然后安装<br>RPM[安装别人编译好的软件包<br>.YUM方式<br>yum search []<br>yum install []<br>rpm install []<br>yum<br>yum搜索某个安装包<br>yum search []<br>yum安装某个安装包<br>yum install []<br>yum查看已经安装的所有软件<br>yum list<br>yum删除已经安装的所有软件<br>yum remove []<br>rpm</p>
+<p>rpm安装某个安装包<br>rpm -ivh []<br>rpm卸载某个安装包<br>rpm -e []<br>查看某个文件所属的那个安装包<br>rpm -q<br>查看rpm安装的所有软件<br>rpm 升级某个安装包<br>rp, -uvh<br>时钟<br>查看系统时钟的操作：</p>
+<h1 id="date"><a href="#date" class="headerlink" title="date"></a>date</h1><p>硬件时钟和系统时钟同步：</p>
+<h1 id="hwclock-–hctosys"><a href="#hwclock-–hctosys" class="headerlink" title="hwclock –hctosys"></a>hwclock –hctosys</h1><p>系统时钟和硬件时钟同步：</p>
+<h1 id="hwclock-–systohc"><a href="#hwclock-–systohc" class="headerlink" title="hwclock –systohc"></a>hwclock –systohc</h1><p>时间戳？<br>分别以标准格式和时间戳来显示当前时间</p>
+<p>系统信息及运行状态<br>df?du?<br>df查看磁盘使用情况<br>du 查看目录大小<br>iostat?<br>iostat用于输出cpu和磁盘i/o相关统计信息<br>/proc目录<br>Linux 内核提供了一种通过 /proc 文件系统<br>用户和应用程序可以通过proc得到系统的信息<br>在/proc下还有三个很重要的目录：net，scsi和sys。 Sys目录是可写的，可以通过它来访问或修改内核的参数，而net和scsi则依赖于内核配置<br>/proc/version<br>Linux内核版本和gcc版本<br>/proc/sys/fs/file-max<br>该文件指定了可以分配的文件句柄的最大数目</p>
+<p>/proc/partitions<br>分区中的块分配信息</p>
+<p>/proc/devices<br>已经加载的设备并分类<br>/proc/modules<br>所有加载到内核的模块列表<br>proc/scsi<br>SCSI设备信息<br>/proc/net<br>网卡设备信息<br> /proc/sys<br>系统信息和内核参数<br>服务？<br>chkconfig –list 查询出所有当前运行的服务</p>
+<p>服务启动，停止？</p>
+<p>chkconfig –levels 12345 NetworkManager off<br>如果只是想当前的设置状态有效，在系统重启动后即不生效的话，可以用如下命令停止服务<br>service sshd stop</p>
+<p>httpd服务开机自启动设置<br>chkconfig httpd on<br>取消iptales服务开机自启动？<br>手动编译安装<br>　./configure  [options]<br>　　make<br>　　make install</p>
+<p>杂项<br>文件/文件夹查找？文件名/权限<br>find -name []  chmod [who] [+ | - | =] [mode] 文件名<br>文件内容匹配查找？显示/etc/passwd包含root的行<br>nl  文件路径  | grep  内容<br>cat  /etc/passwd  |  grep  root<br>sed<br>nl /etc/passwd| sed ‘2,$d’<br> nl /etc/passwd| sed ‘2,10d’删除2到10行，输出的删除<br> nl /etc/passwd| sed ‘2a,aaaaaaaaaaaaaaaaaaaaaa’  添加一行<br>nl /etc/passwd| sed ‘2i,aaaaaaaaaaaaaaaaaaaaaa’插入到a的上一行<br>nl /etc/passwd| sed ‘2,5c,aaaaa’ 取代第二行到第五行<br>nl /etc/passwd| sed  -n ‘2,5p’只显示第二行和第五行<br>nl /etc/passwd| sed  -n ‘/root/p’只输出匹配的内容<br> nl /etc/passwd| sed  -n ‘/root/{s/root/abcd/g;p}’把root换成abcd输出来<br>nl /etc/passwd| sed  -n ‘1,5{s/root/abcd/g;p}’</p>
+<p>Sed 文本处理工具，本身是一个管道命令主要以行为单位进行处理，可以将数据进行增删改选：对文件的编辑！<br>-n:使用安静模式。<br>-e:直接在命令行模式运行sed的动作编辑（可以有多个动作）<br>-f:直接将sed的动作写在一个文件里边：写入一个新的文件（很少用）<br>-r:sed的动作支持的是延伸正规表示的语法<br>-i:覆盖（直接诶修改读取的文件类型）<br>动作说明：<br>a:增加<br>c:取代<br>d:删除<br>i插入<br>p:打印<br>s:取代<br>nl /etc/passwd | sed ‘2,$d’ nl输出到管道里边  操作的是缓存<br>nl /etc/passwd | sed ‘2a ‘ 新增向上<br> nl /etc/passwd | sed ‘2i aaaaaa’插入是向下插入</p>
+<p>nl /etc/passwd | sed ‘2d’ 只显示两行<br>awk<br>文本编辑搜索工具</p>
+<p>#cat /etc/passwd |awk  -F ‘:’  ‘{print $1}’  只是显示/etc/passwd的账户<br>last -n 5 | awk  ‘{print $1}’<br>只是显示最近登录的5个帐号</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2016/05/30/linux总结/" data-id="ciqud1nrw0003kghrb10952ue" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="http://chuntiandechun.github.io" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/06/01/mysql总结/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            mysql总结
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2016/05/29/yang/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">github的搭建</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/20/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/20/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/18/google-hacking/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/18/google-hacking/" class="title">google hacking</a></p>
+                            <p class="item-date"><time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">2016-07-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/16/centos配置nginx-php/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true)" alt="centos配置nginx+php" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/16/centos配置nginx-php/" class="title">centos配置nginx+php</a></p>
+                            <p class="item-date"><time datetime="2016-07-16T11:32:08.000Z" itemprop="datePublished">2016-07-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/15/csrf漏洞发掘和利用/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true)" alt="csrf漏洞发掘和利用" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/15/csrf漏洞发掘和利用/" class="title">csrf漏洞发掘和利用</a></p>
+                            <p class="item-date"><time datetime="2016-07-15T11:12:51.000Z" itemprop="datePublished">2016-07-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/13/sql注入步骤/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/13/sql注入步骤/" class="title">sql注入步骤</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T02:28:00.000Z" itemprop="datePublished">2016-07-13</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://www.dlam.ml">Liuqi</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2016 liuqi</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2016/05/30/linux总结/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+    
+        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
+        <script src="/vendor/scrollLoading/main.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

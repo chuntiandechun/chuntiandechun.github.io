@@ -3,24 +3,30 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello World | liuqi</title>
+    <title>虚拟机忘记win2003密码怎么办 | liuqi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="" />
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+    <meta name="description" content="今天想用虚拟机做一个在Windows 2003上搭建NTP服务器的实验，在电脑里找到去年安装的win2003后，不幸发现密码竟然忘记了，尝试多次都未能登录成功，删掉重新安装却又有些于心不忍，因为上面还部署了邮件、DNS等其它服务。看来只能考虑如何破解密码了，在网上找了相关资料，最终进入了系统。
+实验环境
+虚拟机：VMware Workstation 8.0.0 build-471780
+操作系统：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/07/20/hello-world/index.html">
+<meta property="og:title" content="虚拟机忘记win2003密码怎么办">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/虚拟机忘记win2003密码怎么办/index.html">
 <meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-05-10T02:55:12.098Z">
+<meta property="og:description" content="今天想用虚拟机做一个在Windows 2003上搭建NTP服务器的实验，在电脑里找到去年安装的win2003后，不幸发现密码竟然忘记了，尝试多次都未能登录成功，删掉重新安装却又有些于心不忍，因为上面还部署了邮件、DNS等其它服务。看来只能考虑如何破解密码了，在网上找了相关资料，最终进入了系统。
+实验环境
+虚拟机：VMware Workstation 8.0.0 build-471780
+操作系统：">
+<meta property="og:updated_time" content="2016-06-07T10:48:12.072Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="虚拟机忘记win2003密码怎么办">
+<meta name="twitter:description" content="今天想用虚拟机做一个在Windows 2003上搭建NTP服务器的实验，在电脑里找到去年安装的win2003后，不幸发现密码竟然忘记了，尝试多次都未能登录成功，删掉重新安装却又有些于心不忍，因为上面还部署了邮件、DNS等其它服务。看来只能考虑如何破解密码了，在网上找了相关资料，最终进入了系统。
+实验环境
+虚拟机：VMware Workstation 8.0.0 build-471780
+操作系统：">
     
 
     
@@ -132,14 +138,14 @@ Quick">
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-hello-world" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-虚拟机忘记win2003密码怎么办" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Hello World
+        虚拟机忘记win2003密码怎么办
         </h1>
     
 
@@ -147,22 +153,23 @@ Quick">
         
         
             <div class="article-subtitle">
-                <a href="/2016/07/20/hello-world/" class="article-date">
-    <time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time>
+                <a href="/2016/06/07/虚拟机忘记win2003密码怎么办/" class="article-date">
+    <time datetime="2016-06-07T10:43:16.000Z" itemprop="datePublished">2016-06-07</time>
 </a>
                 
             </div>
         
         <div class="article-entry" itemprop="articleBody">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <p>今天想用虚拟机做一个在Windows 2003上搭建NTP服务器的实验，在电脑里找到去年安装的win2003后，不幸发现密码竟然忘记了，尝试多次都未能登录成功，删掉重新安装却又有些于心不忍，因为上面还部署了邮件、DNS等其它服务。看来只能考虑如何破解密码了，在网上找了相关资料，最终进入了系统。</p>
+<p>实验环境</p>
+<p>虚拟机：VMware Workstation 8.0.0 build-471780</p>
+<p>操作系统：Windows Server 2003 Enterprise Edition</p>
+<p>实施步骤</p>
+<p>（1）关掉虚拟机电源。</p>
+<p>（2）打开工具栏上的VM-&gt;Settings，选中Hard Disk，右下角有个Utilities的一个下拉栏，点开后选择Map。</p>
+<p>（3）将“Open file in read-only mode”的默认选择去掉，单击“OK”，此时会出现警告的提示框，直接点“是”。</p>
+<p>（4）进入映射盘后，看到虚拟系统中的系统盘。我的映射盘符是z：，拷贝z:windowsrepair下的sam覆盖z:windowssystem32configsam，然后关闭z盘。</p>
+<p>（5）再次打开工具栏上的VM-&gt;Settings，选中Hard Disk，在Utilities的下拉栏中选择disconnect。然后打开电源，进入系统登录界面。此时系统默认账号administrator，密码为空。输入后，顺利进入系统。<br>[@more@] </p>
 
         </div>
         <footer class="article-footer">
@@ -170,7 +177,7 @@ Quick">
 
 
 
-    <a data-url="http://yoursite.com/2016/07/20/hello-world/" data-id="ciqud1nrs0002kghrro8lolv3" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2016/06/07/虚拟机忘记win2003密码怎么办/" data-id="ciqud1ntl000gkghr7lrhhxm4" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -306,10 +313,20 @@ Quick">
         
 <nav id="article-nav">
     
+        <a href="/2016/06/14/centos网络配置/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            centos网络配置
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
     
-        <a href="/2016/07/18/google-hacking/" id="article-nav-older" class="article-nav-link-wrap">
+    
+        <a href="/2016/06/01/关于tcp-ip安全问题/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">antic</strong>
-        <p class="article-nav-title">google hacking</p>
+        <p class="article-nav-title">关于tcp/ip安全问题</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -491,7 +508,7 @@ Quick">
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://yoursite.com/2016/07/20/hello-world/';
+    var disqus_url = 'http://yoursite.com/2016/06/07/虚拟机忘记win2003密码怎么办/';
     
     (function() {
     var dsq = document.createElement('script');

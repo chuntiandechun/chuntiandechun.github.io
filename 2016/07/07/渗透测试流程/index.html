@@ -3,24 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello World | liuqi</title>
+    <title>渗透测试流程 | liuqi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="" />
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+    <meta name="description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/07/20/hello-world/index.html">
+<meta property="og:title" content="渗透测试流程">
+<meta property="og:url" content="http://yoursite.com/2016/07/07/渗透测试流程/index.html">
 <meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-05-10T02:55:12.098Z">
+<meta property="og:description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
+<meta property="og:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true">
+<meta property="og:updated_time" content="2016-07-07T01:03:38.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="渗透测试流程">
+<meta name="twitter:description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
+<meta name="twitter:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true">
     
 
     
@@ -132,14 +131,14 @@ Quick">
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-hello-world" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-渗透测试流程" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Hello World
+        渗透测试流程
         </h1>
     
 
@@ -147,22 +146,14 @@ Quick">
         
         
             <div class="article-subtitle">
-                <a href="/2016/07/20/hello-world/" class="article-date">
-    <time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time>
+                <a href="/2016/07/07/渗透测试流程/" class="article-date">
+    <time datetime="2016-07-07T00:58:31.000Z" itemprop="datePublished">2016-07-07</time>
 </a>
                 
             </div>
         
         <div class="article-entry" itemprop="articleBody">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <p>渗透测试流程：<br>1.端口扫描<br>2.识别服务（看端口，nmap,经验,telnet看返回信息）<br>3.测试服务安全隐患（经验，查找对应漏洞，进行测试）<br>4.识别中间件服务（404页面，经验，http返回包）<br>5.测试对应中间件隐患<br>6.识别脚本语言（后缀，日常积累）<br>7.看网端漏洞/识别数据库（端口，报错）<br>8.测试数据库可能存在安全隐患<br>9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索到））,工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true" alt="image"></p>
 
         </div>
         <footer class="article-footer">
@@ -170,7 +161,7 @@ Quick">
 
 
 
-    <a data-url="http://yoursite.com/2016/07/20/hello-world/" data-id="ciqud1nrs0002kghrro8lolv3" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2016/07/07/渗透测试流程/" data-id="ciqud1nte000ekghrjdfnqysd" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -306,10 +297,20 @@ Quick">
         
 <nav id="article-nav">
     
+        <a href="/2016/07/13/sql注入步骤/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            sql注入步骤
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
     
-        <a href="/2016/07/18/google-hacking/" id="article-nav-older" class="article-nav-link-wrap">
+    
+        <a href="/2016/07/07/sql注入之盲注/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">antic</strong>
-        <p class="article-nav-title">google hacking</p>
+        <p class="article-nav-title">sql注入之盲注</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -491,7 +492,7 @@ Quick">
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://yoursite.com/2016/07/20/hello-world/';
+    var disqus_url = 'http://yoursite.com/2016/07/07/渗透测试流程/';
     
     (function() {
     var dsq = document.createElement('script');
