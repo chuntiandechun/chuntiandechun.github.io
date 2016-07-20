@@ -1,523 +1,272 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-    
-    <title>渗透测试流程 | liuqi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-        <meta name="keywords" content="" />
-    
-    <meta name="description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
-<meta property="og:type" content="article">
-<meta property="og:title" content="渗透测试流程">
-<meta property="og:url" content="http://yoursite.com/2016/07/07/渗透测试流程/index.html">
-<meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
-<meta property="og:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true">
-<meta property="og:updated_time" content="2016-07-07T01:03:38.872Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="渗透测试流程">
-<meta name="twitter:description" content="渗透测试流程：1.端口扫描2.识别服务（看端口，nmap,经验,telnet看返回信息）3.测试服务安全隐患（经验，查找对应漏洞，进行测试）4.识别中间件服务（404页面，经验，http返回包）5.测试对应中间件隐患6.识别脚本语言（后缀，日常积累）7.看网端漏洞/识别数据库（端口，报错）8.测试数据库可能存在安全隐患9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索">
-<meta name="twitter:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true">
-    
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="liuqi"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
 
-    
-        <link rel="alternate" href="/" title="liuqi" type="application/atom+xml" />
-    
+  
+  <title>渗透测试流程 | liuqi</title>
+  
+  
+  <meta name="description" content="吃吃睡睡、、、">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+  <meta property="og:title" content="渗透测试流程"/>
+  <meta property="og:site_name" content="liuqi"/>
 
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
-    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+  
+    <meta property="og:image" content="undefined"/>
+  
 
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
-    
-    
-        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
-    
-    
-    
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("yoursite.com")<0) {      location.href = location.href.replace(location.host, "yoursite.com");    }
+  </script>
 
 </head>
 
+
 <body>
-    <div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
-                    
-                </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/">Inici</a>
-                                </li>
-                            
-                                        
-                                    
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
-
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
+<!--[if lt IE9]>
 <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'categories',
-            TAGS: 'etiquetes',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
+alert("Please Update Your IE \n请升级您的IE浏览器");
 </script>
-<script src="/js/insight.js"></script>
-
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">liuqi</a></h1>
 </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
-    
-    Sense categoria
-    </h1>
-</div>
-                        <div class="main-body-content">
-                            <article id="post-渗透测试流程" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-        渗透测试流程
-        </h1>
-    
-
-            </header>
-        
-        
-            <div class="article-subtitle">
-                <a href="/2016/07/07/渗透测试流程/" class="article-date">
-    <time datetime="2016-07-07T00:58:31.000Z" itemprop="datePublished">2016-07-07</time>
-</a>
-                
-            </div>
-        
-        <div class="article-entry" itemprop="articleBody">
-            <p>渗透测试流程：<br>1.端口扫描<br>2.识别服务（看端口，nmap,经验,telnet看返回信息）<br>3.测试服务安全隐患（经验，查找对应漏洞，进行测试）<br>4.识别中间件服务（404页面，经验，http返回包）<br>5.测试对应中间件隐患<br>6.识别脚本语言（后缀，日常积累）<br>7.看网端漏洞/识别数据库（端口，报错）<br>8.测试数据库可能存在安全隐患<br>9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索到））,工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true" alt="image"></p>
-
-        </div>
-        <footer class="article-footer">
-            
-
-
-
-    <a data-url="http://yoursite.com/2016/07/07/渗透测试流程/" data-id="ciqud1nte000ekghrjdfnqysd" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-</article>
-
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
 
     
-    </section>
-
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <p>seguir:</p>
-        <ul class="social-links">
-            
-                
-                <li>
-                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
-                        <i class="icon fa fa-twitter"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
-                        <i class="icon fa fa-google-plus"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="github" href="http://chuntiandechun.github.io" target="_blank">
-                        <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
-                        <i class="icon fa fa-weibo"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="rss" href="/" target="_blank">
-                        <i class="icon fa fa-rss"></i>
-                    </a>
-                </li>
-                
-            
-        </ul>
-    </div>
     
-        
-<nav id="article-nav">
-    
-        <a href="/2016/07/13/sql注入步骤/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">més nou</strong>
-        <p class="article-nav-title">
-        
-            sql注入步骤
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
     
     
-        <a href="/2016/07/07/sql注入之盲注/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">antic</strong>
-        <p class="article-nav-title">sql注入之盲注</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
     
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  <div class="clearfix"></div>
 </nav>
 
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
     
-    <div class="widgets-container">
-        
-            
-                
-    <div class="widget-wrap">
-        <h3 class="widget-title">recents</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/20/hello-world/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/20/hello-world/" class="title">Hello World</a></p>
-                            <p class="item-date"><time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/18/google-hacking/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/18/google-hacking/" class="title">google hacking</a></p>
-                            <p class="item-date"><time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">2016-07-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/16/centos配置nginx-php/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true)" alt="centos配置nginx+php" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/16/centos配置nginx-php/" class="title">centos配置nginx+php</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T11:32:08.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/15/csrf漏洞发掘和利用/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true)" alt="csrf漏洞发掘和利用" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/15/csrf漏洞发掘和利用/" class="title">csrf漏洞发掘和利用</a></p>
-                            <p class="item-date"><time datetime="2016-07-15T11:12:51.000Z" itemprop="datePublished">2016-07-15</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/13/sql注入步骤/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/13/sql注入步骤/" class="title">sql注入步骤</a></p>
-                            <p class="item-date"><time datetime="2016-07-13T02:28:00.000Z" itemprop="datePublished">2016-07-13</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="">
+      </a>
     </div>
-
-            
-                
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">arxius</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-
-            
-                
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://www.dlam.ml">Liuqi</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-
-            
-        
-    </div>
+    
+    <figcaption>
+      <h3 class=></h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; 2016 liuqi
+  
+</div>
 </aside>
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2016 liuqi</p>
-                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
-            </div>
-        </div>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-07T00:58:31.000Z"><a href="#">2016-07-07</a></time>
+      
+      
+  
+    <h1 class="depth title">渗透测试流程</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>渗透测试流程：<br>1.端口扫描<br>2.识别服务（看端口，nmap,经验,telnet看返回信息）<br>3.测试服务安全隐患（经验，查找对应漏洞，进行测试）<br>4.识别中间件服务（404页面，经验，http返回包）<br>5.测试对应中间件隐患<br>6.识别脚本语言（后缀，日常积累）<br>7.看网端漏洞/识别数据库（端口，报错）<br>8.测试数据库可能存在安全隐患<br>9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索到））,工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true" alt="image"></p>
+
+      
     </div>
-</footer>
+    <footer>
+      
         
-    
-    <script>
-    var disqus_shortname = 'hexo-theme-hueman';
-    
-    
-    var disqus_url = 'http://yoursite.com/2016/07/07/渗透测试流程/';
-    
-    (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
 
 
 
-    
-        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
-    
+</div></div>
+    <div class="clearfix"></div>
+  </div>
 
-    
-        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
-        <script src="/vendor/scrollLoading/main.js"></script>
-    
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
 
 
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
 
-    </div>
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
 </body>
 </html>

