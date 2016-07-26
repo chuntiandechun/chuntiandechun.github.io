@@ -175,24 +175,24 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
 &lt;title&gt;图片上传&lt;/title&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
 function checkFile(){
-    var flag = false;
-    var str = document.getElementById(&quot;file&quot;).value;
-    str = str.substring(str.lastIndexOf(&apos;.&apos;) + 1);
-    var arr = new Array(&apos;png&apos;,&apos;bmp&apos;,&apos;gif&apos;,&apos;jpg&apos;);
-    for (var i=0;&lt;arr.length;i++){
-        if(str==arr[i]){
-            flag = true;
-        }
-    }
-    if(!flag){
-        alert(&apos;文件不合法！&apos;);
-    }
-    return flag;
+   var flag = false;
+   var str = document.getElementById(&quot;file&quot;).value;
+   str = str.substring(str.lastIndexOf(&apos;.&apos;) + 1);
+   var arr = new Array(&apos;png&apos;,&apos;bmp&apos;,&apos;gif&apos;,&apos;jpg&apos;);
+   for (var i=0;&lt;arr.length;i++){
+       if(str==arr[i]){
+           flag = true;
+       }
+   }
+   if(!flag){
+       alert(&apos;文件不合法！&apos;);
+   }
+   return flag;
 }
 &lt;/script&gt;&lt;/head&gt;&lt;body&gt;
 &lt;form action=&quot;upload.php&quot; method=&quot;post&quot; onsubmit=&quot;checkFile()&quot; enctype=&quot;multipart/form-data&quot;&gt;
-    &lt;input type=&quot;file&quot; name=&quot;file&quot; id=&quot;file&quot; /&gt;&lt;br/&gt;
-    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot; /&gt;
+   &lt;input type=&quot;file&quot; name=&quot;file&quot; id=&quot;file&quot; /&gt;&lt;br/&gt;
+   &lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot; /&gt;
 &lt;/form&gt;&lt;/body&gt;&lt;/html&gt;
 </code></pre><p>接收文件的脚本upload.php代码如下：<br>’‘’&lt;?phpif(isset($_POST[“submit”])){<br>    $name = $_FILES[‘file’][‘name’];<br>    $name = md5(date(‘Y-m-d h:m:s’)).strrchr($name,”.”);<br>    $size = $_FILES[‘file’][‘size’];<br>    $tmp = $_FILES[‘file’][‘tem_name’];<br>    move_uploaded_file($tmp,$name);<br>    echo “文件上传成功！path：”.$name;<br>}<br>?&gt;‘’‘<br>绕过：1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。<br>2、使用Burp Suite：<br>    1）先将木马文件的扩展名改为一张正常图片的扩展名，如jpg<br>    2）上传时使用Burp Suite拦截数据包，将木马文件扩展名改为php就可绕过客户端验证。<br>    注意：这里修改文件名字后，请求头中的Content-Length的值也要改</p>
 <p>服务端检测服务端分为6项：</p>
