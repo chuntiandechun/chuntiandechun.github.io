@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1b7aca">
+  <link rel="icon" href="/icon.jpg">
+  <meta name="application-name" content="liuqi"/>
+  <meta name="msapplication-TileColor" content="#1b7aca"/>
+  <meta name="msapplication-square70x70logo" content="/icon.jpg" />
+  <meta name="msapplication-square150x150logo" content="/icon.jpg" />
+  <meta name="msapplication-wide310x150logo" content="/icon.jpg" />
+  <meta name="msapplication-square310x310logo" content="/icon.jpg" />
+  <meta name="msapplication-notification" content="frequency=30; polling-uri=/atom.xml" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="/icon.jpg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-startup-image" href="/icon.jpg">
+
+  
+  <title>文件上传之绕过上传 | liuqi</title>
+  <meta name="author" content="春天的春，晴天的晴">
+  
+  <meta name="description" content="一般防止上传漏洞手法1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证    //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少    //服务器开销，而服务端验证才可以真正防御攻击者。  2、服务器端检测：服务端脚本一般会检测文件的MIME类">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="文件上传之绕过上传"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+    <link href="/css/animate.css" rel="stylesheet">
+  
+  
+    <script src="/js/jquery-2.0.3.min.js"></script>
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script>
+    if (window.location.href.indexOf("")<0) {      location.href = location.href.replace(location.host, "");    }
+  </script>
+
+</head>
+
+
+<body>
+<!--[if lt IE9]>
+<script>
+alert("Please Update Your IE \n请升级您的IE浏览器");
+</script>
+< ![endif]-->
+  <header id="header" class="header header--fixed hide-from-print animated slideInDown"><div class="alignleft backtohome">
+  <a href="/">
+    <img id="icon-photo-small" class="personal-photo  animated rotateIn" src="/icon.jpg" alt="春天的春，晴天的晴">
+  </a>
+  <h1 id="title-mini" class=""><a href="/">liuqi</a></h1>
+</div>
+<a target="_blank" id="mini-toggle" class="more icon alignright"></a>
+<nav id="main-nav" class="alignright animated slideInRight">
+
+    
+    
+      <a target="_blank" class="icon twitter" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+      <a target="_blank" class="icon github" href="http://github.com/https://chuntiandechun.github.io/"></a>
+    
+    
+    
+      <a target="_blank" class="icon linkedin" href="http://www.linkedin.com/http://www.dlam.ml"></a>
+    
+    
+    
+      <a target="_blank" class="icon zhihu" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+      <a target="_blank" class="icon weibo" href="http://weibo.com/http://www.wooyun.org"></a>
+    
+    
+  <div class="clearfix"></div>
+</nav>
+
+</header>
+  <aside id="sidebar" class="alignleft animated slideInLeft"><div class="personal-info">
+  <figure>
+    
+    <div  class="backtohome">
+      <a href="/">
+        <img id="icon-photo-normal" class="personal-photo animated rotateIn" src="/icon.jpg" alt="春天的春，晴天的晴">
+      </a>
+    </div>
+    
+    <figcaption>
+      <h3 class=>春天的春，晴天的晴</h3>
+      <p></p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+      <a target="_blank" class="icon twitter depth" href="http://twitter.com/1ittlecup"></a>
+    
+    
+    
+      <a target="_blank" class="icon googleplus depth" href="http://plus.google.com/+RuoxinHe"></a> 
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/https://chuntiandechun.github.io/"></a>
+    
+    
+    
+      <a target="_blank" class="icon linkedin depth" href="http://www.linkedin.com/http://www.dlam.ml"></a>
+    
+    
+    
+      <a target="_blank" class="icon zhihu depth" href="http://zhihu.com/people/1ittlecup"></a>
+    
+    
+      <a target="_blank" class="icon weibo depth" href="http://weibo.com/http://www.wooyun.org"></a>
+    
+    
+  </section>
+</div>
+<div class="theme-info">
+  <a target="_blank" href="https://github.com/heruoxin/hexo-persona-color" class="html5"> Persona Color Theme</a> 
+  &copy; - 2016 春天的春，晴天的晴
+  
+</div>
+</aside>
+  <div id="content" class="inner">
+    <p id="header-fix"></p>
+    <div id="main-col" class="alignright"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2016-07-26T11:29:50.000Z"><a href="#">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="depth title">文件上传之绕过上传</h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p><strong>一般防止上传漏洞手法</strong><br>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证<br>    //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少<br>    //服务器开销，而服务端验证才可以真正防御攻击者。  2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法</p>
+<p><strong>客户端检测客户端验证代码形如下</strong>：<br>’‘’<html lang="en"><head><br>    <meta charset="UTF-8"><br>    <title>图片上传</title><br>    <script type="text/javascript"><br>    function checkFile(){<br>        var flag = false;<br>        var str = document.getElementById(“file”).value;<br>        str = str.substring(str.lastIndexOf(‘.’) + 1);<br>        var arr = new Array(‘png’,’bmp’,’gif’,’jpg’);<br>        for (var i=0;i<arr.length;i++){
+            if(str==arr[i]){
+                flag = true;
+            }
+        }
+        if(!flag){
+            alert('文件不合法！');
+        }
+        return flag;
+    }
+    </script></head><body><br>    <form action="upload.php" method="post" onsubmit="checkFile()" enctype="multipart/form-data"><br>        <input type="file" name="file" id="file"><br><br>        <input type="submit" value="提交" name="submit"><br>    </form></body></html>‘’<br>接收文件的脚本upload.php代码如下：<br>’‘’&lt;?phpif(isset($_POST[“submit”])){<br>    $name = $_FILES[‘file’][‘name’];<br>    $name = md5(date(‘Y-m-d h:m:s’)).strrchr($name,”.”);<br>    $size = $_FILES[‘file’][‘size’];<br>    $tmp = $_FILES[‘file’][‘tem_name’];<br>    move_uploaded_file($tmp,$name);<br>    echo “文件上传成功！path：”.$name;<br>}<br>?&gt;‘’‘<br>绕过：1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。<br>2、使用Burp Suite：<br>    1）先将木马文件的扩展名改为一张正常图片的扩展名，如jpg<br>    2）上传时使用Burp Suite拦截数据包，将木马文件扩展名改为php就可绕过客户端验证。<br>    注意：这里修改文件名字后，请求头中的Content-Length的值也要改</p>
+<p>服务端检测服务端分为6项：</p>
+<ul>
+<li>黑名单与白名单验证</li>
+<li>MIME验证</li>
+<li>目录验证</li>
+<li>截断上传攻击</li>
+<li>文件攻击</li>
+<li>检测文件内容</li>
+</ul>
+<p>黑名单与白名单验证</p>
+<pre><code>* 黑名单过滤方式
+</code></pre><p>’‘’&lt;?php<br>$Blacklist = array(‘asp’,’php’,’jsp’,’php5’,’asa’,’aspx’);    //黑名单if (isset($_POST[“submit”])){<br>    $name = $FILES[‘file’][‘name’];    //接收文件名<br>    $extension = substr(strrchr($name, “.”) , 1);    //得到扩展名<br>    $boo = false;<br>    foreach ($Blaklist as $key =&gt; $value){<br>        if ($value==$extension) {    //迭代判断是否命中<br>            $boo = true;<br>            break;     //命中后直接退出循环<br>        }<br>    }<br>    if (!$boo) {    //若没有被命中，则进行上传操作<br>        $size = $_FILES[‘file’][‘size’];  //接收文件大小<br>        $tmp = $FILES[‘file’][‘temp_name’];   //临时路径<br>        move_uploaded_file($tmp, $name);   //移动临时文件到当前文件目录<br>    } else {<br>        echo “文件不合法!!”;<br>    }<br>}<br>?&gt;‘’‘<br>对于上面的过滤可以通过如下方法绕过：</p>
+<ul>
+<li>从黑名单中找到web开发者忽略的扩展名，如：cer</li>
+<li>没有对扩展名进行大小写转换，在window平台依然可以大小写绕过</li>
+<li>在window下，若文件名以”.”或者空格作为结尾，系统会自动去除”.”与空格，<br>所以可以上传以“asp.”和“asp_”为扩展名的文件</li>
+<li>0x00截断绕过</li>
+<li>解析漏洞</li>
+</ul>
+<pre><code>* 白名单过滤方式
+</code></pre><p>’‘’&lt;?php<br>$WhiteList = array(‘rar’,’jpg’,’png’,’bmp’,’gif’,’jpg’,’doc’);<br>if(isset($_POST[“submit”])){<br>    $name = $_FILES[‘file’][‘name’];<br>    $extension = substr(strrchr($name,”.”),1);<br>    $boo = false;<br>    foreach($WhiteList as $key =&gt; $value){<br>        if($value==$extension){<br>            $boo = true;<br>        }<br>    }<br>    if($boo){<br>        $size = $_FILES[‘file’][‘size’];<br>        $tmp = $_FILES[‘file’][‘tmp_name’];<br>        move_uploaded_file($tmp,$name);<br>        echo “文件上传成功！<br>path:”.$name;<br>    }else{<br>        echo “文件不合法！”;<br>    }<br>}<br>?&gt;‘’‘<br>绕过方法：</p>
+<ul>
+<li>0x00截断绕过</li>
+<li>此时若在iis6.0，则可以将木马名改为test.asp;1.jpg来上传，从而通过验证</li>
+<li>配合解析漏洞</li>
+</ul>
+<p>MIME验证对文件MIME类型做验证的PHP代码如下：<br>’‘’&lt;?phpif($_FILES[‘file’][‘type’]==” image/jpeg”){<br>    $imageTempName = $_FILES[‘file’][‘tmp_name’];<br>    $imageName = $_FILES[‘file’][‘name’];<br>    $last = substr($imageName,strrpos($imageName,”.”));<br>    if(!is_dir(“uploadFile”)){<br>        mkdir(“uploadFile”);<br>    }<br>    $imageName = md5($imageName).$last;<br>    move_upload_file($imageTempName,”./uploadFile/“.$imageName);<br>    echo(“文件上传成功！ path = /uploadFile/$imageName”);<br>}else{<br>    echo(“文件上传类型错误，请重新上传…”);<br>    exit();<br>}<br>?&gt;‘’‘<br>未修改MIME类型，上传失败：<br>修改MIME类型，上传成功：<br>目录验证文件上传时通常允许用户将文件放到指定的目录中，若目录存在则将文件写入目录，否则新建目录然后写入，若为iis6.0则可以利用这个漏洞，客户端上传代码如下：<br>’‘’<html><head><br>    <meta charset="UTF-8"><br>    <title>up</title></head><body><br>    <form action="upload.php" method="post" enctype="multipart/form-data"><br>        <input type="file" name="file"><br><br>        <input type="hidden" name="Extension" value="up"><br>        <input type="submit" value="提交" name="submit"><br>    </form></body></html>‘’‘<br>服务端PHP接收文件的代码如下：<br>’‘’&lt;?phpif($_FILES[‘file’][‘type’]==”image/jpeg”){<br>    $imageTempName=$_FILES[‘file’][‘tmp_name’];<br>    $imageName=$_FILES[‘file’][‘name’];<br>    $last=substr($imageName,strrpos($imageName,”.”));<br>    if($last!=”.jpg”){<br>        echo(“mime error!<br>“);<br>    }<br>    $Extension=$_POST[‘Extension’];<br>    if(!is_dir($Extension)){<br>        mkdir(“./$Extension”);<br>        echo “mkidr $Extension succesfully”.”<br>“;<br>    }<br>    $imageName=md5($imageName).$last;<br>    move_uploaded_file($imageTempName,”./$Extension/“.$imageName);<br>    echo(“upload ok! path = /$Extension/$imageName”);<br>} else {<br>    echo(“type error…”);<br>    exit();<br>}<br>?&gt;‘’‘<br>查看上传到了那个文件：<br>将文件改名：<br>截断上传攻击截断上传攻击在ASP程序中比较常见(在PHP、JSP中也有) 先上传正常后缀的图片马：<br>更改图片名字：</p>
+<p>截断：</p>
+<p>上传成功：<br>文件攻击</p>
+<pre><code>* .htaccess文件攻击
+</code></pre><p>通过.htaccess文件调用php解析器去解析一个文件名中只要包含”haha”这个字符串的任意文件，无论扩展名是什么(没有也行)，都以php的方式来解析，.haccess文件代码如下：</p>
+<filesmatch "haha"="">SetHandler application/x-httpd-php<br></filesmatch><br>或者如下，上传一个文件名为evil.gif的图片马：<br><filesmatch "evil.gif"=""><br><br>SetHandler application/x-httpd-php<br></filesmatch>
+
+<pre><code>* .user.ini文件攻击
+</code></pre><p>只要中间键是以fastcgi运行的php都可以用这个方法，.user.ini能被动态加载，它也有两个配置<br>项：auto_append_file和auto_prepend_file，只要在.user.ini中添加auto_prepend_file=aa.jpg<br>这句话，就可以让其他php文件执行前自动包含aa.jpg，和require()类似。</p>
+<p>检测文件内容</p>
+<pre><code>* 文件幻数检测
+</code></pre><p>在文件首部加上如下幻数，后面跟一句话木马即可</p>
+<p>JFIF    FF D8 FF E0 00 10 4A 46 49 46<br>GIF89a  47 49 46 38 39 61<br>PNG     89 50 4E 47</p>
+<pre><code>* 文件相关信息检测
+</code></pre><p>通常用的getimagesize()函数，只需要在幻数基础上加一些文件信息就行了，如下：</p>
+<p>GIF89a<br>(…some binary data for image…)<br>&lt;?php phpinfo(); ?&gt;<br>(… skipping the rest of binary data …)</p>
+<pre><code>* 文件加载检测
+</code></pre><p>服务端会调用API或函数对文件进行加载测试，常见的是图像渲染测试，变态的甚至是二次渲染：</p>
+<p>对渲染/加载测试的攻击方式是代码注入绕过<br>对二次渲染的攻击方式是攻击文件加载器本身</p>
+<p>文件上传之文本编辑器漏洞<br>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。<br>下面以FCKeditor(现名为CKEditor)为例：<br>1、敏感信息暴漏</p>
+<pre><code>* 查看版本信息
+    /FCKeditor/editor/dialog/fck_about.html
+* 默认上传页面
+    /FCKeditor/editor/filemanager/browser/default/browser.html
+    /FCKeditor/editor/filemanager/browser/default/connectors/test.html
+    /FCKeditor/editor/filemanager/upload/test.html
+    /FCKeditor/editor/filemanager/connectors/test.html
+    /FCKeditor/editor/filemanager/connectors/uploadtest.html
+* 其他敏感文件
+    /FCKeditor/editor/filemanager/connectors/aspx/connector.html
+    /FCKeditor/editor/filemanager/connectors/asp/connector.html
+    /FCKeditor/editor/filemanager/connectors/php/connector.php
+</code></pre><p>2、黑名单策略错误<br>    FCKeditor&lt;=2.4.3版本采用的是有弊端的黑名单策略，可以采用asa、cer等扩展名<br>3、任意文件上传漏洞<br>    FCKeditor的2.4.2及以下本本的黑名单配置信息里没有定义类型Media，直接构造html表单就行，<br>在form中的action=”<a href="http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M" target="_blank" rel="external">http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <div class="clearfix"></div>
+  </div>
+
+  <footer id="footer" class="inner"></footer>
+  <script src="/js/headroom.min.and.gallery.js"></script>
+<script>
+$("#mini-toggle").click(function () {
+    $( "#main-nav" ).css("display","inline");
+    setTimeout(function(){
+        $( "#main-nav" ).removeClass("slideInRight").addClass("slideOutRight");
+    }, 3000);
+    setTimeout(function(){
+        $( "#main-nav" ).css("display","");
+        $( "#main-nav" ).removeClass("slideOutRight").addClass("slideInRight");
+    }, 3555);
+});
+</script>
+
+<script>
+$("#header").headroom({
+  "tolerance": 0,
+  "offset": 200,
+  "classes": {
+    "initial": "",
+    "pinned": "slideInDown",
+    "unpinned": "slideOutUp"
+  }
+});
+$("#header").headroom("destroy");
+console.log("这网站没彩蛋，不用找了……")
+</script>
+
+<script>
+$("a").click(function () {
+    $( "#icon-photo-small"  ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    $( "#icon-photo-normal" ).removeClass( "rotateIn" ).addClass( "rotateOut" );
+    setTimeout(function(){
+        $( "#icon-photo-small"  ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+        $( "#icon-photo-normal" ).removeClass( "rotateOut" ).addClass( "rotateIn" );
+    }, 900);
+});
+</script>
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46393541-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+<!--[if lt IE 9]><script src="/js/excanvas.js"></script><![endif]-->
+<script src="/js/jquery.tagcanvas.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+   if( ! $('#myCanvas').tagcanvas({
+     textColour : '#6d6d6d',
+     outlineThickness : 1,
+     textHeight: 20,
+     maxSpeed : 0.04,
+     depth : 0.75
+   })) {
+     // TagCanvas failed to load
+     $('#myCanvasContainer').hide();
+   }
+   // your other jQuery stuff here...
+ });
+ </script>
+
+
+<script src="/js/pangu.js"></script>
+<script>pangu.page_spacing();</script>
+
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>
