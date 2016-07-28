@@ -21,7 +21,7 @@
   <title>csrf漏洞发掘和利用 | liuqi</title>
   <meta name="author" content="春天的春，晴天的晴">
   
-  <meta name="description" content="csrf：c就是服务端，只是可以编辑信息，并没有太大的用，可以结合xss获取到有用的信息csrf可以盗取你的身份，以你的名义发送恶意请求，甚至还有造成隐私泄露和虚拟货币转账发现这两个网页有csrf漏洞找到有csrf漏洞的页面，然后用burpsuit抓一下包获取它的http的表头POST /Judge">
+  <meta name="description" content="说明csrf：c就是服务端，只是可以编辑信息，并没有太大的用，可以结合xss获取到有用的信息csrf可以盗取你的身份，以你的名义发送恶意请求，甚至还有造成隐私泄露和虚拟货币转账发现这两个网页有csrf漏洞找到有csrf漏洞的页面，然后用burpsuit抓一下包获取它的http的表头POST /Jud">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -168,7 +168,7 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        <p>csrf：c就是服务端，只是可以编辑信息，并没有太大的用，可以结合xss获取到有用的信息<br>csrf可以盗取你的身份，以你的名义发送恶意请求，甚至还有造成隐私泄露和虚拟货币转账<br>发现这两个网页有csrf漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"><br>找到有csrf漏洞的页面，然后用burpsuit抓一下包获取它的http的表头<br>POST /JudgeOnline/profile_modify.php?action=modify&amp;userid=dlam<br>还有就是需要修改的name值和提交的name值<br>btn_submit<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"><br>构造提交的html网页然后点一下html刷新一下原来的修改信息就会发现信息已经被修改<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>打开<a href="http://a.ioio.pub:8000/" target="_blank" rel="external">http://a.ioio.pub:8000/</a> 这个页面，然后注册一个账号dlam登录进去之后可以进行转账<br>抓取转账这个界面发现它是get的请求方式<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"></p>
+        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>csrf：c就是服务端，只是可以编辑信息，并没有太大的用，可以结合xss获取到有用的信息<br>csrf可以盗取你的身份，以你的名义发送恶意请求，甚至还有造成隐私泄露和虚拟货币转账<br>发现这两个网页有csrf漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"><br>找到有csrf漏洞的页面，然后用burpsuit抓一下包获取它的http的表头<br>POST /JudgeOnline/profile_modify.php?action=modify&amp;userid=dlam<br>还有就是需要修改的name值和提交的name值<br>btn_submit<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"><br>构造提交的html网页然后点一下html刷新一下原来的修改信息就会发现信息已经被修改<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>打开<a href="http://a.ioio.pub:8000/" target="_blank" rel="external">http://a.ioio.pub:8000/</a> 这个页面，然后注册一个账号dlam登录进去之后可以进行转账<br>抓取转账这个界面发现它是get的请求方式<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"></p>
 <p>然后构造一个get请求的界面</p>
 <p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%875.png?raw=true" alt="image"><br>点开这个html然后再刷新一下原来的页面<br>会发现又转账了<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/5/%E5%9B%BE%E7%89%876.png?raw=true" alt="image"><br>嘿嘿，这就成功了</p>
 

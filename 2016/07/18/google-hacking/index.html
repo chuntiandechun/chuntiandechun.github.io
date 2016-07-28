@@ -168,10 +168,17 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        <p>高级搜索符<br>intitle allintitle 页面标题里查找关键字<br>filetye 查找指定文件类型<br>site 锁定站点<br>inurl allinurl 在url中查找关键字<br>intext allintext 网页查找关键字<br>link 搜索链接到某个网站的连接<br>排除字域名<br>site:baidu.com -site:www.baidu,com<br>site:video.baidu.com<br>实例：sql注入页面<br>site:tw inurl:?id=1..10000000 filetype:php<br>管理员登录界面：intitle:”后台登录”</p>
-<p>目录遍历 inurl:””<br>intext:”index of” intitle:”index of”<br>intext:”Parent Directory” intitle:”index of”</p>
-<p>用户名和密码的文件<br>intext:”用户名 and 密码” filetype:txt<br>intext:”username:” and “password:”filetype:txt<br>电子邮件列表<br>intext:”index of” intext:.emal</p>
-<p>指定端口的网站<br>inurl:8080 -intext:8080<br>敏感文件<br>    filetype:.inc intext:mysql_connect and username<br>特定网站<br>site:tw intitle:”apache tomcat” inurl:8080<br>政府军事数据：.gov</p>
+        <h1 id="高级搜索符"><a href="#高级搜索符" class="headerlink" title="高级搜索符"></a>高级搜索符</h1><p>intitle allintitle 页面标题里查找关键字<br>filetye 查找指定文件类型<br>site 锁定站点<br>inurl allinurl 在url中查找关键字<br>intext allintext 网页查找关键字<br>link 搜索链接到某个网站的连接<br>排除字域名<br>site:baidu.com -site:www.baidu,com<br>site:video.baidu.com<br>实例：sql注入页面<br>site:tw inurl:?id=1..10000000 filetype:php<br>管理员登录界面：intitle:”后台登录”</p>
+<ul>
+<li><p>目录遍历 inurl:””<br>intext:”index of” intitle:”index of”<br>intext:”Parent Directory” intitle:”index of”</p>
+</li>
+<li><p>用户名和密码的文件<br>intext:”用户名 and 密码” filetype:txt<br>intext:”username:” and “password:”filetype:txt</p>
+</li>
+<li><p>电子邮件列表<br>intext:”index of” intext:.emal</p>
+</li>
+<li><p>指定端口的网站<br>inurl:8080 -intext:8080<br>敏感文件<br>  filetype:.inc intext:mysql_connect and username<br>特定网站<br>site:tw intitle:”apache tomcat” inurl:8080<br>政府军事数据：.gov</p>
+</li>
+</ul>
 
       
     </div>

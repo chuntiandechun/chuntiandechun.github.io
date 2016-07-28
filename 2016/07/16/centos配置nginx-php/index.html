@@ -21,7 +21,9 @@
   <title>centos配置nginx+php | liuqi</title>
   <meta name="author" content="春天的春，晴天的晴">
   
-  <meta name="description" content="Centos6.5下面搭建nginx+mysql+php一·准备工作首先执行：    sudo yum groupinstall “Development tools”安装make：    yum -y install gcc automake autoconf libtool make安装g++：">
+  <meta name="description" content="Centos6.5下面搭建nginx+mysql+php
+#一·准备工作#首先执行：    sudo yum groupinstall “Development tools”
+安装make：    yum -y install gcc automake autoconf libtool make*安">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -168,8 +170,18 @@ alert("Please Update Your IE \n请升级您的IE浏览器");
     </header>
     <div class="entry depth">
       
-        <p>Centos6.5下面搭建nginx+mysql+php<br>一·准备工作<br>首先执行：<br>    sudo yum groupinstall “Development tools”<br>安装make：<br>    yum -y install gcc automake autoconf libtool make<br>安装g++：<br>    yum install gcc gcc-c++<br>二·安装mysql和php<br>sudo yum install mysql mysql-server mysql-devel<br>sudo yum install php php-devel<br>sudo yum install php-gd php-mysql php-fpm<br>三．安装依赖</p>
-<p>1.安装pcre、pcre-devel<br>Sudo yum install pcre pcre-devel<br>2.安装zlib、zlib-devel<br>Sudo yum install zlib zlib-devel<br>3.安装ssl<br>Sudo yum install openssl openssl-devel<br>四、安装nginx<br>可在<a href="http://nginx.org/download/nginx-1.9.9.tar.gz" target="_blank" rel="external">http://nginx.org/download/nginx-1.9.9.tar.gz</a> 下载<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"><br>安装<br>./configure<br>Make<br>Make install<br>五、启动和关闭nginx<br>启动<br> sudo /usr/local/nginx/sbin/nginx<br>关闭<br>killall nginx<br>六、配置nginx支持php<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
+        <p>Centos6.5下面搭建nginx+mysql+php</p>
+<p>#一·准备工作#<br><em>首先执行：<br>    sudo yum groupinstall “Development tools”
+</em>安装make：<br>    yum -y install gcc automake autoconf libtool make<br>*安装g++：<br>    yum install gcc gcc-c++</p>
+<p>#二·安装mysql和php#<br>sudo yum install mysql mysql-server mysql-devel<br>sudo yum install php php-devel<br>sudo yum install php-gd php-mysql php-fpm</p>
+<p>#三．安装依赖#</p>
+<ul>
+<li>1.安装pcre、pcre-devel<br>Sudo yum install pcre pcre-devel</li>
+<li>2.安装zlib、zlib-devel<br>Sudo yum install zlib zlib-devel</li>
+<li>3.安装ssl<br>Sudo yum install openssl openssl-devel<br>#四、安装nginx#<br>可在<a href="http://nginx.org/download/nginx-1.9.9.tar.gz" target="_blank" rel="external">http://nginx.org/download/nginx-1.9.9.tar.gz</a> 下载<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"><br>安装<br>./configure<br>Make<br>Make install<br>#五、启动和关闭nginx#<br>启动</li>
+<li>sudo /usr/local/nginx/sbin/nginx<br>关闭</li>
+<li>killall nginx<br>六、配置nginx支持php<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></li>
+</ul>
 
       
     </div>
