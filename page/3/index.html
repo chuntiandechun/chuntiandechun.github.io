@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Seite 3 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-07T10:43:16.000Z"><a href="/2016/06/07/虚拟机忘记win2003密码怎么办/">2016-06-07</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/06/07/虚拟机忘记win2003密码怎么办/">虚拟机忘记win2003密码怎么办</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#实验环境#</p>
+<p>虚拟机：VMware Workstation 8.0.0 build-471780</p>
+<p>操作系统：Windows Server 2003 Enterprise Edition</p>
+<p>#实施步骤#</p>
+<p>（1）关掉虚拟机电源。</p>
+<p>（2）打开工具栏上的VM-&gt;Settings，选中Hard Disk，右下角有个Utilities的一个下拉栏，点开后选择Map。</p>
+<p>（3）将“Open file in read-only mode”的默认选择去掉，单击“OK”，此时会出现警告的提示框，直接点“是”。</p>
+<p>（4）进入映射盘后，看到虚拟系统中的系统盘。我的映射盘符是z：，拷贝z:windowsrepair下的sam覆盖z:windowssystem32configsam，然后关闭z盘。</p>
+<p>（5）再次打开工具栏上的VM-&gt;Settings，选中Hard Disk，在Utilities的下拉栏中选择disconnect。然后打开电源，进入系统登录界面。此时系统默认账号administrator，密码为空。输入后，顺利进入系统。<br>[@more@] </p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-01T07:08:24.000Z"><a href="/2016/06/01/关于tcp-ip安全问题/">2016-06-01</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/06/01/关于tcp-ip安全问题/">关于tcp/ip安全问题</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>4月27</p>
+<p>#权限问题#<br>Setfacl<br>touch file.kinggoo<br>getfacl file.kinggoo #获取acl</p>
+<h1 id="file-file-kinggoo"><a href="#file-file-kinggoo" class="headerlink" title="file: file.kinggoo"></a>file: file.kinggoo</h1><h1 id="owner-root"><a href="#owner-root" class="headerlink" title="owner: root"></a>owner: root</h1><h1 id="group-kinggoo"><a href="#group-kinggoo" class="headerlink" title="group: kinggoo"></a>group: kinggoo</h1><p>user::rw-<br>user:kinggoo.com:r-x<br>group::r–<br>mask::r-x<br>other::r–</p>
+<p>#Tcp协议的历史#<br>Tcp和osi<br>七层 atm协议<br>Tcp的分层结构<br><figure class="highlight plain"><figcaption><span>System Interconnection的缩写，意为开放式系统互联</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">之所以说TCP/IP是一个协议族，是因为TCP/IP协议包括TCP、IP、UDP、ICMP、RIP、TELNETFTP、SMTP、ARP、TFTP等许多协议，这些协议一起称为TCP/IP协议。以下我们对协议族中一些常用协议英文名称和用途作一介绍：   </div><div class="line">TCP(Transport Control Protocol)传输控制协议  </div><div class="line">  IP(Internet Protocol)网间网协议  </div><div class="line">  UDP(User Datagram Protocol)用户数据报协议</div><div class="line"> ICMP(Internet Control Message Protocol)互联网控制信息协议  </div><div class="line"> SMTP(Simple Mail Transfer Protocol)简单邮件传输协议</div><div class="line"> SNMP(Simple Network manage Protocol)简单网络管理协议  </div><div class="line"> FTP(File Transfer Protocol)文件传输协议  </div><div class="line"> ARP(Address Resolution Protocol)地址解析协议</div></pre></td></tr></table></figure></p>
+<p>  数据链路层包括了硬件接口和协议ARP，RARP，这两个协议主要是用来建立送到物理层上的信息和接收从物理层上传来的信息；<br>  网络层中的协议主要有IP，ICMP，IGMP等，由于它包含了IP协议模块，所以它是所有基于TCP/IP协议网络的核心。在网络层中，IP模块完成大部分功能。ICMP和IGMP以及其他支持IP的协议帮助IP完成特定的任务，如传输差错控制信息以及主机/路由器之间的控制电文等。网络层掌管着网络中主机间的信息传输。<br>网络层中的协议主要有IP，ICMP，IGMP等，由于它包含了IP协议模块，所以它是所有基于TCP/IP协议网络的核心。在网络层中，IP模块完成大部分功能。ICMP和IGMP以及其他支持IP的协议帮助IP完成特定的任务，如传输差错控制信息以及主机/路由器之间的控制电文等。网络层掌管着网络中主机间的信息传输。<br>     应用层位于协议栈的顶端，它的主要任务就是应用了。上面的协议当然也是为了这些应用而设计的，具体说来一些常用的协议功能如下：<br>      Telnet：提供远程登录（终端仿真）服务，好象比较古老的BBS就是用的这个登陆。   FTP ：提供应用级的文件传输服务，说的简单明了点就是远程文件访问等等服务；   SMTP：不用说拉，天天用到的电子邮件协议。<br>      TFTP：提供小而简单的文件传输服务，实际上从某个角度上来说是对FTP的一种替换（在文件特别小并且仅有传输需求的时候）。<br>     SNMP：简单网络管理协议。看名字就不用说什么含义了吧。<br>      DNS：域名解析服务，也就是如何将域名映射成IP地址的协议。<br>      HTTP：不知道各位对这个协议熟不熟悉啊？这是超文本传输协议，你之所以现在能看到网上的图片，动画，音频，等等，都是仰仗这个协议在起作用啊！</p>
+<p>#七层模型中对应的协议#</p>
+<p>Tcp/ip封装和解封装<br>封装过程</p>
+<p>解封装过程</p>
+<p>Ping的作用只是在网络层的网络可用性，所以ping 不通，业务也是可以的，icmp与arp是没有联系的，只要arp可以发包，依然是可以连接的<br>Wireshark 抓包<br>帧</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-01T07:02:53.000Z"><a href="/2016/06/01/mysql总结/">2016-06-01</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/06/01/mysql总结/">mysql总结</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>mysql<br>查看已经存在的用户<br>select * from mysql.user</p>
+<p>#创建mysql用户#</p>
+<ul>
+<li>1.创建普通用户：create user ‘xiaoming’@’host’ identified by ‘xiaoming’;  identfied by由什么鉴别第一个是通用脚本第二个是举列说明</li>
+<li><ol>
+<li>创建用户并授权：</li>
+</ol>
+</li>
+</ul>
+<p>grant 权限 on 数据库，数据表 to 用户名@登录主机 identified by ‘密码’<br>列如：<br>grant select, insert,update,delete on <em>.</em> to xiaoming@’%’ identified by ‘xiaoming’;<br>grant privileges on databasename.tablename to ‘xiaoming’@’localhost’;<br>    %是远程登录 <em>.</em>所有数据库表 localhost是本地</p>
+<p>#删除用户#<br>drop user ‘xiaoming’@’localhost’;<br>授权:</p>
+<pre><code> 命令:GRANT privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos;
+
+说明: privileges - 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用*表示, 如*.*.
+
+ 例子: GRANT SELECT, INSERT ON test.user TO &apos;pig&apos;@&apos;%&apos;;
+          GRANT ALL ON *.* TO &apos;pig&apos;@&apos;%&apos;;
+
+ 注意:用以上命令授权的用户不能给其它用户授权,如果想让该用户可以授权,用以下命令:
+      GRANT privileges ON databasename.tablename TO &apos;username&apos;@&apos;host&apos; WITH GRANT OPTION;
+</code></pre><p>#mysql普通用户查看权限#<br><figure class="highlight plain"><figcaption><span>grants for root@'localhost';```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">刷新系统权限表</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">设置与更改用户密码</div><div class="line">```set password for &apos;xiaoming&apos;@&apos;localhost&apos; = password(&apos;456&apos;);</div></pre></td></tr></table></figure></p>
+<p>创建表<br>数据字段属性：<br>unsigned  该属性用于设置数值类型，不允许数列出现负数<br>zerolff  该属性只能用于设置数值类型，在数值之前自动用0补足不足的位数<br>auto_increment  自增属性<br>null和not null<br><figure class="highlight plain"><figcaption><span>设置一个默认值</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt; create table ms</div><div class="line">&gt; (</div><div class="line">&gt; id int(2) not null auto_increment,</div><div class="line">&gt; uid int(10) not null,</div><div class="line">&gt; password varchar(444) not null,</div><div class="line">&gt; primary key(id)</div><div class="line">&gt; )</div></pre></td></tr></table></figure></p>
+<p>auto_increment设置自增<br>primary key(id)设置主键</p>
+<p>drop删除database<br>drop database databasename;<br>drop 删除table<br>drop table tablename;<br>delete from tablename;</p>
+<p>索引</p>
+<p>普通索引<br>create index indexname on mytable(username(10));    单列索引<br>create index  indesname on mytable(username(10),city(10));  组合索引<br>唯一索引<br>创建索引<br>create unique index indexname on mytable(username(10));<br>修改表结构创建索引<br>alter table mytable add unique index (username(10));<br>创建表的时候直接指定<br><figure class="highlight plain"><figcaption><span>table mytable(</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">id int,</div><div class="line">username varchar(16),</div><div class="line">city varchar(16),</div><div class="line">age int,</div><div class="line">unique index indexname (username(10))   </div><div class="line">)</div><div class="line">;</div></pre></td></tr></table></figure></p>
+<p>主键索引<br>修改表结构来创建索引<br>alter table mytable add primary key (id);</p>
+<p>全文索引<br>创建索引<br>create fulltext index indexname on mytable(username(10));<br>创建表结构来创建索引<br>alter table mytable add fulltext index indexname (username(10));<br>也可以在表里面直接指定</p>
+<p>select distinct uid,ip,title from user; 去除重复的<br>增加：insert into 表明[(字段1，字段2,.)] values(值1，值2…);</p>
+<p>更新<br>update 表明<br>set 字段名=表达式[,……]<br>[where 条件]<br>[order by 字段]<br>[limit 行数]</p>
+<p>删除<br>delete from 表名<br>[where 条件]<br>[order by 字段]<br>[limit 行数]</p>
+<p>选择特定的字段<br>SELECT bookname, author, price FROM books;<br>使用as子语句<br>SELECT bookname as ‘图书名称’,author as ‘作者’,<br>price as ‘图书价格’ from books;<br>select bookname ‘图书名称’，author ‘作者’，price ‘图书价格’ from books;</p>
+<p>distinct 关键字的使用<br>select distinct id,price from aution; 如果记录中有重复的操作去除重复的操作</p>
+<p>在select 语句中使用表达式的列<br>select version(),id from tablename;<br>使用where子句按条件索引<br>select * from message where id&lt;4 and uid=2;</p>
+<p>根据空值(null)确定检索条件<br>select <em>from tablename where content is not null;<br>根据空值（null）确定检索条件<br>select </em>from tablename where content is not null;</p>
+<p>使用between and 进行范围比较查询<br>select <em>from tablename where id between 2 and 5;<br>使用in进行范围比较查询<br>select </em>from auction where id in (2,5);<br>select *from auction where id not in (2,5);</p>
+<p>使用like进行模糊查询<br>select <em>from auction where price like ‘%xiao%’;<br>select </em>from auction where price not like ‘%xiao%’;<br>非等值和等值的多表查询<br><figure class="highlight plain"><figcaption><span>* from users;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">? select * from message;</div><div class="line">?</div><div class="line">select </div><div class="line">u.username &apos;??&apos;, m.title &apos;??&apos;, m.content &apos;????&apos; </div><div class="line">from </div><div class="line">users u, message m;</div><div class="line">?</div><div class="line">select </div><div class="line">u.username &apos;??&apos;, m.title &apos;??&apos;, m.content &apos;????&apos; </div><div class="line">from </div><div class="line">users u, message m </div><div class="line">where u.id=m.uid;</div></pre></td></tr></table></figure></p>
+<p>嵌套查询（子查询）<br>sql语句允许多层嵌套<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from auction</div><div class="line">where id in(select id from auction where id&lt;5);</div></pre></td></tr></table></figure></p>
+<p>使用order by 对查询结果排序<br>select * from message ORDER BY uid DESC;</p>
+<p>使用having对group by 之后的数据进一步过滤</p>
+<p><code>select *from auction group by id having id&gt;=2;</code></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-05-30T06:43:30.000Z"><a href="/2016/05/30/linux总结/">2016-05-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/05/30/linux总结/">linux总结问题</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#Linux总结问题#<br>      目录/文件<br><strong>1.查看目录？进入目录？查看文件？</strong><br>Pwd,ls,cd进入目录，cat查看文件   ，vim编辑查看，more翻页查看</p>
+<p><strong>2.目录/文件复制？目录/文件移动？</strong><br>Cp  复制<br>Mv  移动<br>Mkdir   -p  如果要创建目录A并创建目录A的子目录B，没有用-p的情况下是mkdir 2次<br>如果用-p 可以直接创建2个目录 mkdir -p 目录A/子目录B就可以<br><strong>3.当前活动目录？  当前用户家目录？</strong><br>Pwd  当前活动目录，cd当前用户的家目录，两者的区别是pwd是切换，cd是用户指定的<br><strong>4.文件类型？</strong></p>
+<ul>
+<li>普通文件 类似 -rw-r–r–<br>d目录文件   类似 drwxr-xr-x<br>L符号链接   类似 lrwxrwxrwx,注意第一个字符是l<br>S套接字文件     第一个字符是 s<br>b块设备文件，二进制文件<br>C字符设备文件   第一个字符是 c ，这表示字符设备文件<br>P命名管道文件     前面的第一个字符是b，这表示块设备<br><strong>5文件权限？文件夹权限</strong><br>Linux文件权限分为三种:<br>可读（r=4）,可写（w=2),可执行(x=1)。<br>774的权限为111 111 101 即rwxrwxr–  表示此文件夹的所有者和所有者所属的组有可读可写可执行的权限，而其他用户只要可读的权限<br>Chmod [] [+ ] - | =] [mode]文件名<br>u表示“用户（user）”，即文件或目录的所有者<br>G表示“同组用户（group）”,即与文件属主有相同组id的所有用户<br>O表示“其他（others)用户”<br>A表示“所有(all)用户”<br>=赋予给定权限并取消其他所有权限<br>s在文件执行时把进程的属主或组id置为该文件的文件属主，方式“u+s”设置文件的用户id号，“g+s”设置组id位<br>T保存程序的文本到交换设备上<br>U与文件属主拥有一样的权限<br>G与和文件属主同组的用户拥有一样的权限<br>O与其他用户拥有一样的权限<br><strong>6文件查看与编辑</strong><br>1.文件查看？<br>cat  只查看<br>-n   对所查看的文件进行编号<br>-b                        对于空白行不编号<br>-s   当遇到有连续两行以上的空白行时，就代换为一行的空白行<br>对于极大的文件来说可以用more进行一页一页的查看<br>Cat /etc/fstab  /etc/profile | more<br>文件的编辑？<br>Vi或者vim<br>查看文件头？<br>Head /etc/passwd  默认显示前十行<br>head -n k /etc/passwd<br>head -n +k /etc/passwd<br>显示开头前k行<br>显示多文件开头前k行，并且不显示文件名的文件头。<br>Head -q -n  k  [文件名]显示多文件前k行<br>查看文件末位？<br>Tail /etc/passwd 默认显示文件后十行<br><strong>7Vi的三种模式</strong></li>
+</ul>
+<p>一般模式，编辑模式，命令行模式</p>
+<ol>
+<li>一般模式，一般在进入文件时就是该模式，在此模式中，可以通过上下左右键移动光标，可以删除字符或是删除整行，可以复制粘贴，但不能编辑。</li>
+<li>编辑模式：一般模式可以复制粘贴删除，但要编辑，需按下i,I,o,O,a,A,r,R等字母，才会进入编辑模式，按下按钮后，屏幕左下方会出现INSERT或REPACE等字样，如果要回到一般模式，按Esc键。</li>
+<li>命令行模式，在一般模式下输入“：”或“/”就可以将光标移到末行，在此模式中，可以搜寻数据，读取，存盘，大量字符替换，退出vi，显示行号等。</li>
+</ol>
+<p>一般模式<br>0移动到此行的一个字符处<br>$移动到此行的最后一个字符<br>Gg跳到行首<br>G跳到行尾<br>H是最上方<br>L是最后<br>B 是移动到上一个单词<br>查找替换<br>:%s/abx/aa/g<br>删除 复制 粘贴<br>x是向后删除一个字符   x向前删除一个字符<br>nx 向后删除n个字符<br>dd 删除光标所在的整列<br>d$ 删除到行末<br>ndd 删除光标所在列的向下n行<br>yy 复制光标所在的行<br>nyy 复制所在行的向下n行<br>p,P  p复制的数据粘贴到光标的下一行，p上一行<br>V y p 复制选中的内容<br>u 恢复上一个动作<br>U  撤销没有了<br>编辑模式<br>i,I  插入<br>a,A 添加<br>o,O  插入新的一行，由光标所在处的下一行行首开始输入<br>r,R 替换，r会替换光标所指的哪一个字符<br>esc 返回一般模式<br>命令行模式<br>w   保存<br>w!  若文件为只读，强制写入<br>q  推出vi<br>wq  保存推出<br>w   [filename]保存为另一个文件</p>
+<p><strong>8.磁盘</strong></p>
+<p>fdisk -l 查看当前磁盘信息<br>df -lH  查看分区信息<br>fdisk /dev/sdb  进行分区<br>m –help<br>n   是新建分区<br>e   是扩展分区  p是主分区<br>1分一个分区<br>w  写入分区<br>mkfs.ext3 -c /dev/sbd1 格式化分区 -c检查磁盘的坏道    ext3方式<br>mkdir /home/yang   创建目录挂载分区用<br>mount -t ext3 -o rw /dev/sdb1/home/yang  挂载硬盘<br>mkfs -t ext3 /dev/sda2 格式化sdb2分区，创建ext3文件系统<br>挂载分区到/dev/sda1到/mnt/yang<br>对磁盘分区进行永久性挂载<br>fdisk -l 查看分区情况<br>对新硬盘进行分区：fdisk /dev/sdb<br>对新分区进行格式化操作<br>经刚分的区进行挂载在 /home/yang目录下<br>在/etc下的vim fstab 将分区的信息添加在文件中，重启生效<br> <strong>9. 网络</strong><br>命令  网络配置<br>ifconfig eth0 ip  netmask 子网掩码<br>route add default gw 网关<br>文件  网络配置<br>配置dns<br>vi /etc/resolv.conf里面配置dns<br>nameserver 114.114.114.114<br>nameserver 8.8.8.8<br>文件配置网络<br>vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>配置网络<br>route -static  静态路由<br>  route add -net ip  gw   网关<br>如何配置tcp 数据转发（ip_forward）?<br>nslookup  ip 查询功能 域名转换<br>finger  指的是服务端程序<br>dig<br>netstat<br>-a (all)显示所有选项，默认不显示LISTEN相关<br>-t (tcp)仅显示tcp相关选项<br>-u (udp)仅显示udp相关选项<br>-n 拒绝显示别名，能显示数字的全部转化成数字。<br>-l 仅列出有在 Listen (监听) 的服務状态<br>-p 显示建立相关链接的程序名<br>-r 显示路由信息，路由表<br>-e 显示扩展信息，例如uid等<br>-s 按各个协议进行统计<br>-c 每隔一个固定时间，执行该netstat命令。<br>Dig [@server] [FQDN] [type]<br>参数说明：<br>@server :如果不想以/etc/resolv.conf来作为dns主机，则可以在此填入其他的ip<br>Type :预设是查询A记录，你可以在这里写入其他的记录，如：MX,NS等。<br>此功能亦可使用[-t type]来处理。<br>下面是 dig 的一些比较常用的命令:</p>
+<h1 id="dig-最基本的用法"><a href="#dig-最基本的用法" class="headerlink" title="dig 最基本的用法"></a>dig 最基本的用法</h1><p>dig @server sina.com.cn.</p>
+<h1 id="用-dig-查看-zone-数据传输"><a href="#用-dig-查看-zone-数据传输" class="headerlink" title="用 dig 查看 zone 数据传输"></a>用 dig 查看 zone 数据传输</h1><p>dig @server zx.xmgd.com. AXFR</p>
+<h1 id="用-dig-查看-zone-数据的增量传输"><a href="#用-dig-查看-zone-数据的增量传输" class="headerlink" title="用 dig 查看 zone 数据的增量传输"></a>用 dig 查看 zone 数据的增量传输</h1><p>dig @server zx.xmgd.com. IXFR=N</p>
+<h1 id="用-dig-查看反向解析"><a href="#用-dig-查看反向解析" class="headerlink" title="用 dig 查看反向解析"></a>用 dig 查看反向解析</h1><p>dig -x 210.52.83.228 @server</p>
+<h1 id="查找一个域的授权-dns-服务器"><a href="#查找一个域的授权-dns-服务器" class="headerlink" title="查找一个域的授权 dns 服务器"></a>查找一个域的授权 dns 服务器</h1><p>dig xmgd.com. +nssearch</p>
+<h1 id="从根服务器开始追踪一个域名的解析过程"><a href="#从根服务器开始追踪一个域名的解析过程" class="headerlink" title="从根服务器开始追踪一个域名的解析过程"></a>从根服务器开始追踪一个域名的解析过程</h1><p>dig xmgd.com +trace<br>   <strong>10用户管理</strong><br>添加用户？添加组<br>useradd -d /usr/sam -m sam<br>此命令创建了一个用户sam，其中-d和-m选项用来为登录名sam产生一个主目录/usr/sam（/usr为默认的用户主目录所在的父目录）<br>groupadd group  添加组</p>
+<p>初始用户组？有效用户组<br>还记得/etc/passwd文件里的第4栏么（忘了的话，用cat /etc/passwd去看看），它表示GID，就是“用户组ID”<br>有效用户组表示用户此时此刻所在的用户组是什么</p>
+<p>当用su或者su -切换用户时，其用户组都会随之改变，系统会 根据所要切换的有效用户ID去/etc/passwd里寻找相对应的初始用户组，然后切换之。<br>用户相关配置文件？用户密码文件？<br>/etc/passwd 是系统识别用户的一个文件当我们以beinan 这个账号登录时，系统首先会查阅 /etc/passwd 文件，看是否有beinan 这个账号，然后确定beinan的UID，通过UID 来确认用户和身份，如果存在则读取/etc/shadow 影子文件中所对应的beinan的密码；如果密码核实无误则登录系统，读取用户的配置文件；<br>sudo?添加sudo用户？<br>visudo -f /etc/sudoers 为普通用户添加sudo权限<br><strong>11进程查看/管理</strong></p>
+<p>查看当前所有运行的程序？<br>ps  查看进程<br>top | grep root  查看root用户进程<br>结束一个进程<br>kill<br>kill -9  强制<br>结束所有相同名字进程<br>killall python<br>计划任务<br>查看当前计划任务<br>crontab -l<br>普通用户添加计划任务？<br>可用crontab -e命令来编辑,编辑的是/var/spool/cron下对应用户的cron文件,也可以直接修改/etc/crontab文件<br>root用户给普通用户添加一条命令<br>crontab -e<br><em>/5 </em> <em> </em> * /home/tiger/hawk-0.6.22/bin/rebuild.sh          //每5分钟执行一次</p>
+<p><strong>12crontab -r 删除计划任务</strong><br>计划任务添加格式<br>具体格式如下：<br>? ? ? Minute Hour Day Month Dayofweek ? ?command<br>? ? ? 分钟 ? ? 小时 ? 天 ? ? 月 ? ? ? ?天每星期 ? ? ? ?命令<br>? 分 ? ? 小时 ? ?日 ? ? ? 月 ? ? ? 星期 ? ? ?命令<br>? ? ? ? 0-59 ? 0-23 ? 1-31 ? 1-12 ? ? 0-6 ? ? command ? ? (取值范围,0表示周日一般一行对应一个任务)</p>
+<p><strong>13压缩包解压/压缩</strong><br>压缩所有/etc下的文件，到/tmp/etc.tar.gz<br>tar zcvf /tmp/etc.tar.gz<br>解压/tmp/etc.tar.gz<br>tar zxvf /tmp/etc.tar.gz<br>压缩包压缩几种压缩格式？<br>gz： 即gzip，通常只能压缩一个文件。与tar结合起来就可以实现先打包，再压缩。</p>
+<p>tar： linux系统下的打包工具，只打包，不压缩</p>
+<p>tgz：即tar.gz。先用tar打包，然后再用gz压缩得到的文件</p>
+<p>zip： 不同于gzip，虽然使用相似的算法，可以打包压缩多个文件，不过分别压缩文件，压缩率低于tar。</p>
+<p>rar：打包压缩文件，最初用于DOS，基于window操作系统。压缩率比zip高，但速度慢，随机访问的速度也慢。</p>
+<p>不解压直接查看压缩包里的所有文件<br>zcat xxx.tar.gz<br>软件安装<br>几种软件安装办法？<br> 最基础的编译源码，然后安装<br>RPM[安装别人编译好的软件包<br>.YUM方式<br>yum search []<br>yum install []<br>rpm install []<br>yum<br>yum搜索某个安装包<br>yum search []<br>yum安装某个安装包<br>yum install []<br>yum查看已经安装的所有软件<br>yum list<br>yum删除已经安装的所有软件<br>yum remove []<br>rpm</p>
+<p>rpm安装某个安装包<br>rpm -ivh []<br>rpm卸载某个安装包<br>rpm -e []<br>查看某个文件所属的那个安装包<br>rpm -q<br>查看rpm安装的所有软件<br>rpm 升级某个安装包<br>rp, -uvh<br><strong>时钟</strong><br>查看系统时钟的操作：</p>
+<h1 id="date"><a href="#date" class="headerlink" title="date"></a>date</h1><p>硬件时钟和系统时钟同步：</p>
+<h1 id="hwclock-–hctosys"><a href="#hwclock-–hctosys" class="headerlink" title="hwclock –hctosys"></a>hwclock –hctosys</h1><p>系统时钟和硬件时钟同步：</p>
+<h1 id="hwclock-–systohc"><a href="#hwclock-–systohc" class="headerlink" title="hwclock –systohc"></a>hwclock –systohc</h1><p>时间戳？<br>分别以标准格式和时间戳来显示当前时间</p>
+<p>系统信息及运行状态<br>df?du?<br>df查看磁盘使用情况<br>du 查看目录大小<br>iostat?<br>iostat用于输出cpu和磁盘i/o相关统计信息<br>/proc目录<br>Linux 内核提供了一种通过 /proc 文件系统<br>用户和应用程序可以通过proc得到系统的信息<br>在/proc下还有三个很重要的目录：net，scsi和sys。 Sys目录是可写的，可以通过它来访问或修改内核的参数，而net和scsi则依赖于内核配置<br>/proc/version<br>Linux内核版本和gcc版本<br>/proc/sys/fs/file-max<br>该文件指定了可以分配的文件句柄的最大数目</p>
+<p>/proc/partitions<br>分区中的块分配信息</p>
+<p>/proc/devices<br>已经加载的设备并分类<br>/proc/modules<br>所有加载到内核的模块列表<br>proc/scsi<br>SCSI设备信息<br>/proc/net<br>网卡设备信息<br> /proc/sys<br>系统信息和内核参数<br>服务？<br>chkconfig –list 查询出所有当前运行的服务</p>
+<p>服务启动，停止？</p>
+<p>chkconfig –levels 12345 NetworkManager off<br>如果只是想当前的设置状态有效，在系统重启动后即不生效的话，可以用如下命令停止服务<br>service sshd stop</p>
+<p>httpd服务开机自启动设置<br>chkconfig httpd on<br>取消iptales服务开机自启动？<br>手动编译安装<br>　./configure  [options]<br>　　make<br>　　make install</p>
+<p>杂项<br>文件/文件夹查找？文件名/权限<br>find -name []  chmod [who] [+ | - | =] [mode] 文件名<br>文件内容匹配查找？显示/etc/passwd包含root的行<br>nl  文件路径  | grep  内容<br>cat  /etc/passwd  |  grep  root<br>sed<br>nl /etc/passwd| sed ‘2,$d’<br> nl /etc/passwd| sed ‘2,10d’删除2到10行，输出的删除<br> nl /etc/passwd| sed ‘2a,aaaaaaaaaaaaaaaaaaaaaa’  添加一行<br>nl /etc/passwd| sed ‘2i,aaaaaaaaaaaaaaaaaaaaaa’插入到a的上一行<br>nl /etc/passwd| sed ‘2,5c,aaaaa’ 取代第二行到第五行<br>nl /etc/passwd| sed  -n ‘2,5p’只显示第二行和第五行<br>nl /etc/passwd| sed  -n ‘/root/p’只输出匹配的内容<br> nl /etc/passwd| sed  -n ‘/root/{s/root/abcd/g;p}’把root换成abcd输出来<br>nl /etc/passwd| sed  -n ‘1,5{s/root/abcd/g;p}’</p>
+<p>Sed 文本处理工具，本身是一个管道命令主要以行为单位进行处理，可以将数据进行增删改选：对文件的编辑！<br>-n:使用安静模式。<br>-e:直接在命令行模式运行sed的动作编辑（可以有多个动作）<br>-f:直接将sed的动作写在一个文件里边：写入一个新的文件（很少用）<br>-r:sed的动作支持的是延伸正规表示的语法<br>-i:覆盖（直接诶修改读取的文件类型）<br>动作说明：<br>a:增加<br>c:取代<br>d:删除<br>i插入<br>p:打印<br>s:取代<br>nl /etc/passwd | sed ‘2,$d’ nl输出到管道里边  操作的是缓存<br>nl /etc/passwd | sed ‘2a ‘ 新增向上<br> nl /etc/passwd | sed ‘2i aaaaaa’插入是向下插入</p>
+<p>nl /etc/passwd | sed ‘2d’ 只显示两行<br>awk<br>文本编辑搜索工具</p>
+<p>#cat /etc/passwd |awk  -F ‘:’  ‘{print $1}’  只是显示/etc/passwd的账户<br>last -n 5 | awk  ‘{print $1}’<br>只是显示最近登录的5个帐号</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-05-29T12:09:38.000Z"><a href="/2016/05/29/yang/">2016-05-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/05/29/yang/">github的搭建</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>title: github<br>date: 2016-05-14 17:53:08<br>tags:<br>下载node.js，这个必须安装，是用来生成静态网页的<br><a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a></p>
+<p>下载git：<a href="https://git-scm.com/download/win" target="_blank" rel="external">https://git-scm.com/download/win</a> 这个也是必须安装的，是推送hexo的内容到github上的！</p>
+<p>我用的好像是以前的版本，估计都一样：</p>
+<p>安装完成之后桌面会有一个git bash的图标：</p>
+<p>打开是黑窗口这个样子的：</p>
+<p>接下来就是执行命令安装HEXO，前提在你喜欢的（D/E/F/G）盘里边创建一个hexo文件夹，之后再文件夹上右键点击：</p>
+<p>在窗口中输入命令npm install -g hexo</p>
+<p>初始化hexo<br>hexo init(这里有个小插曲，总结的时候，把我原来的页面初始化了，以致后来推送不上去了，解决办法：仓库删了，hexo文件夹删了，从来一次)</p>
+<p>生成静态的页面<br>hexo g<br>启动本地服务进行查看<br>hexo s<br>查看地址<br><a href="http://localhost：4000" target="_blank" rel="external">http://localhost：4000</a></p>
+<p>接下来与github建立关联<br>找到hexo中的_config.yml文件进行配置<br>Deploy：<br>Type： git<br>Repo: <a href="https://github.com/你的github地址" target="_blank" rel="external">https://github.com/你的github地址</a><br>Branch: master<br>注意每一个：后边是有空格的</p>
+<p>然后执行命令<br>npm install hexo-deployer-git–save<br>上边说的是https这种协议这种方法，这种方法每次推送的时候需要输入用户名和密码<br>也可以用sshkey这种协议方法，这种就不细说了，大家自行百度吧！<br>每次往github上推送部署需要执行以下命令：<br>git config –global user.name “Your Name”<br>git config –global user.email “email@example.com”<br>npm install hexo-deployer-git –save<br>hexo c<br>hexo g</p>
+<h2 id="hexo-d"><a href="#hexo-d" class="headerlink" title="hexo d"></a>hexo d</h2><hr>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/2/" class="alignleft prev">Vorherige Seite</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

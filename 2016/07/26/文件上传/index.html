@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>文件上传 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="文件上传"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-26T08:58:05.000Z"><a href="/2016/07/26/文件上传/">2016-07-26</a></time>
+      
+      
+  
+    <h1 class="title">文件上传</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>文件上传攻击的原理</strong><br>由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。<br>攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：<br>1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。<br>2.用户能够通过Web访问这个文件。如果文件上传后，不能通过Web访问，那么也不能成功实施攻击。<br>3.要知道文件上传到服务器后的存放路径和文件名称，因为许多Web应用都会修改上传文件的文件名称，那么这时就需要结合其他漏洞去获取到这些信息。如果不知道上传文件的存放路径和文件名称，即使你上传了也无法访问。</p>
+<p><strong>什么是文件上传漏洞</strong></p>
+<p>为了让用户将文件上传到服务器，就像是给危及服务器的恶意用户打开<br>网站后台权限     增删改查<br>服务器权限<br>网站权限</p>
+<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">https://github.com/litten/hexo-theme-yilia</a></p>
+<p>服务器配置不当</p>
+<p>当服务器配置不当时，在不需要上传页面的情况下便可导致任意文件上传<br>开源编辑器上传漏洞<br>fckeditor<br>ckeditor</p>
+<p><strong>php文件上传时php能够获取文件什么信息</strong></p>
+<p>通过使用 PHP 的全局数组 $_FILES，你可以从客户计算机向远程服务器上传文件。<br>第一个参数是表单的 input name，第二个下标可以是 “name”, “type”, “size”, “tmp_name” 或 “error”。就像这样：</p>
+<pre><code>* $_FILES[&quot;file&quot;][&quot;name&quot;] - 被上传文件的名称
+* $_FILES[&quot;file&quot;][&quot;type&quot;] - 被上传文件的类型
+* $_FILES[&quot;file&quot;][&quot;size&quot;] - 被上传文件的大小，以字节计
+* $_FILES[&quot;file&quot;][&quot;tmp_name&quot;] - 存储在服务器的文件的临时副本的名称
+* $_FILES[&quot;file&quot;][&quot;error&quot;] - 由文件上传导致的错误代码
+</code></pre><p><strong>一般情况下php过滤那些信息</strong><br>白名单过滤和黑名单过滤<br>主要是类型<br>还有一个就是大小<br>目录路径检测<br>文件扩展名</p>
+<p>服务端：<br>打开php.ini文件，找到下面四项（其实看注释也明白了）：<br>file_uploads：是否允许通过HTTP传递文件，默认是On允许；<br>upload_max_filesize：允许传递文件的最大大小，以M为单位，这是服务端配置文件设定的选项；<br>max_file_uploads：一次请求所允许传递的做多文件个数；<br>post_max_size：通过POST传递数据的最大大小，因为文件传递也是post方式，也算post传递，需要特别注意的是，它必须要 大于upload_max_filesize选项，因为在一次post传递过程中不仅会上传文件，还会传递其他数值，比如上面的POST数组中的数据，必 须考虑到，比如upload_max_filesize设为150M，这个就可以设为200M;<br>客户端：</p>
+<p>文件上传最基本的方法是通过form表单进行POST传递文件，实际上通过PUT方法也可以上传文件，只不过这种方法不安全，需要配置一些安全 验证机制，这里只写最常用的方式。form表单的input标签可以设置成文件上传按钮type=”file”，直接解决了如何选择文件的问题，接下来需 要设置form的两个属性：enctype和method<br>enctype:设置成multipart/form-data<br>method:设置成post<br>关于enctype属性设置可参考W3School的解释</p>
+<p>第一条是默认的值，在我们使用HTTP协议传递一般的表单数据时，实际上默认对数据进行了分块编码，比如默认的urlencode方式（空格转为+，其他 非字母字符转为%加两个十六进制大写数）；当enctype设置为第二个时，不会进行字符编码，使用上传控件（input标签type设为file时即 是）上传文件， 必须 设定为这个值；第三个则是值对空格编码为+，但不对非字母字符进行编码。</p>
+<p><strong>有可能被检测对应http数据包的那些部分</strong><br>主要是content-type  还有content-length filename=</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/26/文件上传/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

