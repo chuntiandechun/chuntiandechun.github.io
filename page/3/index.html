@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Seite 3 | liuqi</title>
+  <title>Página 3 | liuqi</title>
   <meta name="author" content="liuqi">
   
   <meta name="description" content="吃吃睡睡终其一生">
@@ -46,6 +46,47 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-07T10:43:16.000Z"><a href="/2016/06/07/虚拟机忘记win2003密码怎么办/">2016-06-07</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/06/07/虚拟机忘记win2003密码怎么办/">虚拟机忘记win2003密码怎么办</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#实验环境#</p>
+<p>虚拟机：VMware Workstation 8.0.0 build-471780</p>
+<p>操作系统：Windows Server 2003 Enterprise Edition</p>
+<p>#实施步骤#</p>
+<p>（1）关掉虚拟机电源。</p>
+<p>（2）打开工具栏上的VM-&gt;Settings，选中Hard Disk，右下角有个Utilities的一个下拉栏，点开后选择Map。</p>
+<p>（3）将“Open file in read-only mode”的默认选择去掉，单击“OK”，此时会出现警告的提示框，直接点“是”。</p>
+<p>（4）进入映射盘后，看到虚拟系统中的系统盘。我的映射盘符是z：，拷贝z:windowsrepair下的sam覆盖z:windowssystem32configsam，然后关闭z盘。</p>
+<p>（5）再次打开工具栏上的VM-&gt;Settings，选中Hard Disk，在Utilities的下拉栏中选择disconnect。然后打开电源，进入系统登录界面。此时系统默认账号administrator，密码为空。输入后，顺利进入系统。<br>[@more@] </p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article class="post">
   
   <div class="post-content">
@@ -283,7 +324,7 @@
 
 <nav id="pagination">
   
-    <a href="/page/2/" class="alignleft prev">Vorherige Seite</a>
+    <a href="/page/2/" class="alignleft prev">Anterior</a>
   
   
   <div class="clearfix"></div>
@@ -291,14 +332,14 @@
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Buscar">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
 
   
 <div class="widget tag">
-  <h3 class="title">Kategorien</h3>
+  <h3 class="title">Categorías</h3>
   <ul class="entry">
   
     <li><a href="/categories/WEB/">WEB</a><small>2</small></li>
@@ -309,7 +350,7 @@
 
   
 <div class="widget tag">
-  <h3 class="title">Tags</h3>
+  <h3 class="title">Etiquetas</h3>
   <ul class="entry">
   
     <li><a href="/tags/代码执行/">代码执行</a><small>1</small></li>
