@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>文件上传 | liuqi</title>
+  <title>redis的安装 | liuqi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="文件上传攻击的原理由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。2.用户能够通过Web访问这个文件。如果文件上传后，不能通过We">
+  <meta name="description" content="下载安装下载到当前目录下面wget http://download.redis.io/redis-stable.tar.gz解压文件tar xvzf redis-stable.tar.gzcd redis-stablemakemake install出现错误执行cd srcmake install提示错误安装提示执行:make test其实直接到src目录下面执行：./redis-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件上传">
-<meta property="og:url" content="http://yoursite.com/2016/07/26/文件上传/index.html">
+<meta property="og:title" content="redis的安装">
+<meta property="og:url" content="http://yoursite.com/2016/08/05/redis的安装/index.html">
 <meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="文件上传攻击的原理由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。2.用户能够通过Web访问这个文件。如果文件上传后，不能通过We">
-<meta property="og:updated_time" content="2016-08-05T01:05:52.122Z">
+<meta property="og:description" content="下载安装下载到当前目录下面wget http://download.redis.io/redis-stable.tar.gz解压文件tar xvzf redis-stable.tar.gzcd redis-stablemakemake install出现错误执行cd srcmake install提示错误安装提示执行:make test其实直接到src目录下面执行：./redis-server">
+<meta property="og:updated_time" content="2016-08-05T01:56:48.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文件上传">
-<meta name="twitter:description" content="文件上传攻击的原理由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。2.用户能够通过Web访问这个文件。如果文件上传后，不能通过We">
+<meta name="twitter:title" content="redis的安装">
+<meta name="twitter:description" content="下载安装下载到当前目录下面wget http://download.redis.io/redis-stable.tar.gz解压文件tar xvzf redis-stable.tar.gzcd redis-stablemakemake install出现错误执行cd srcmake install提示错误安装提示执行:make test其实直接到src目录下面执行：./redis-server">
   
     <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
   
@@ -63,14 +63,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-文件上传" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-redis的安装" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2016-07-26T08:58:05.000Z" itemprop="datePublished">2016-07-26</time>
+  <time datetime="2016-08-05T01:38:34.000Z" itemprop="datePublished">2016-08-05</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="../../../../categories/WEB/">WEB</a>
+    <a class="article-category-link" href="../../../../categories/linux/">linux</a>
   </div>
 
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      文件上传
+      redis的安装
     </h1>
   
 
@@ -89,32 +89,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>文件上传攻击的原理</strong><br>由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。<br>攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：<br>1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。<br>2.用户能够通过Web访问这个文件。如果文件上传后，不能通过Web访问，那么也不能成功实施攻击。<br>3.要知道文件上传到服务器后的存放路径和文件名称，因为许多Web应用都会修改上传文件的文件名称，那么这时就需要结合其他漏洞去获取到这些信息。如果不知道上传文件的存放路径和文件名称，即使你上传了也无法访问。</p>
-<p><strong>什么是文件上传漏洞</strong></p>
-<p>为了让用户将文件上传到服务器，就像是给危及服务器的恶意用户打开<br>网站后台权限     增删改查<br>服务器权限<br>网站权限</p>
-<p><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">https://github.com/litten/hexo-theme-yilia</a></p>
-<p>服务器配置不当</p>
-<p>当服务器配置不当时，在不需要上传页面的情况下便可导致任意文件上传<br>开源编辑器上传漏洞<br>fckeditor<br>ckeditor</p>
-<p><strong>php文件上传时php能够获取文件什么信息</strong></p>
-<p>通过使用 PHP 的全局数组 $_FILES，你可以从客户计算机向远程服务器上传文件。<br>第一个参数是表单的 input name，第二个下标可以是 “name”, “type”, “size”, “tmp_name” 或 “error”。就像这样：</p>
-<pre><code>* $_FILES[&quot;file&quot;][&quot;name&quot;] - 被上传文件的名称
-* $_FILES[&quot;file&quot;][&quot;type&quot;] - 被上传文件的类型
-* $_FILES[&quot;file&quot;][&quot;size&quot;] - 被上传文件的大小，以字节计
-* $_FILES[&quot;file&quot;][&quot;tmp_name&quot;] - 存储在服务器的文件的临时副本的名称
-* $_FILES[&quot;file&quot;][&quot;error&quot;] - 由文件上传导致的错误代码
-</code></pre><p><strong>一般情况下php过滤那些信息</strong><br>白名单过滤和黑名单过滤<br>主要是类型<br>还有一个就是大小<br>目录路径检测<br>文件扩展名</p>
-<p>服务端：<br>打开php.ini文件，找到下面四项（其实看注释也明白了）：<br>file_uploads：是否允许通过HTTP传递文件，默认是On允许；<br>upload_max_filesize：允许传递文件的最大大小，以M为单位，这是服务端配置文件设定的选项；<br>max_file_uploads：一次请求所允许传递的做多文件个数；<br>post_max_size：通过POST传递数据的最大大小，因为文件传递也是post方式，也算post传递，需要特别注意的是，它必须要 大于upload_max_filesize选项，因为在一次post传递过程中不仅会上传文件，还会传递其他数值，比如上面的POST数组中的数据，必 须考虑到，比如upload_max_filesize设为150M，这个就可以设为200M;<br>客户端：</p>
-<p>文件上传最基本的方法是通过form表单进行POST传递文件，实际上通过PUT方法也可以上传文件，只不过这种方法不安全，需要配置一些安全 验证机制，这里只写最常用的方式。form表单的input标签可以设置成文件上传按钮type=”file”，直接解决了如何选择文件的问题，接下来需 要设置form的两个属性：enctype和method<br>enctype:设置成multipart/form-data<br>method:设置成post<br>关于enctype属性设置可参考W3School的解释</p>
-<p>第一条是默认的值，在我们使用HTTP协议传递一般的表单数据时，实际上默认对数据进行了分块编码，比如默认的urlencode方式（空格转为+，其他 非字母字符转为%加两个十六进制大写数）；当enctype设置为第二个时，不会进行字符编码，使用上传控件（input标签type设为file时即 是）上传文件， 必须 设定为这个值；第三个则是值对空格编码为+，但不对非字母字符进行编码。</p>
-<p><strong>有可能被检测对应http数据包的那些部分</strong><br>主要是content-type  还有content-length filename=</p>
+        <p><strong>下载安装</strong><br>下载到当前目录下面<br>wget <a href="http://download.redis.io/redis-stable.tar.gz" target="_blank" rel="external">http://download.redis.io/redis-stable.tar.gz</a><br>解压文件<br>tar xvzf redis-stable.tar.gz<br>cd redis-stable<br>make<br>make install<br>出现错误<br>执行cd src<br>make install<br>提示错误<br>安装提示执行:make test<br>其实直接到src目录下面执行：./redis-server</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/文件上传/" data-id="cirh40kjg001o8whrlas1hmjw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cirh40kha000g8whr0g18ysgb" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/上传/">上传</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/redis/">redis</a></li></ul>
 
     </footer>
   </div>
@@ -122,19 +105,10 @@
     
 <nav id="article-nav">
   
-    <a href="../文件上传之绕过上传/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          文件上传之绕过上传
-        
-      </div>
-    </a>
   
-  
-    <a href="../../22/xss实例/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../centos6-5samba服务器的搭建/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">xss实例</div>
+      <div class="article-nav-title">centos6.5samba服务器的搭建</div>
     </a>
   
 </nav>
@@ -192,23 +166,23 @@
       <ul>
         
           <li>
-            <a href="../../../08/05/redis的安装/">redis的安装</a>
+            <a href="">redis的安装</a>
           </li>
         
           <li>
-            <a href="../../../08/05/centos6-5samba服务器的搭建/">centos6.5samba服务器的搭建</a>
+            <a href="../centos6-5samba服务器的搭建/">centos6.5samba服务器的搭建</a>
           </li>
         
           <li>
-            <a href="../../../08/04/逻辑漏洞/">逻辑漏洞</a>
+            <a href="../../04/逻辑漏洞/">逻辑漏洞</a>
           </li>
         
           <li>
-            <a href="../../../08/01/敏感信息泄露/">敏感信息泄露</a>
+            <a href="../../01/敏感信息泄露/">敏感信息泄露</a>
           </li>
         
           <li>
-            <a href="../../30/文件包含漏洞/">文件包含漏洞</a>
+            <a href="../../../07/30/文件包含漏洞/">文件包含漏洞</a>
           </li>
         
       </ul>

