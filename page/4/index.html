@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: WEB | liuqi</title>
+  <title>liuqi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="春天的春，晴天的晴">
 <meta property="og:type" content="website">
 <meta property="og:title" content="liuqi">
-<meta property="og:url" content="http://yoursite.com/categories/WEB/index.html">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="liuqi">
 <meta property="og:description" content="春天的春，晴天的晴">
 <meta name="twitter:card" content="summary">
@@ -64,212 +64,80 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="../../archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/08/11/文件上传之解析漏洞/" class="archive-article-date">
-  <time datetime="2016-08-11T11:14:21.000Z" itemprop="datePublished">Aug 11</time>
+    <article id="post-github" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../2016/05/14/github/" class="article-date">
+  <time datetime="2016-05-14T09:53:08.000Z" itemprop="datePublished">2016-05-14</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
+      <a class="article-title" href="../../2016/05/14/github/">github</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/08/08/centos搭建tomcat以及漏洞利用/" class="archive-article-date">
-  <time datetime="2016-08-08T08:50:48.000Z" itemprop="datePublished">Aug 8</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/08/08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
-    </h1>
-  
+        <ul>
+<li><p>下载node.js，这个必须安装，是用来生成静态网页的<br><a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a></p>
+</li>
+<li><p>下载git：<a href="https://git-scm.com/download/win" target="_blank" rel="external">https://git-scm.com/download/win</a> 这个也是必须安装的，是推送hexo的内容到github上的！</p>
+</li>
+</ul>
+<p>我用的好像是以前的版本，估计都一样：</p>
+<p>安装完成之后桌面会有一个git bash的图标：</p>
+<p>打开是黑窗口这个样子的：</p>
+<p>接下来就是执行命令安装HEXO，前提在你喜欢的（D/E/F/G）盘里边创建一个hexo文件夹，之后再文件夹上右键点击：</p>
+<ul>
+<li><p>在窗口中输入命令npm install -g hexo</p>
+</li>
+<li><p>初始化hexo<br>hexo init(这里有个小插曲，总结的时候，把我原来的页面初始化了，以致后来推送不上去了，解决办法：仓库删了，hexo文件夹删了，从来一次)</p>
+</li>
+<li><p>生成静态的页面<br>hexo g</p>
+</li>
+<li>启动本地服务进行查看<br>hexo s</li>
+<li><p>查看地址<br><a href="http://localhost：4000" target="_blank" rel="external">http://localhost：4000</a></p>
+</li>
+<li><p>接下来与github建立关联<br>找到hexo中的_config.yml文件进行配置<br>Deploy：<br>Type： git<br>Repo: <a href="https://github.com/你的github地址" target="_blank" rel="external">https://github.com/你的github地址</a><br>Branch: master<br>注意每一个：后边是有空格的</p>
+</li>
+<li><p>然后执行命令<br>npm install hexo-deployer-git–save<br>上边说的是https这种协议这种方法，这种方法每次推送的时候需要输入用户名和密码<br>也可以用sshkey这种协议方法，这种就不细说了，大家自行百度吧！</p>
+<h2 id="每次往github上推送部署需要执行以下命令："><a href="#每次往github上推送部署需要执行以下命令：" class="headerlink" title="每次往github上推送部署需要执行以下命令："></a>每次往github上推送部署需要执行以下命令：</h2><p>git config –global user.name “Your Name”<br>git config –global user.email “email@example.com”<br>npm install hexo-deployer-git –save<br>hexo c<br>hexo g<br>hexo d</p>
+</li>
+</ul>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/08/05/webshell的获取与查杀/" class="archive-article-date">
-  <time datetime="2016-08-05T03:00:42.000Z" itemprop="datePublished">Aug 5</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/08/05/webshell的获取与查杀/">webshell的获取与查杀</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/08/04/逻辑漏洞/" class="archive-article-date">
-  <time datetime="2016-08-04T00:58:34.000Z" itemprop="datePublished">Aug 4</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cirq8inmb000758hrwj7jwnla" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/08/04/逻辑漏洞/">逻辑漏洞</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/08/01/敏感信息泄露/" class="archive-article-date">
-  <time datetime="2016-08-01T00:32:05.000Z" itemprop="datePublished">Aug 1</time>
-</a>
+        <a href="http://yoursite.com/2016/05/14/github/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/08/01/敏感信息泄露/">敏感信息泄露</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/07/30/文件包含漏洞/" class="archive-article-date">
-  <time datetime="2016-07-30T12:58:16.000Z" itemprop="datePublished">Jul 30</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/07/30/文件包含漏洞/">文件包含漏洞</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/github/">github</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/07/30/任意代码执行漏洞/" class="archive-article-date">
-  <time datetime="2016-07-30T12:20:08.000Z" itemprop="datePublished">Jul 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/07/29/命令执行漏洞/" class="archive-article-date">
-  <time datetime="2016-07-29T07:44:30.000Z" itemprop="datePublished">Jul 29</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/07/29/命令执行漏洞/">命令执行漏洞</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/07/26/文件上传之绕过上传/" class="archive-article-date">
-  <time datetime="2016-07-26T11:29:50.000Z" itemprop="datePublished">Jul 26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/07/26/文件上传之绕过上传/">文件上传之绕过上传</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../2016/07/26/文件上传/" class="archive-article-date">
-  <time datetime="2016-07-26T08:58:05.000Z" itemprop="datePublished">Jul 26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../2016/07/26/文件上传/">文件上传</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><a class="extend next" rel="next" href="page/2/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="../3/">&laquo; __('prev')</a><a class="page-number" href="../../index.html">1</a><a class="page-number" href="../2/">2</a><a class="page-number" href="../3/">3</a><span class="page-number current">4</span>
   </nav>
 </section>
         
@@ -279,7 +147,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../安全/">安全</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/安全/">安全</a></li></ul>
     </div>
   </div>
 

