@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>文件包含漏洞 | liuqi</title>
+  <title>文件包含漏洞 | 哆啦曾不懂A梦</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="原理传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入漏洞分类本地文件包含  上传木马，包含  读文件  日志文件   phpinfo可以包含临时文件远程文件包含  保证php.ini中allow_url_fopen和 allow_url_include打开常见的文件包含的函数        include()">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件包含漏洞">
 <meta property="og:url" content="http://yoursite.com/2016/07/30/文件包含漏洞/index.html">
-<meta property="og:site_name" content="liuqi">
+<meta property="og:site_name" content="哆啦曾不懂A梦">
 <meta property="og:description" content="原理传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入漏洞分类本地文件包含  上传木马，包含  读文件  日志文件   phpinfo可以包含临时文件远程文件包含  保证php.ini中allow_url_fopen和 allow_url_include打开常见的文件包含的函数        include()">
 <meta property="og:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true">
 <meta property="og:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/2.png?raw=true">
@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="原理传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入漏洞分类本地文件包含  上传木马，包含  读文件  日志文件   phpinfo可以包含临时文件远程文件包含  保证php.ini中allow_url_fopen和 allow_url_include打开常见的文件包含的函数        include()">
 <meta name="twitter:image" content="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true">
   
-    <link rel="alternate" href="/atom.xml" title="liuqi" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="哆啦曾不懂A梦" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -41,7 +41,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="../../../../index.html" id="logo">liuqi</a>
+        <a href="../../../../index.html" id="logo">哆啦曾不懂A梦</a>
       </h1>
       
     </div>
@@ -56,9 +56,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -103,9 +103,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirq8q7mz001ypohrwzqixkx5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirrg9xtc0023wwhrpr7mmtbb" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/07/30/文件包含漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/07/30/文件包含漏洞/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/文件包含/">文件包含</a></li></ul>
@@ -117,7 +117,7 @@
 <nav id="article-nav">
   
     <a href="../../../08/01/敏感信息泄露/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           敏感信息泄露
@@ -127,7 +127,7 @@
   
   
     <a href="../任意代码执行漏洞/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">任意代码执行漏洞</div>
     </a>
   
@@ -148,7 +148,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/安全/">安全</a></li></ul>
     </div>
@@ -158,7 +158,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/webshell/">webshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/逻辑/">逻辑</a></li></ul>
     </div>
@@ -168,7 +168,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="../../../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../../../tags/github/" style="font-size: 10px;">github</a> <a href="../../../../tags/google/" style="font-size: 10px;">google</a> <a href="../../../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../../../tags/redis/" style="font-size: 13.33px;">redis</a> <a href="../../../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../../../tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="../../../../tags/webshell/" style="font-size: 10px;">webshell</a> <a href="../../../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../../../tags/上传/" style="font-size: 16.67px;">上传</a> <a href="../../../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
     </div>
@@ -187,7 +187,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -223,8 +223,8 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 哆啦曾不懂A梦<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      &copy; 2016 春天的春，晴天的晴<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
