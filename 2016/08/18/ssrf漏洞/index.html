@@ -3,42 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>github | dlam</title>
+  <title>ssrf漏洞 | dlam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="下载node.js，这个必须安装，是用来生成静态网页的https://nodejs.org/en/
-
-下载git：https://git-scm.com/download/win 这个也是必须安装的，是推送hexo的内容到github上的！
-
-
-我用的好像是以前的版本，估计都一样：
-安装完成之后桌面会有一个git bash的图标：
-打开是黑窗口这个样子的：
-接下来就是执行命令安装HEXO，前提在">
+  <meta name="description" content="春天的春，晴天的晴">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github">
-<meta property="og:url" content="http://yoursite.com/2016/05/14/github/index.html">
+<meta property="og:title" content="ssrf漏洞">
+<meta property="og:url" content="http://yoursite.com/2016/08/18/ssrf漏洞/index.html">
 <meta property="og:site_name" content="dlam">
-<meta property="og:description" content="下载node.js，这个必须安装，是用来生成静态网页的https://nodejs.org/en/
-
-下载git：https://git-scm.com/download/win 这个也是必须安装的，是推送hexo的内容到github上的！
-
-
-我用的好像是以前的版本，估计都一样：
-安装完成之后桌面会有一个git bash的图标：
-打开是黑窗口这个样子的：
-接下来就是执行命令安装HEXO，前提在">
-<meta property="og:updated_time" content="2016-08-05T00:56:34.500Z">
+<meta property="og:description" content="春天的春，晴天的晴">
+<meta property="og:updated_time" content="2016-08-18T01:14:23.613Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github">
-<meta name="twitter:description" content="下载node.js，这个必须安装，是用来生成静态网页的https://nodejs.org/en/
-
-下载git：https://git-scm.com/download/win 这个也是必须安装的，是推送hexo的内容到github上的！
-
-
-我用的好像是以前的版本，估计都一样：
-安装完成之后桌面会有一个git bash的图标：
-打开是黑窗口这个样子的：
-接下来就是执行命令安装HEXO，前提在">
+<meta name="twitter:title" content="ssrf漏洞">
+<meta name="twitter:description" content="春天的春，晴天的晴">
   
     <link rel="alternate" href="/atom.xml" title="dlam" type="application/atom+xml">
   
@@ -87,16 +63,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-github" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ssrf漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2016-05-14T09:53:08.000Z" itemprop="datePublished">2016-05-14</time>
+  <time datetime="2016-08-18T01:14:23.000Z" itemprop="datePublished">2016-08-18</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="../../../../categories/WEB/">WEB</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -105,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      github
+      ssrf漏洞
     </h1>
   
 
@@ -113,58 +85,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>下载node.js，这个必须安装，是用来生成静态网页的<br><a href="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a></p>
-</li>
-<li><p>下载git：<a href="https://git-scm.com/download/win" target="_blank" rel="external">https://git-scm.com/download/win</a> 这个也是必须安装的，是推送hexo的内容到github上的！</p>
-</li>
-</ul>
-<p>我用的好像是以前的版本，估计都一样：</p>
-<p>安装完成之后桌面会有一个git bash的图标：</p>
-<p>打开是黑窗口这个样子的：</p>
-<p>接下来就是执行命令安装HEXO，前提在你喜欢的（D/E/F/G）盘里边创建一个hexo文件夹，之后再文件夹上右键点击：</p>
-<ul>
-<li><p>在窗口中输入命令npm install -g hexo</p>
-</li>
-<li><p>初始化hexo<br>hexo init(这里有个小插曲，总结的时候，把我原来的页面初始化了，以致后来推送不上去了，解决办法：仓库删了，hexo文件夹删了，从来一次)</p>
-</li>
-<li><p>生成静态的页面<br>hexo g</p>
-</li>
-<li>启动本地服务进行查看<br>hexo s</li>
-<li><p>查看地址<br><a href="http://localhost：4000" target="_blank" rel="external">http://localhost：4000</a></p>
-</li>
-<li><p>接下来与github建立关联<br>找到hexo中的_config.yml文件进行配置<br>Deploy：<br>Type： git<br>Repo: <a href="https://github.com/你的github地址" target="_blank" rel="external">https://github.com/你的github地址</a><br>Branch: master<br>注意每一个：后边是有空格的</p>
-</li>
-<li><p>然后执行命令<br>npm install hexo-deployer-git–save<br>上边说的是https这种协议这种方法，这种方法每次推送的时候需要输入用户名和密码<br>也可以用sshkey这种协议方法，这种就不细说了，大家自行百度吧！</p>
-<h2 id="每次往github上推送部署需要执行以下命令："><a href="#每次往github上推送部署需要执行以下命令：" class="headerlink" title="每次往github上推送部署需要执行以下命令："></a>每次往github上推送部署需要执行以下命令：</h2><p>git config –global user.name “Your Name”<br>git config –global user.email “email@example.com”<br>npm install hexo-deployer-git –save<br>hexo c<br>hexo g<br>hexo d</p>
-</li>
-</ul>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cirzmwvco000dd4hr1mb05f5e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/ssrf漏洞/" data-id="cirzmwveo001dd4hrkb1y89yu" class="article-share-link">Share</a>
       
-        <a href="http://yoursite.com/2016/05/14/github/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/18/ssrf漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/github/">github</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="../../30/linux总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          linux总结问题
-        
-      </div>
-    </a>
   
+    <a href="../../11/文件上传之解析漏洞/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">文件上传之解析漏洞</div>
+    </a>
   
 </nav>
 
@@ -227,23 +167,23 @@
       <ul>
         
           <li>
-            <a href="../../../08/18/ssrf漏洞/">ssrf漏洞</a>
+            <a href="">ssrf漏洞</a>
           </li>
         
           <li>
-            <a href="../../../08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
+            <a href="../../11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
           </li>
         
           <li>
-            <a href="../../../08/08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
+            <a href="../../08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
           </li>
         
           <li>
-            <a href="../../../08/05/webshell的获取与查杀/">webshell的获取与查杀</a>
+            <a href="../../05/webshell的获取与查杀/">webshell的获取与查杀</a>
           </li>
         
           <li>
-            <a href="../../../08/05/redis漏洞利用/">redis漏洞利用</a>
+            <a href="../../05/redis漏洞利用/">redis漏洞利用</a>
           </li>
         
       </ul>
@@ -275,7 +215,7 @@
 <script>
   var disqus_shortname = 'liuqi';
   
-  var disqus_url = 'http://yoursite.com/2016/05/14/github/';
+  var disqus_url = 'http://yoursite.com/2016/08/18/ssrf漏洞/';
   
   (function(){
     var dsq = document.createElement('script');

