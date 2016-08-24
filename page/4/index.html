@@ -64,59 +64,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-关于tcp-ip安全问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="../../2016/06/01/关于tcp-ip安全问题/" class="article-date">
-  <time datetime="2016-06-01T07:08:24.000Z" itemprop="datePublished">2016-06-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="../../categories/安全/">安全</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2016/06/01/关于tcp-ip安全问题/">关于tcp/ip安全问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>4月27</p>
-<p>#权限问题#<br>Setfacl<br>touch file.kinggoo<br>getfacl file.kinggoo #获取acl</p>
-<h1 id="file-file-kinggoo"><a href="#file-file-kinggoo" class="headerlink" title="file: file.kinggoo"></a>file: file.kinggoo</h1><h1 id="owner-root"><a href="#owner-root" class="headerlink" title="owner: root"></a>owner: root</h1><h1 id="group-kinggoo"><a href="#group-kinggoo" class="headerlink" title="group: kinggoo"></a>group: kinggoo</h1><p>user::rw-<br>user:kinggoo.com:r-x<br>group::r–<br>mask::r-x<br>other::r–</p>
-<p>#Tcp协议的历史#<br>Tcp和osi<br>七层 atm协议<br>Tcp的分层结构<br><figure class="highlight plain"><figcaption><span>System Interconnection的缩写，意为开放式系统互联</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">之所以说TCP/IP是一个协议族，是因为TCP/IP协议包括TCP、IP、UDP、ICMP、RIP、TELNETFTP、SMTP、ARP、TFTP等许多协议，这些协议一起称为TCP/IP协议。以下我们对协议族中一些常用协议英文名称和用途作一介绍：   </div><div class="line">TCP(Transport Control Protocol)传输控制协议  </div><div class="line">  IP(Internet Protocol)网间网协议  </div><div class="line">  UDP(User Datagram Protocol)用户数据报协议</div><div class="line"> ICMP(Internet Control Message Protocol)互联网控制信息协议  </div><div class="line"> SMTP(Simple Mail Transfer Protocol)简单邮件传输协议</div><div class="line"> SNMP(Simple Network manage Protocol)简单网络管理协议  </div><div class="line"> FTP(File Transfer Protocol)文件传输协议  </div><div class="line"> ARP(Address Resolution Protocol)地址解析协议</div></pre></td></tr></table></figure></p>
-<p>  数据链路层包括了硬件接口和协议ARP，RARP，这两个协议主要是用来建立送到物理层上的信息和接收从物理层上传来的信息；<br>  网络层中的协议主要有IP，ICMP，IGMP等，由于它包含了IP协议模块，所以它是所有基于TCP/IP协议网络的核心。在网络层中，IP模块完成大部分功能。ICMP和IGMP以及其他支持IP的协议帮助IP完成特定的任务，如传输差错控制信息以及主机/路由器之间的控制电文等。网络层掌管着网络中主机间的信息传输。<br>网络层中的协议主要有IP，ICMP，IGMP等，由于它包含了IP协议模块，所以它是所有基于TCP/IP协议网络的核心。在网络层中，IP模块完成大部分功能。ICMP和IGMP以及其他支持IP的协议帮助IP完成特定的任务，如传输差错控制信息以及主机/路由器之间的控制电文等。网络层掌管着网络中主机间的信息传输。<br>     应用层位于协议栈的顶端，它的主要任务就是应用了。上面的协议当然也是为了这些应用而设计的，具体说来一些常用的协议功能如下：<br>      Telnet：提供远程登录（终端仿真）服务，好象比较古老的BBS就是用的这个登陆。   FTP ：提供应用级的文件传输服务，说的简单明了点就是远程文件访问等等服务；   SMTP：不用说拉，天天用到的电子邮件协议。<br>      TFTP：提供小而简单的文件传输服务，实际上从某个角度上来说是对FTP的一种替换（在文件特别小并且仅有传输需求的时候）。<br>     SNMP：简单网络管理协议。看名字就不用说什么含义了吧。<br>      DNS：域名解析服务，也就是如何将域名映射成IP地址的协议。<br>      HTTP：不知道各位对这个协议熟不熟悉啊？这是超文本传输协议，你之所以现在能看到网上的图片，动画，音频，等等，都是仰仗这个协议在起作用啊！</p>
-<p>#七层模型中对应的协议#</p>
-<p>Tcp/ip封装和解封装<br>封装过程</p>
-<p>解封装过程</p>
-<p>Ping的作用只是在网络层的网络可用性，所以ping 不通，业务也是可以的，icmp与arp是没有联系的，只要arp可以发包，依然是可以连接的<br>Wireshark 抓包<br>帧</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/01/关于tcp-ip安全问题/" data-id="cis7ec2o8001upohroq1q6ize" class="article-share-link">Share</a>
-      
-        <a href="http://yoursite.com/2016/06/01/关于tcp-ip安全问题/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-mysql总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="../../2016/06/01/mysql总结/" class="article-date">
@@ -188,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/01/mysql总结/" data-id="cis7ec2nm001ipohrsbbmz9kb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/01/mysql总结/" data-id="cis8apmz7000cv8hrinft8map" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/06/01/mysql总结/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -276,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/30/linux总结/" data-id="cis7ec2ka000bpohrk0gz6lsz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/30/linux总结/" data-id="cis8apmzm000hv8hrjvgxfl18" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/05/30/linux总结/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -346,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cis7ec2k00006pohr9hhsvrup" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/14/github/" data-id="cis8apmyx0007v8hrzgl70rts" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2016/05/14/github/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -383,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/metasploit/">metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/openssl/">openssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/webshell/">webshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/总结/">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/逻辑/">逻辑</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/centos/">centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/csrf/">csrf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/google/">google</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/linux问题/">linux问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/metasploit/">metasploit</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/openssl/">openssl</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sqlmap/">sqlmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/sql注入/">sql注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tcp-ip/">tcp/ip</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/webshell/">webshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/win2003/">win2003</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/xss/">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/上传/">上传</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/执行/">执行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/敏感信息/">敏感信息</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/文件包含/">文件包含</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/流程/">流程</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/逻辑/">逻辑</a></li></ul>
     </div>
   </div>
 
@@ -393,7 +340,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../tags/github/" style="font-size: 10px;">github</a> <a href="../../tags/google/" style="font-size: 10px;">google</a> <a href="../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../tags/metasploit/" style="font-size: 10px;">metasploit</a> <a href="../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../tags/openssl/" style="font-size: 10px;">openssl</a> <a href="../../tags/redis/" style="font-size: 13.33px;">redis</a> <a href="../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="../../tags/webshell/" style="font-size: 10px;">webshell</a> <a href="../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../tags/上传/" style="font-size: 16.67px;">上传</a> <a href="../../tags/总结/" style="font-size: 10px;">总结</a> <a href="../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
+      <a href="../../tags/centos/" style="font-size: 16.67px;">centos</a> <a href="../../tags/csrf/" style="font-size: 10px;">csrf</a> <a href="../../tags/github/" style="font-size: 10px;">github</a> <a href="../../tags/google/" style="font-size: 10px;">google</a> <a href="../../tags/linux问题/" style="font-size: 10px;">linux问题</a> <a href="../../tags/metasploit/" style="font-size: 10px;">metasploit</a> <a href="../../tags/mysql/" style="font-size: 10px;">mysql</a> <a href="../../tags/openssl/" style="font-size: 10px;">openssl</a> <a href="../../tags/redis/" style="font-size: 13.33px;">redis</a> <a href="../../tags/sqlmap/" style="font-size: 10px;">sqlmap</a> <a href="../../tags/sql注入/" style="font-size: 20px;">sql注入</a> <a href="../../tags/tcp-ip/" style="font-size: 10px;">tcp/ip</a> <a href="../../tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="../../tags/webshell/" style="font-size: 10px;">webshell</a> <a href="../../tags/win2003/" style="font-size: 10px;">win2003</a> <a href="../../tags/xss/" style="font-size: 13.33px;">xss</a> <a href="../../tags/上传/" style="font-size: 16.67px;">上传</a> <a href="../../tags/执行/" style="font-size: 13.33px;">执行</a> <a href="../../tags/敏感信息/" style="font-size: 10px;">敏感信息</a> <a href="../../tags/文件包含/" style="font-size: 10px;">文件包含</a> <a href="../../tags/流程/" style="font-size: 10px;">流程</a> <a href="../../tags/逻辑/" style="font-size: 10px;">逻辑</a>
     </div>
   </div>
 
@@ -415,10 +362,6 @@
       <ul>
         
           <li>
-            <a href="../../2016/08/22/需要复习的知识/">需要复习的知识</a>
-          </li>
-        
-          <li>
             <a href="../../2016/08/19/centos6-5安装metasploit/">centos6.5安装metasploit</a>
           </li>
         
@@ -432,6 +375,10 @@
         
           <li>
             <a href="../../2016/08/08/centos搭建tomcat以及漏洞利用/">centos搭建tomcat以及漏洞利用</a>
+          </li>
+        
+          <li>
+            <a href="../../2016/08/05/webshell的获取与查杀/">webshell的获取与查杀</a>
           </li>
         
       </ul>
